@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">chat_app</string>
+    <string name="facebook_app_id">437907229985416</string>
+    <string name="fb_login_protocol_scheme">fb437907229985416</string>
+</resources>

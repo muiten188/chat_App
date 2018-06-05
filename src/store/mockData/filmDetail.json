@@ -1,0 +1,64 @@
+[
+  {
+    "Id": 1,
+    "FilmId":1,
+    "FilmName": "김성규 (Kim Sung Kyu) 'Kontrol' Official MV",
+    "PosterImageUrl":"http://phim14.info/data/images/film/do-bong-soon-strong-woman-do-bong-soon-2017.jpg",
+    "Episode":[
+      					{ "id": 1,"Episode":1, "EpisodeURL": "https://r5---sn-8pxuuxa-i5or.googlevideo.com/videoplayback?id=6f1ab958d49ed003&itag=22&source=webdrive&requiressl=yes&ttl=transient&pl=21&ei=VBH-WNaZMs_LqAXOs5XQAw&mime=video/mp4&lmt=1492523721384223&ip=116.107.152.63&ipbits=0&expire=1493059988&sparams=ei,expire,id,ip,ipbits,itag,lmt,mime,mm,mn,ms,mv,pl,requiressl,source,ttl&signature=16C5C9A79EAE6D87B3F7B2F5C312058384F23D1C.07691DDF6A77D406D60CA2FA314D92000FD34AE8&key=cms1&app=explorer&cms_redirect=yes&mm=31&mn=sn-8pxuuxa-i5or&ms=au&mt=1493049988&mv=m" },
+      					{ "id": 2,"Episode":2, "EpisodeURL": "https://r7---sn-42u-i5oez.googlevideo.com/videoplayback?id=1e9ec4089b903104&itag=22&source=webdrive&requiressl=yes&ttl=transient&pl=24&ei=Pp39WJPYJsnqqQXPhJDYDQ&mime=video/mp4&lmt=1492480448139726&ip=42.112.212.2&ipbits=0&expire=1493030270&sparams=ei,expire,id,ip,ipbits,itag,lmt,mime,mm,mn,ms,mv,pcm2cms,pl,requiressl,source,ttl&signature=0CCFBC5323C688F8D010D82343C9DF76B1809710.7F8B6BA95B2C96527FE7233F88EEE4578EFC3C92&key=cms1&app=explorer&cms_redirect=yes&mm=31&mn=sn-42u-i5oez&ms=au&mt=1493025802&mv=m&pcm2cms=yes" },
+      					{ "id": 3,"Episode":3, "EpisodeURL": "https://redirector.googlevideo.com/videoplayback?id=0bbf60d07cd128d5&itag=22&source=webdrive&requiressl=yes&ttl=transient&mm=30&mn=sn-npoe7n7y&ms=nxu&mv=u&pl=48&ei=MV_5WNeiFrTY-APw2JbYBw&mime=video/mp4&lmt=1492142741504915&mt=1492737717&ip=2402:2f80:8::c&ipbits=0&expire=1492752241&sparams=ip,ipbits,expire,id,itag,source,requiressl,ttl,mm,mn,ms,mv,pl,ei,mime,lmt&signature=0FAEBB59A31769B19F70F99EFC6CE9E2E9A9EAA7.16C791F420523ECF6831641F42AD04DDF0D8F574&key=ck2&app=explorer" },
+      					{ "id": 4,"Episode":4, "EpisodeURL": "https://redirector.googlevideo.com/videoplayback?id=99d80834f4c5d4f9&itag=22&source=webdrive&requiressl=yes&ttl=transient&mm=30&mn=sn-npoe7n7r&ms=nxu&mv=u&pl=48&ei=31b5WIXtEoTl-gPHs47oBw&mime=video/mp4&lmt=1492145847176950&mt=1492735553&ip=2402:2f80:8::c&ipbits=0&expire=1492750111&sparams=ip,ipbits,expire,id,itag,source,requiressl,ttl,mm,mn,ms,mv,pl,ei,mime,lmt&signature=92151CBEE64DBFC60DEB41C0A25D7071B4D7D9A6.7A529C4D5C116CEC76D4B5B049CA16BE15E9AC29&key=ck2&app=explorer" }
+      				],
+    "TrailerUrl":"https://r4---sn-42u-i5oz.googlevideo.com/videoplayback?id=9aa8c9622b1a0c5e&itag=22&source=webdrive&requiressl=yes&ttl=transient&pl=24&ei=UGL5WP3rH4Tl-gPHs47oBw&mime=video/mp4&lmt=1492650865398710&ip=42.112.212.2&ipbits=0&expire=1492753040&sparams=ei,expire,id,ip,ipbits,itag,lmt,mime,mm,mn,ms,mv,pl,requiressl,source,ttl&signature=75EE2239D2D6CCA599D1C3CD34E8E1B75B8B5977.3CAE5843771B9B838515267BC4D86417147518AD&key=cms1&app=explorer&cms_redirect=yes&mm=31&mn=sn-42u-i5oz&ms=au&mt=1492739304&mv=m",
+    "Description": "đây là Mv ca nhạc",
+    "UploadTime": null,
+    "TimeUpload":null
+  },
+  {
+    "Id": 2,
+    "FilmId":2,
+    "FilmName": "PHIM NỮ HOÀNG TRINH THÁM",
+    "PosterImageUrl":"https://scontent.fhan2-1.fna.fbcdn.net/v/t1.0-9/18010337_1434030840014492_2661222634000592926_n.png?oh=73cd4fe201ab276549f3a0f0ef345df6&oe=594FADFC",
+    "Episode":[
+      					{ "id": 1,"Episode":1, "EpisodeURL": "https://redirector.googlevideo.com/videoplayback?id=dcb97c43a5414548&itag=22&source=webdrive&requiressl=yes&ttl=transient&mm=30&mn=sn-npoe7n76&ms=nxu&mv=u&pl=48&ei=OVv5WO2lF9Gy-AO3maOIBQ&mime=video/mp4&lmt=1491483899116469&mt=1492736508&ip=2402:2f80:8::c&ipbits=0&expire=1492751225&sparams=ip,ipbits,expire,id,itag,source,requiressl,ttl,mm,mn,ms,mv,pl,ei,mime,lmt&signature=8351FBB1266C1E15DF6D5644D8AA446CF17EC142.627CEB5C299B0E087038A19AC224FBF1B9461905&key=ck2&app=explorer" },
+      					{ "id": 2,"Episode":2, "EpisodeURL": "https://redirector.googlevideo.com/videoplayback?id=a92526347c631094&itag=22&source=webdrive&requiressl=yes&ttl=transient&mm=30&mn=sn-npoe7n7y&ms=nxu&mv=u&pl=48&ei=M1v5WI2HNMHtqgXc84foAg&mime=video/mp4&lmt=1491588719234573&mt=1492736508&ip=2402:2f80:8::c&ipbits=0&expire=1492751219&sparams=ip,ipbits,expire,id,itag,source,requiressl,ttl,mm,mn,ms,mv,pl,ei,mime,lmt&signature=8FFC6205CFA25C51FD0C0564F0730395DAF8B549.A1FC76D7EA4BAC4678B277D70C1C77E0719850BD&key=ck2&app=explorer" },
+      					{ "id": 3,"Episode":3, "EpisodeURL": "https://redirector.googlevideo.com/videoplayback?id=0bbf60d07cd128d5&itag=22&source=webdrive&requiressl=yes&ttl=transient&mm=30&mn=sn-npoe7n7y&ms=nxu&mv=u&pl=48&ei=MV_5WNeiFrTY-APw2JbYBw&mime=video/mp4&lmt=1492142741504915&mt=1492737717&ip=2402:2f80:8::c&ipbits=0&expire=1492752241&sparams=ip,ipbits,expire,id,itag,source,requiressl,ttl,mm,mn,ms,mv,pl,ei,mime,lmt&signature=0FAEBB59A31769B19F70F99EFC6CE9E2E9A9EAA7.16C791F420523ECF6831641F42AD04DDF0D8F574&key=ck2&app=explorer" },
+      					{ "id": 4,"Episode":4, "EpisodeURL": "https://redirector.googlevideo.com/videoplayback?id=99d80834f4c5d4f9&itag=22&source=webdrive&requiressl=yes&ttl=transient&mm=30&mn=sn-npoe7n7r&ms=nxu&mv=u&pl=48&ei=31b5WIXtEoTl-gPHs47oBw&mime=video/mp4&lmt=1492145847176950&mt=1492735553&ip=2402:2f80:8::c&ipbits=0&expire=1492750111&sparams=ip,ipbits,expire,id,itag,source,requiressl,ttl,mm,mn,ms,mv,pl,ei,mime,lmt&signature=92151CBEE64DBFC60DEB41C0A25D7071B4D7D9A6.7A529C4D5C116CEC76D4B5B049CA16BE15E9AC29&key=ck2&app=explorer" }
+      				],
+    "TrailerUrl":"https://r4---sn-42u-i5oz.googlevideo.com/videoplayback?id=9aa8c9622b1a0c5e&itag=22&source=webdrive&requiressl=yes&ttl=transient&pl=24&ei=UGL5WP3rH4Tl-gPHs47oBw&mime=video/mp4&lmt=1492650865398710&ip=42.112.212.2&ipbits=0&expire=1492753040&sparams=ei,expire,id,ip,ipbits,itag,lmt,mime,mm,mn,ms,mv,pl,requiressl,source,ttl&signature=75EE2239D2D6CCA599D1C3CD34E8E1B75B8B5977.3CAE5843771B9B838515267BC4D86417147518AD&key=cms1&app=explorer&cms_redirect=yes&mm=31&mn=sn-42u-i5oz&ms=au&mt=1492739304&mv=m",
+    "Description": "...",
+    "UploadTime": null,
+    "TimeUpload":null
+  },
+  {
+    "Id": 3,
+    "FilmId":3,
+    "FilmName": "PHIM NỮ HOÀNG TRINH THÁM",
+    "PosterImageUrl":"https://scontent.fhan2-1.fna.fbcdn.net/v/t1.0-9/18010337_1434030840014492_2661222634000592926_n.png?oh=73cd4fe201ab276549f3a0f0ef345df6&oe=594FADFC",
+    "Episode":[
+      					{ "id": 1,"Episode":1, "EpisodeURL": "https://r6---sn-8pxuuxa-i5oez.googlevideo.com/videoplayback?id=d6556dba11070814&itag=18&source=webdrive&requiressl=yes&ttl=transient&pl=21&ei=6rz8WLmUNc_j-wPJo7LQCQ&mime=video/mp4&lmt=1466090064136029&ip=116.107.152.63&ipbits=128&expire=1492972842&sparams=ei,expire,id,ip,ipbits,itag,lmt,mime,mm,mn,ms,mv,pl,requiressl,source,ttl&signature=270D0FAA4D71264402D2BB0134A97649156EBAFF.6DADBD1487ED783229469903B55C2A579DF93A5B&key=cms1&app=explorer&cms_redirect=yes&mm=31&mn=sn-8pxuuxa-i5oez&ms=au&mt=1492962924&mv=m&ir=1&rr=12" },
+      					{ "id": 2,"Episode":2, "EpisodeURL": "https://redirector.googlevideo.com/videoplayback?id=a92526347c631094&itag=22&source=webdrive&requiressl=yes&ttl=transient&mm=30&mn=sn-npoe7n7y&ms=nxu&mv=u&pl=48&ei=M1v5WI2HNMHtqgXc84foAg&mime=video/mp4&lmt=1491588719234573&mt=1492736508&ip=2402:2f80:8::c&ipbits=0&expire=1492751219&sparams=ip,ipbits,expire,id,itag,source,requiressl,ttl,mm,mn,ms,mv,pl,ei,mime,lmt&signature=8FFC6205CFA25C51FD0C0564F0730395DAF8B549.A1FC76D7EA4BAC4678B277D70C1C77E0719850BD&key=ck2&app=explorer" },
+      					{ "id": 3,"Episode":3, "EpisodeURL": "https://redirector.googlevideo.com/videoplayback?id=0bbf60d07cd128d5&itag=22&source=webdrive&requiressl=yes&ttl=transient&mm=30&mn=sn-npoe7n7y&ms=nxu&mv=u&pl=48&ei=MV_5WNeiFrTY-APw2JbYBw&mime=video/mp4&lmt=1492142741504915&mt=1492737717&ip=2402:2f80:8::c&ipbits=0&expire=1492752241&sparams=ip,ipbits,expire,id,itag,source,requiressl,ttl,mm,mn,ms,mv,pl,ei,mime,lmt&signature=0FAEBB59A31769B19F70F99EFC6CE9E2E9A9EAA7.16C791F420523ECF6831641F42AD04DDF0D8F574&key=ck2&app=explorer" },
+      					{ "id": 4,"Episode":4, "EpisodeURL": "https://redirector.googlevideo.com/videoplayback?id=99d80834f4c5d4f9&itag=22&source=webdrive&requiressl=yes&ttl=transient&mm=30&mn=sn-npoe7n7r&ms=nxu&mv=u&pl=48&ei=31b5WIXtEoTl-gPHs47oBw&mime=video/mp4&lmt=1492145847176950&mt=1492735553&ip=2402:2f80:8::c&ipbits=0&expire=1492750111&sparams=ip,ipbits,expire,id,itag,source,requiressl,ttl,mm,mn,ms,mv,pl,ei,mime,lmt&signature=92151CBEE64DBFC60DEB41C0A25D7071B4D7D9A6.7A529C4D5C116CEC76D4B5B049CA16BE15E9AC29&key=ck2&app=explorer" }
+      				],
+    "TrailerUrl":"https://r4---sn-42u-i5oz.googlevideo.com/videoplayback?id=9aa8c9622b1a0c5e&itag=22&source=webdrive&requiressl=yes&ttl=transient&pl=24&ei=UGL5WP3rH4Tl-gPHs47oBw&mime=video/mp4&lmt=1492650865398710&ip=42.112.212.2&ipbits=0&expire=1492753040&sparams=ei,expire,id,ip,ipbits,itag,lmt,mime,mm,mn,ms,mv,pl,requiressl,source,ttl&signature=75EE2239D2D6CCA599D1C3CD34E8E1B75B8B5977.3CAE5843771B9B838515267BC4D86417147518AD&key=cms1&app=explorer&cms_redirect=yes&mm=31&mn=sn-42u-i5oz&ms=au&mt=1492739304&mv=m",
+    "Description": "...",
+    "UploadTime": null,
+    "TimeUpload":null
+  },
+  {
+    "Id": 4,
+    "FilmId":4,
+    "FilmName": "PHIM NỮ HOÀNG TRINH THÁM2",
+    "PosterImageUrl":"https://scontent.fhan2-1.fna.fbcdn.net/v/t1.0-9/18010337_1434030840014492_2661222634000592926_n.png?oh=73cd4fe201ab276549f3a0f0ef345df6&oe=594FADFC",
+    "Episode":[
+      					{ "id": 1,"Episode":1, "EpisodeURL": "https://redirector.googlevideo.com/videoplayback?id=dcb97c43a5414548&itag=22&source=webdrive&requiressl=yes&ttl=transient&mm=30&mn=sn-npoe7n76&ms=nxu&mv=u&pl=48&ei=OVv5WO2lF9Gy-AO3maOIBQ&mime=video/mp4&lmt=1491483899116469&mt=1492736508&ip=2402:2f80:8::c&ipbits=0&expire=1492751225&sparams=ip,ipbits,expire,id,itag,source,requiressl,ttl,mm,mn,ms,mv,pl,ei,mime,lmt&signature=8351FBB1266C1E15DF6D5644D8AA446CF17EC142.627CEB5C299B0E087038A19AC224FBF1B9461905&key=ck2&app=explorer" },
+      					{ "id": 2,"Episode":2, "EpisodeURL": "https://redirector.googlevideo.com/videoplayback?id=a92526347c631094&itag=22&source=webdrive&requiressl=yes&ttl=transient&mm=30&mn=sn-npoe7n7y&ms=nxu&mv=u&pl=48&ei=M1v5WI2HNMHtqgXc84foAg&mime=video/mp4&lmt=1491588719234573&mt=1492736508&ip=2402:2f80:8::c&ipbits=0&expire=1492751219&sparams=ip,ipbits,expire,id,itag,source,requiressl,ttl,mm,mn,ms,mv,pl,ei,mime,lmt&signature=8FFC6205CFA25C51FD0C0564F0730395DAF8B549.A1FC76D7EA4BAC4678B277D70C1C77E0719850BD&key=ck2&app=explorer" }
+      					],
+    "TrailerUrl":"https://r4---sn-42u-i5oz.googlevideo.com/videoplayback?id=9aa8c9622b1a0c5e&itag=22&source=webdrive&requiressl=yes&ttl=transient&pl=24&ei=UGL5WP3rH4Tl-gPHs47oBw&mime=video/mp4&lmt=1492650865398710&ip=42.112.212.2&ipbits=0&expire=1492753040&sparams=ei,expire,id,ip,ipbits,itag,lmt,mime,mm,mn,ms,mv,pl,requiressl,source,ttl&signature=75EE2239D2D6CCA599D1C3CD34E8E1B75B8B5977.3CAE5843771B9B838515267BC4D86417147518AD&key=cms1&app=explorer&cms_redirect=yes&mm=31&mn=sn-42u-i5oz&ms=au&mt=1492739304&mv=m",
+    "Description": "...",
+    "UploadTime": null,
+    "TimeUpload":null
+  }
+]

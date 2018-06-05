@@ -1,0 +1,12 @@
+{
+  "name": "chat_app",
+  "displayName": "chat_app",
+  "orientation": "landscape",
+  "primaryColor": "#cccccc",
+  "icon": "./src/resources/assets/icon.png",
+  "splash": {
+    "image": "./src/resources/assets/splash.png",
+    "resizeMode": "contain",
+    "backgroundColor": "#ffffff"
+  }
+}
