@@ -29,7 +29,7 @@ import { Grid, Col, Row } from "react-native-easy-grid";
 import I18n from "../../i18n/i18n";
 import { InputField } from "../../components/Element/Form/index";
 import Icon from "react-native-vector-icons/FontAwesome";
-import * as meseumListAction from "../../store/actions/containers/museumList_action";
+import * as meseumListAction from "../../store/actions/containers/chatScreen_action";
 import Loading from "../../components/Loading";
 import ItemResult from '../../components/Item_result';
 import { Actions, Router, Scene, Stack } from 'react-native-router-flux';
@@ -37,7 +37,7 @@ import { Actions, Router, Scene, Stack } from 'react-native-router-flux';
 const blockAction = false;
 const blockLoadMoreAction = false;
 
-class MuseumList extends Component {
+class ChatSreen extends Component {
 
     static navigationOptions = {
         header: null
@@ -158,7 +158,7 @@ class MuseumList extends Component {
 }
 function mapStateToProps(state, props) {
     return {
-        museumListReducer: state.museumListReducer,
+        chatScreenReducer: state.chatScreenReducer,
         loginReducer: state.loginReducer
     };
 }
@@ -168,5 +168,5 @@ function mapToDispatch(dispatch) {
     };
 }
 
-MuseumList = connect(mapStateToProps, mapToDispatch)(MuseumList);
-export default MuseumList;
+ChatSreen = connect(mapStateToProps, mapToDispatch)(ChatSreen);
+export default ChatSreen;

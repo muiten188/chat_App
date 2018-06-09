@@ -38,7 +38,7 @@ import * as homeAction from "../../store/actions/containers/home_action";
 import Loading from "../../components/Loading";
 import { Actions, Router, Scene, Stack } from 'react-native-router-flux';
 import IconVector from 'react-native-vector-icons/FontAwesome';
-import MuseumList from '../Museum_list';
+import ChatSreen from '../Chat_screen';
 import Profile from '../Profile';
 import FindGuider from '../Find_guider';
 
@@ -150,7 +150,7 @@ class Home extends Component {
                         </Row>
                       </Grid>
                     </TabHeading>}>
-                    <MuseumList />
+                    <ChatSreen />
                   </Tab>
                   <Tab heading={<TabHeading style={[styles.tabHeading, { width: 100 }]}>
                     <Grid>

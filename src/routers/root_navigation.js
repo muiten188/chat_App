@@ -7,7 +7,7 @@ import { Router, Scene, Stack } from 'react-native-router-flux';
 import Login from '../authen/containers/Login';
 import Register from '../authen/containers/Register';
 import Home from '../containers/Home';
-import Museumlist from '../containers/Museum_list';
+import ChatSreen from '../containers/Chat_screen';
 import Profile from '../containers/Profile';
 
 import PropTypes from 'prop-types';
@@ -45,7 +45,7 @@ class RootNavigation extends React.Component {
                     <Scene key="login"
                         component={Login}
                         title="Login"
-                        initial={true}
+                        initial={false}
                     />
                     <Scene
                         key="register"
@@ -55,13 +55,13 @@ class RootNavigation extends React.Component {
                     <Scene key="home"
                         component={Home}
                         title="Home"
-                        initial={false}
+                        initial={true}
                     />
                     <Scene key="tabbar"
                         tabs
                         tabBarStyle={{ backgroundColor: 'yellow' }}>
                         <Scene key="museum"
-                            component={Museumlist}
+                            component={ChatSreen}
                             title="Museum"
                             initial={false}
                         />
