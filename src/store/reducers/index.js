@@ -3,7 +3,7 @@ import loginReducer from "../../authen/reducers/login_reducer";
 //app
 import homeReducer from "../../store/reducers/containers/home_reducer";
 import chatScreenReducer from "../../store/reducers/containers/chatScreen_reducer";
-import findGuiderReducer from "../../store/reducers/containers/findGuider_reducer";
+import listChatReducer from "../../store/reducers/containers/listChat_reducer";
 import profileReducer from "../../store/reducers/containers/profile_reducer";
 import app_Reducer from "../../store/reducers/app_reducer";
 import router_Reducer from "../../store/reducers/router/router_reducer";
@@ -15,7 +15,7 @@ const appReducer = combineReducers({
   loginReducer,
   homeReducer,
   chatScreenReducer,
-  findGuiderReducer,
+  listChatReducer,
   profileReducer,
   app_Reducer,
   router_Reducer,

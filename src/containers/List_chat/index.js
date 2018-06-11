@@ -27,14 +27,14 @@ import { Grid, Col, Row } from "react-native-easy-grid";
 import I18n from "../../i18n/i18n";
 import { InputField } from "../../components/Element/Form/index";
 import Icon from "react-native-vector-icons/FontAwesome";
-import * as findGuiderAction from "../../store/actions/containers/findGuider_action";
+import * as listChatAction from "../../store/actions/containers/listChat_action";
 import Loading from "../../components/Loading";
 import { Actions, Router, Scene, Stack } from 'react-native-router-flux';
 
 const blockAction = false;
 const blockLoadMoreAction = false;
 
-class FindGuider extends Component {
+class ListChat extends Component {
 
   static navigationOptions = {
     header: null
@@ -67,15 +67,15 @@ class FindGuider extends Component {
 }
 function mapStateToProps(state, props) {
   return {
-    findGuiderReducer: state.findGuiderReducer,
+    listChatReducer: state.listChatReducer,
     loginReducer: state.loginReducer
   };
 }
 function mapToDispatch(dispatch) {
   return {
-    findGuiderAction: bindActionCreators(findGuiderAction, dispatch)
+    listChatAction: bindActionCreators(listChatAction, dispatch)
   };
 }
 
-FindGuider = connect(mapStateToProps, mapToDispatch)(FindGuider);
-export default FindGuider;
+ListChat = connect(mapStateToProps, mapToDispatch)(ListChat);
+export default ListChat;

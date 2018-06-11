@@ -14,7 +14,7 @@ export default {
   result:"Kết quả",
   easyLink:'Home',
   home:'Trang chủ',
-  findGuider:'Hướng dẫn viên',
+  listChat:'Hướng dẫn viên',
   profile:'Cá nhân',
   message:'Tin nhắn',
   placeholder:'Chưa có tin nhắn',

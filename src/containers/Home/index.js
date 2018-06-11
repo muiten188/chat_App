@@ -40,7 +40,7 @@ import { Actions, Router, Scene, Stack } from 'react-native-router-flux';
 import IconVector from 'react-native-vector-icons/FontAwesome';
 import ChatSreen from '../Chat_screen';
 import Profile from '../Profile';
-import FindGuider from '../Find_guider';
+import ListChat from '../List_chat';
 
 const blockAction = false;
 const blockLoadMoreAction = false;
@@ -159,14 +159,14 @@ class Home extends Component {
                       </Row>
                       <Row style={styles.textHeadingTab}>
                         <Text style={styles.textHeaderTab}>
-                          {I18n.t("findGuider", {
+                          {I18n.t("listChat", {
                             locale: "vn"
                           })}</Text>
                       </Row>
                     </Grid>
 
                   </TabHeading>}>
-                    <FindGuider />
+                    <ListChat />
                   </Tab>
                   <Tab heading={<TabHeading style={styles.tabHeading}>
                     <Grid>
