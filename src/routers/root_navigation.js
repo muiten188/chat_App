@@ -9,6 +9,7 @@ import Register from '../authen/containers/Register';
 import Home from '../containers/Home';
 import ChatSreen from '../containers/Chat_screen';
 import Profile from '../containers/Profile';
+import ListChat from '../containers/List_chat';
 
 import PropTypes from 'prop-types';
 
@@ -55,22 +56,28 @@ class RootNavigation extends React.Component {
                     <Scene key="home"
                         component={Home}
                         title="Home"
+                        initial={false}
+                    />
+                    <Scene key="listChat"
+                        component={ListChat}
+                        title="List Chat"
                         initial={true}
                     />
-                    <Scene key="tabbar"
-                        tabs
-                        tabBarStyle={{ backgroundColor: 'yellow' }}>
-                        <Scene key="museum"
-                            component={ChatSreen}
-                            title="Museum"
-                            initial={false}
-                        />
-                        <Scene key="profile"
-                            component={Profile}
-                            title="Profile"
-                            initial={false}
-                        />
-                    </Scene>
+                    <Scene key="chatScreen"
+                        component={ChatSreen}
+                        title="Chat Screen"
+                        initial={true}
+                    />
+                    <Scene key="museum"
+                        component={ChatSreen}
+                        title="Museum"
+                        initial={false}
+                    />
+                    <Scene key="profile"
+                        component={Profile}
+                        title="Profile"
+                        initial={false}
+                    />
                 </Stack>
             </Router>
         );
