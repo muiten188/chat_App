@@ -59,7 +59,6 @@ class ListChat extends Component {
     const locale = "vn";
     return (
       <Container style={styles.container}>
-        <HeaderContent />
         <FlatList
           ref={ref => {
             this.list = ref;

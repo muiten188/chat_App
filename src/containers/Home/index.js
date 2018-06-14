@@ -38,6 +38,7 @@ import * as homeAction from "../../store/actions/containers/home_action";
 import Loading from "../../components/Loading";
 import { Actions, Router, Scene, Stack } from 'react-native-router-flux';
 import IconVector from 'react-native-vector-icons/FontAwesome';
+import IconIonicons from 'react-native-vector-icons/Ionicons';
 import ChatSreen from '../Chat_screen';
 import Profile from '../Profile';
 import ListChat from '../List_chat';
@@ -55,7 +56,7 @@ class Home extends Component {
     super(props);
 
     this.state = {
-
+      tabActivePosition: 0
     };
     I18n.defaultLocale = "vi";
     I18n.locale = "vi";
@@ -136,45 +137,40 @@ class Home extends Component {
               </View>
               <HeaderContent />
               <View style={styles.listResult_container}>
-                <Tabs initialPage={0} tabBarUnderlineStyle={styles.tabBarUnderlineStyle} style={{ backgroundColor: 'transparent' }}>
+                <Tabs initialPage={0}
+                  tabBarPosition={'bottom'}
+                  tabBarUnderlineStyle={styles.tabBarUnderlineStyle}
+                  tabBarTextStyle={{ color: 'red' }}
+                  style={{ backgroundColor: 'transparent' }}
+                  onChangeTab={(obj) => {
+                    var from = obj.from;
+                    var index = obj.i;
+                    this.setState({ tabActivePosition: index })
+                  }}
+                >
                   <Tab
-                    heading={<TabHeading style={styles.tabHeading}>
+                    heading={<TabHeading style={this.state.tabActivePosition == 0 ? styles.tabHeadingActive : styles.tabHeading}>
                       <Grid>
                         <Row style={styles.iconTab}>
-                          <IconVector name="home" size={20} />
+                          <IconIonicons name="md-chatboxes" size={20} style={this.state.tabActivePosition == 0 ?styles.textHeaderTabActive:{}}/>
                         </Row>
                         <Row style={styles.textHeadingTab}>
-                          <Text style={styles.textHeaderTab}>{I18n.t("home", {
+                          <Text style={this.state.tabActivePosition == 0 ?styles.textHeaderTabActive:styles.textHeaderTab}>{I18n.t("conversation", {
                             locale: "vn"
                           })}</Text>
                         </Row>
                       </Grid>
                     </TabHeading>}>
-                    <ChatSreen />
-                  </Tab>
-                  <Tab heading={<TabHeading style={[styles.tabHeading, { width: 100 }]}>
-                    <Grid>
-                      <Row style={styles.iconTab}>
-                        <IconVector name="users" size={20} />
-                      </Row>
-                      <Row style={styles.textHeadingTab}>
-                        <Text style={styles.textHeaderTab}>
-                          {I18n.t("listChat", {
-                            locale: "vn"
-                          })}</Text>
-                      </Row>
-                    </Grid>
-
-                  </TabHeading>}>
                     <ListChat />
+
                   </Tab>
-                  <Tab heading={<TabHeading style={styles.tabHeading}>
+                  <Tab heading={<TabHeading style={this.state.tabActivePosition == 1 ? styles.tabHeadingActive : styles.tabHeading}>
                     <Grid>
                       <Row style={styles.iconTab}>
-                        <IconVector name="user" size={20} />
+                        <IconVector name="user" size={20} style={this.state.tabActivePosition == 1 ?styles.textHeaderTabActive:{}}/>
                       </Row>
                       <Row style={styles.textHeadingTab}>
-                        <Text style={styles.textHeaderTab}>{I18n.t("profile", {
+                        <Text style={this.state.tabActivePosition == 1 ?styles.textHeaderTabActive:styles.textHeaderTab}>{I18n.t("profile", {
                           locale: "vn"
                         })}</Text>
                       </Row>

@@ -18,5 +18,6 @@ export default {
   profile:'Cá nhân',
   message:'Tin nhắn',
   placeholder:'Chưa có tin nhắn',
-  you:'Bạn'
+  you:'Bạn',
+  conversation:"Trò chuyện"
 };

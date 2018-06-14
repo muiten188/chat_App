@@ -132,5 +132,11 @@ export default {
     backgroundColor: '#fff',
   },
   iconTab: { justifyContent: 'center', alignItems: 'center', height: 22,marginTop:3 },
-  textHeadingTab:{ justifyContent: 'center', alignItems: 'center',marginTop:-8 }
+  textHeadingTab:{ justifyContent: 'center', alignItems: 'center',marginTop:-8 },
+  tabHeadingActive:{
+    backgroundColor: '#fff',
+  },
+  textHeaderTabActive:{
+    color:'#007db7'
+  }
 };

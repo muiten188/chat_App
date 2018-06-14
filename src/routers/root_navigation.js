@@ -56,17 +56,17 @@ class RootNavigation extends React.Component {
                     <Scene key="home"
                         component={Home}
                         title="Home"
-                        initial={false}
+                        initial={true}
                     />
                     <Scene key="listChat"
                         component={ListChat}
                         title="List Chat"
-                        initial={true}
+                        initial={false}
                     />
                     <Scene key="chatScreen"
                         component={ChatSreen}
                         title="Chat Screen"
-                        initial={true}
+                        initial={false}
                     />
                     <Scene key="museum"
                         component={ChatSreen}
