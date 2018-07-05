@@ -1,25 +1,138 @@
 import signalr from 'react-native-signalr';
-export function connectSignalr() {
-    const connection = signalr.hubConnection('http://172.28.42.141:8099/signalr');
+import * as AppConfig from '../config/app_config';
+export var proxy=null;
+export function connectSignalr(user) {
+    const connection = signalr.hubConnection(`${AppConfig.API_HOST}signalr`, {
+        useDefaultPath: false,
+        qs: "access_token=" + user.access_token
+    });
     connection.logging = true;
-    debugger;
-    const proxy = connection.createHubProxy('chatHub');
+    proxy = connection.createHubProxy('chatHub');
     //receives broadcast messages from a hub function, called "helloApp"
-    proxy.on('helloApp', (argOne, argTwo, argThree, argFour) => {
-        console.log('message-from-server', argOne, argTwo, argThree, argFour);
+    
+    proxy.on('addMessagePrivate', (mes) => {
+        console.log('message-from-server: ', mes);
+        debugger;
         //Here I could response by calling something else on the server...
     });
-
+    //
+    proxy.on('addMessageToGroup', (mes) => {
+        console.log('message-from-server: ', mes);
+        debugger;
+        //Here I could response by calling something else on the server...
+    });
+    //
+    proxy.on('addUserGroup', (mes) => {
+        console.log('message-from-server: ', mes);
+        debugger;
+        //Here I could response by calling something else on the server...
+    });
+    //
+    proxy.on('getAllGroupMessage', (mes) => {
+        console.log('message-from-server: ', mes);
+        debugger;
+        //Here I could response by calling something else on the server...
+    });
+    //
+    proxy.on('getAllMessagePrivate', (mes) => {
+        console.log('message-from-server: ', mes);
+        debugger;
+        //Here I could response by calling something else on the server...
+    });
+    //
+    proxy.on('getAllMessageUser', (listHubUser, count) => {
+        console.log('message-from-server: ');
+        debugger;
+        //Here I could response by calling something else on the server...
+    });
+    //
+    proxy.on('getAllUser', (mes) => {
+        console.log('message-from-server: ', mes);
+        debugger;
+        //Here I could response by calling something else on the server...
+    });
+    //
+    proxy.on('getListUserInGroup', (mes) => {
+        console.log('message-from-server: ', mes);
+        debugger;
+        //Here I could response by calling something else on the server...
+    });
+    //
+    proxy.on('getUserForGroup', (mes) => {
+        console.log('message-from-server: ', mes);
+        debugger;
+        //Here I could response by calling something else on the server...
+    });
+    //
+    proxy.on('joinRoom', (mes) => {
+        console.log('message-from-server: ', mes);
+        debugger;
+        //Here I could response by calling something else on the server...
+    });
+    //
+    proxy.on('leaveRoom', (mes) => {
+        console.log('message-from-server: ', mes);
+        debugger;
+        //Here I could response by calling something else on the server...
+    });
+    //
+    proxy.on('loadAllContact', (mes) => {
+        console.log('message-from-server: ', mes);
+        debugger;
+        //Here I could response by calling something else on the server...
+    });
+    //
+    proxy.on('loadAllGroup', (mes) => {
+        console.log('message-from-server: ', mes);
+        debugger;
+        //Here I could response by calling something else on the server...
+    });
+    //
+    proxy.on('loadAllMessage', (mes) => {
+        console.log('message-from-server: ', mes);
+        debugger;
+        //Here I could response by calling something else on the server...
+    });
+    //
+    proxy.on('outFromGroup', (mes) => {
+        console.log('message-from-server: ', mes);
+        debugger;
+        //Here I could response by calling something else on the server...
+    });
+    //
+    proxy.on('removeGroup', (mes) => {
+        console.log('message-from-server: ', mes);
+        debugger;
+        //Here I could response by calling something else on the server...
+    });
+    //
+    proxy.on('removeUserFromGroup', (mes) => {
+        console.log('message-from-server: ', mes);
+        debugger;
+        //Here I could response by calling something else on the server...
+    });
+    //
+    proxy.on('updateUserGroup', (mes) => {
+        console.log('message-from-server: ', mes);
+        debugger;
+        //Here I could response by calling something else on the server...
+    });
     // atempt connection, and handle errors
     connection.start().done(() => {
         console.log('Now connected, connection ID=' + connection.id);
 
-        proxy.invoke('helloServer', 'Hello Server, how are you?')
-            .done((directResponse) => {
-                console.log('direct-response-from-server', directResponse);
-            }).fail(() => {
-                console.warn('Something went wrong when calling server, it might not be up and running?')
-            });
+        // proxy.invoke('bachTest', 'bách gửi lên server')
+        //     .done((directResponse) => {
+        //         console.log('direct-response-from-server: ', directResponse);
+        //     }).fail(() => {
+        //         console.warn('Something went wrong when calling server, it might not be up and running?')
+        //     });
+        // proxy.invoke('callClient', 'bách gọi hàm clien từ server')
+        //     .done((directResponse) => {
+        //         //console.log('direct-response-from-server: ', directResponse);
+        //     }).fail((e) => {
+        //         console.warn('Something went wrong when calling server, it might not be up and running?')
+        //     });
 
     }).fail((e) => {
         console.log('Failed');

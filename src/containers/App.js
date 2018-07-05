@@ -15,14 +15,13 @@ import { Router, Scene, Actions } from 'react-native-router-flux';
 import RootNavigaion from "../routers/root_navigation";
 import * as appAction from "../store/actions/app_action";
 import PropTypes from 'prop-types';
-import * as helper from '../helper/signalr';
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       loged: false
     };
-    helper.connectSignalr();
   }
 
   render() {

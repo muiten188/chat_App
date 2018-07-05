@@ -3,21 +3,34 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
 import * as chatScreen_action from '../../../store/actions/containers/chatScreen_action';
-
+import { proxy } from '../../../helper/signalr';
 import MessageListComponent from './Component'
 
 class MessagesListContainer extends Component {
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      messages:[]
+    };
+    proxy.on('messagePrivates', (messages, userId) => {
+      console.log('List Messages: ', messages);
+      this.setState({ messages: messages });
+    })
+  }
   componentDidMount() {
     //this.props.loadMessages()
+    const {user}=this.props;
+    proxy.invoke('getAllMessagePrivate', user.ID);
   }
 
   render() {
-    const {props}=this;
-    const data = getChatItems(props.chatScreenReducer.messages).reverse();
+    const { props } = this;
+    //const data = getChatItems(props.chatScreenReducer.messages).reverse();
     return (
       <MessageListComponent
-        data={data} />
+        data={this.state.messages} />
     )
   }
 }

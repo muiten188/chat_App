@@ -1,39 +1,49 @@
 import { AsyncStorage } from "react-native";
-
+import { Keyboard } from "react-native";
 import * as types from "../../store/constants/action_types";
 import * as AppConfig from "../../config/app_config";
 import { Actions } from 'react-native-router-flux';
+import {setAsyncStorage} from "../../helper/index";
 export function login(user) {
-  
+
   return dispatch => {
-    dispatch(_login(true, user));
-    Actions.home()
-    //dispatch(_loging());
+    // dispatch(_login(true, user));
+    // Keyboard.dismiss();
+    // Actions.home()
+    var oUser = user ? user : {};
+    oUser.grant_type = "password";
+    
+    dispatch(_loging());
+    const searchParams = Object.keys(oUser).map((key) => {
+      return encodeURIComponent(key) + '=' + encodeURIComponent(oUser[key]);
+    }).join('&');
     // AsyncStorage.setItem("@userLogin", JSON.stringify(user));
-    // fetch(`${AppConfig.API_HOST}mobile/authen/login`, {
-    //   method: "POST",
-    //   headers: {
-    //     Accept: "application/json, text/plain, */*",
-    //     "Content-Type": "application/json"
-    //   },
-    //   body: JSON.stringify(user)
-    // })
-    //   .then(function(response) {
-    //     if (response.status != 200) {
-    //       dispatch(_login(false));
-    //     } else {
-    //       return response.json();
-    //     }
-    //   })
-    //   .then(function(responseJson) {
-    //     if (responseJson && responseJson.username) {
-    //       user = responseJson;
-    //       dispatch(_login(true, user));
-    //     }
-    //   })
-    //   .catch(function(error) {
-    //     dispatch(_login(false));
-    //   });
+    fetch(`${AppConfig.API_HOST}token`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+      },
+      body: searchParams
+    })
+      .then(function (response) {
+        if (response.status != 200) {
+          dispatch(_login(false));
+        } else {
+          return response.json();
+        }
+      })
+      .then(function (responseJson) {
+        if (responseJson) {
+          user = responseJson;
+          dispatch(_login(true, user));
+          Keyboard.dismiss();
+          Actions.home()
+          setAsyncStorage("@user",user);
+        }
+      })
+      .catch(function (error) {
+        dispatch(_login(false));
+      });
   };
 }
 

@@ -34,7 +34,7 @@ import HeaderContent from '../../components/Header_content';
 import ItemChat from '../../components/Item_chat';
 const blockAction = false;
 const blockLoadMoreAction = false;
-
+import { proxy } from '../../helper/signalr';
 class ListChat extends Component {
 
   static navigationOptions = {
@@ -43,9 +43,18 @@ class ListChat extends Component {
 
   constructor(props) {
     super(props);
+
+    this.state = {
+      listUsers: []
+    }
+
     I18n.defaultLocale = "vi";
     I18n.locale = "vi";
     I18n.currentLocale();
+    proxy.on('allUser', (users) => {
+      console.log('List Users: ', users);
+      this.setState({ listUsers: users });
+    })
   }
 
   componentDidMount() {
@@ -64,7 +73,7 @@ class ListChat extends Component {
             this.list = ref;
           }}
           style={styles.listResult}
-          data={[{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]}
+          data={this.state.listUsers}
           keyExtractor={this._keyExtractor}
           renderItem={this.renderFlatListItem.bind(this)}
           numColumns={1}
@@ -113,11 +122,11 @@ class ListChat extends Component {
         onPress={() => {
           // if (!blockAction) {
           //     blockAction = true;
-          Actions.chatScreen();
+          Actions.chatScreen({ user: item });
           // }
         }}
       >
-        <ItemChat></ItemChat>
+        <ItemChat data={item}></ItemChat>
 
       </TouchableOpacity>
     );

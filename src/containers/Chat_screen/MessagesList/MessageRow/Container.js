@@ -8,6 +8,7 @@ import MessageRow from './Component'
 class MessageRowContainer extends Component {
 
   render() {
+    debugger;
     //const isCurrentUser = firebaseService.auth().currentUser.email == this.props.message.user.email;
     return (
       <MessageRow

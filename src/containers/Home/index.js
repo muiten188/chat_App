@@ -42,7 +42,7 @@ import IconIonicons from 'react-native-vector-icons/Ionicons';
 import ChatSreen from '../Chat_screen';
 import Profile from '../Profile';
 import ListChat from '../List_chat';
-
+import * as helper from '../../helper/signalr';
 const blockAction = false;
 const blockLoadMoreAction = false;
 
@@ -61,6 +61,7 @@ class Home extends Component {
     I18n.defaultLocale = "vi";
     I18n.locale = "vi";
     I18n.currentLocale();
+    helper.connectSignalr(this.props.loginReducer.user);
   }
 
   componentDidMount() {

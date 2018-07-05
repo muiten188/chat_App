@@ -11,8 +11,9 @@ class ChatScreenContainer extends Component {
   }
 
   render() {
+    const { user } = this.props;
     return (
-      <ChatScreen />
+      <ChatScreen user={user}/>
     )
   }
 }

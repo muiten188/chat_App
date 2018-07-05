@@ -30,31 +30,32 @@ export default class extends PureComponent {
   };
 
   render() {
-    const { key, userName, position, phone, avatarUrl, item } = this.props;
+    const { key,data } = this.props;
+
     return (
       <View key={key} style={styles.itemList}>
         <Grid>
           <Col style={styles.colAvar}>
-            <Thumbnail style={styles.avartar} large source={{ uri: 'http://images6.fanpop.com/image/photos/40600000/PRISTIN-WE-LIKE-Promotion-Nayoung-pristin-40694319-500-333.jpg' }} />
+            <Thumbnail style={styles.avartar} large source={{ uri: data.Avatar?`${AppConfig.API_HOST}${data.Avatar}`:'http://images6.fanpop.com/image/photos/40600000/PRISTIN-WE-LIKE-Promotion-Nayoung-pristin-40694319-500-333.jpg' }} />
 
           </Col>
           <Col style={styles.colContent}>
             <Row>
               <Col style={styles.colUserMessage}>
-                <Text style={styles.userName}>{"RnD"}</Text>
+                <Text style={styles.userName}>{data.FullName}</Text>
               </Col>
               <Col style={styles.colTimeStatus}>
-                <Text>{"9:59"}</Text>
+                {/* <Text>{"9:59"}</Text> */}
               </Col>
             </Row>
             <Row>
               <Col style={styles.colUserMessage}>
-                <Text style={styles.textMessage}>{"Tự tạo task ấy ạ?"}</Text>
+                <Text style={styles.textMessage}>{data.UserName}</Text>
               </Col>
               <Col style={styles.colTimeStatus}>
-                <Badge style={{ backgroundColor: 'black',opacity:0.8, position: 'absolute', right: 0, bottom: 5 }}>
+                {/* <Badge style={{ backgroundColor: 'black',opacity:0.8, position: 'absolute', right: 0, bottom: 5 }}>
                   <Text style={[{ color: 'white' },styles.textMessage]}>4</Text>
-                </Badge>
+                </Badge> */}
               </Col>
             </Row>
           </Col>

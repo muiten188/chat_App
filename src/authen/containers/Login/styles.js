@@ -8,9 +8,13 @@ export default {
     justifyContent: "center",
     alignItems: "center",
   },
+  container_outer: {
+    
+  },
   loginform: {
-    width: 400,
-    height: "100%",
+    width: '80%',
+    height: 300,
+    
     backgroundColor: "transparent",
     flexDirection: 'column',
     justifyContent: 'flex-end',
@@ -25,11 +29,18 @@ export default {
   item: {
     marginBottom: 10,
     borderRadius: 5,
-    borderWidth: 0.5
+    height:40,
+    padding:1,
+    height:44,
+    borderWidth: 0.3,
+    borderColor:'black'
   },
   buttonLogin:{
-    width:250,
-    marginBottom:15
+    paddingLeft:4,
+    paddingRight:4,
+    width:'100%',
+    marginBottom:15,
+    height:35,
   },
   buttonLoginFb:{
 
@@ -38,14 +49,18 @@ export default {
     backgroundColor:'#f00'
   },
   container_login: {
-    marginBottom:'50%'
+    //marginBottom:'50%'
+    justifyContent:'center',
+    alignItems:'center'
   },
   form: {
     paddingTop: 30,
     padding: 20,
-    height: 280,
     borderRadius: 5,
-    borderWidth: 1,
+    width:'100%',
+    height:240,
+    borderWidth: 0.5,
+    borderColor:'#ccc',
     backgroundColor: "#fff"
   },
   content_login: {
