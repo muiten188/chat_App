@@ -9,20 +9,36 @@ export default StyleSheet.create({
     backgroundColor: '#eeeeee',
     borderRadius: 5
   },
-  bubbleView: {
+  bubbleView_me: {
     backgroundColor: '#1E90FF',
     flex: 1,
     borderRadius: 8,
     padding:8
   },
-  userText: {
+  bubbleView_friend: {
+    backgroundColor: '#cccc',
+    flex: 1,
+    borderRadius: 8,
+    padding:8
+  },
+  userText_me: {
     color: 'white',
     fontSize: 14,
     fontWeight: 'bold'
   },
-  messageText: {
+  userText_friend: {
+    color: 'black',
+    fontSize: 14,
+    fontWeight: 'bold'
+  },
+  messageText_me: {
     flex: 1,
     color: 'white',
+    fontSize: 16
+  },
+  messageText_friend: {
+    flex: 1,
+    color: 'black',
     fontSize: 16
   }
 })

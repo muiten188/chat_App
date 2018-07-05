@@ -12,17 +12,25 @@ class MessagesListContainer extends Component {
     super(props);
 
     this.state = {
-      messages:[]
+      messages: []
     };
-    proxy.on('messagePrivates', (messages, userId) => {
-      console.log('List Messages: ', messages);
-      this.setState({ messages: messages });
+    proxy.on('messagePrivates', (messages, userId) => {    
+      var arrMessages = [];
+      for (var i = messages.length - 1; i >= 0; i--) {
+        arrMessages.push(messages[i]);
+      }
+      console.log('List Messages: ', arrMessages);
+      this.setState({ messages: arrMessages });
     })
   }
   componentDidMount() {
     //this.props.loadMessages()
-    const {user}=this.props;
+    const { user } = this.props;
     proxy.invoke('getAllMessagePrivate', user.ID);
+  }
+
+  componentWillUnmount(){
+    proxy.off("messagePrivates");
   }
 
   render() {
@@ -30,7 +38,7 @@ class MessagesListContainer extends Component {
     //const data = getChatItems(props.chatScreenReducer.messages).reverse();
     return (
       <MessageListComponent
-        data={this.state.messages} />
+        data={this.state.messages} cUser={props.user} />
     )
   }
 }

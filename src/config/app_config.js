@@ -1,1 +1,1 @@
-export const API_HOST = 'http://172.28.44.85:8022/'
+export const API_HOST = 'http://192.168.1.142:8022/'

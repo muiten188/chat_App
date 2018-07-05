@@ -45,7 +45,8 @@ class ListChat extends Component {
     super(props);
 
     this.state = {
-      listUsers: []
+      listUsers: [],
+      isLocalLoading: true
     }
 
     I18n.defaultLocale = "vi";
@@ -53,7 +54,10 @@ class ListChat extends Component {
     I18n.currentLocale();
     proxy.on('allUser', (users) => {
       console.log('List Users: ', users);
-      this.setState({ listUsers: users });
+      this.setState({
+        listUsers: users,
+        isLocalLoading: false
+      });
     })
   }
 
@@ -68,6 +72,7 @@ class ListChat extends Component {
     const locale = "vn";
     return (
       <Container style={styles.container}>
+        <Loading isShow={this.state.isLocalLoading} />
         <FlatList
           ref={ref => {
             this.list = ref;

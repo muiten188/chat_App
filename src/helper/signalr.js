@@ -9,7 +9,6 @@ export function connectSignalr(user) {
     connection.logging = true;
     proxy = connection.createHubProxy('chatHub');
     //receives broadcast messages from a hub function, called "helloApp"
-    
     proxy.on('addMessagePrivate', (mes) => {
         console.log('message-from-server: ', mes);
         debugger;

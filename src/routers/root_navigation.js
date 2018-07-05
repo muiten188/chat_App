@@ -65,7 +65,7 @@ class RootNavigation extends React.Component {
                     />
                     <Scene key="chatScreen"
                         component={ChatSreen}
-                        title="Chat Screen"
+                        title="Trò chuyện"
                         initial={false}
                     />
                     <Scene key="museum"

@@ -38,7 +38,7 @@ export function login(user) {
           dispatch(_login(true, user));
           Keyboard.dismiss();
           Actions.home()
-          setAsyncStorage("@user",user);
+          //setAsyncStorage("@user",user);
         }
       })
       .catch(function (error) {

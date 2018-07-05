@@ -14,20 +14,20 @@ const MessageRowComponent = props => {
   const margin = isCurrentUser ? { marginLeft: MESSAGE_TEXT_MARGIN } : { marginRight: MESSAGE_TEXT_MARGIN }
   const username = isCurrentUser ? I18n.t("you", {
     locale: "vn"
-  }) : props.message.user.email
-  const date = relativeDate(new Date())//props.message.createdAt
+  }) : props.message.FromFullName
+  const date = relativeDate(new Date(props.message.CreatedDate))//props.message.createdAt
   return (
     <View
       style={styles.container}>
       <View
-        style={[styles.bubbleView, { alignItems: alignItems }, margin]}>
+        style={[isCurrentUser ? styles.bubbleView_me : styles.bubbleView_friend, { alignItems: alignItems }, margin]}>
         <Text
-          style={styles.userText} >
+          style={isCurrentUser ? styles.userText_me : styles.userText_friend} >
           {date + ' - ' + username}
         </Text>
         <Text
-          style={styles.messageText}>
-          {props.message.text}
+          style={isCurrentUser ? styles.messageText_me : styles.messageText_friend}>
+          {props.message.Content}
         </Text>
       </View>
     </View>

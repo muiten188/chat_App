@@ -22,6 +22,9 @@ class App extends Component {
     this.state = {
       loged: false
     };
+    console.ignoredYellowBox = [
+      'Setting a timer'
+      ];
   }
 
   render() {
