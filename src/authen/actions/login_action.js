@@ -37,7 +37,7 @@ export function login(user) {
           user = responseJson;
           dispatch(_login(true, user));
           Keyboard.dismiss();
-          Actions.home()
+          Actions.reset('home')
           //setAsyncStorage("@user",user);
         }
       })

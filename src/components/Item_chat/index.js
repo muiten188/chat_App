@@ -30,14 +30,23 @@ export default class extends PureComponent {
   };
 
   render() {
-    const { key,data } = this.props;
+    const { key, data } = this.props;
 
     return (
       <View key={key} style={styles.itemList}>
         <Grid>
           <Col style={styles.colAvar}>
-            <Thumbnail style={styles.avartar} large source={{ uri: data.Avatar?`${AppConfig.API_HOST}${data.Avatar}`:'http://images6.fanpop.com/image/photos/40600000/PRISTIN-WE-LIKE-Promotion-Nayoung-pristin-40694319-500-333.jpg' }} />
-
+            <Thumbnail style={styles.avartar} large source={{ uri: data.Avatar ? `${AppConfig.API_HOST}${data.Avatar}` : 'http://images6.fanpop.com/image/photos/40600000/PRISTIN-WE-LIKE-Promotion-Nayoung-pristin-40694319-500-333.jpg' }} />
+            {data.Connected ? <View style={{
+              position: 'absolute',
+              bottom: 10,
+              right: 16,
+              width: 13,
+              height: 13,
+              borderRadius: 50,
+              backgroundColor: '#94d82d'
+            }}>
+            </View> : null}
           </Col>
           <Col style={styles.colContent}>
             <Row>

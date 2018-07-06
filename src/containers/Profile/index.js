@@ -30,7 +30,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import * as profileAction from "../../store/actions/containers/profile_action";
 import Loading from "../../components/Loading";
 import { Actions, Router, Scene, Stack } from 'react-native-router-flux';
-
+import { connection } from '../../helper/signalr';
 const blockAction = false;
 const blockLoadMoreAction = false;
 
@@ -51,19 +51,22 @@ class Profile extends Component {
 
   }
   componentDidUpdate(prevProps, prevState) {
-    
+
   }
 
   render() {
     const locale = "vn";
     return (
       <Container style={styles.container}>
-            <Text>abc</Text>
+        <Text>abc</Text>
+        <Button onPress={() => { connection.stop() }}>
+            <Text>Click Me!</Text>
+          </Button>
       </Container>
     );
   }
 
-  
+
 }
 function mapStateToProps(state, props) {
   return {

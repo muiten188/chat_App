@@ -18,7 +18,7 @@ class MessageFormComponent extends Component {
     }
 
     this.handleButtonPress = () => {
-      this.props.sendMessage(this.props.message)
+      this.props.sendMessage(this.props.message,this.props.user)
     }
   }
 
@@ -46,8 +46,7 @@ class MessageFormComponent extends Component {
           returnKeyType='send'
           onChangeText={this.handleMessageChange}
           value={this.props.message}
-          underlineColorAndroid={'transparent'}
-          editable={!sending} />
+          underlineColorAndroid={'transparent'}/>
 
         <TouchableOpacity
           style={styles.button}

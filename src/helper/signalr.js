@@ -1,8 +1,9 @@
 import signalr from 'react-native-signalr';
 import * as AppConfig from '../config/app_config';
 export var proxy=null;
+export var connection=null;
 export function connectSignalr(user) {
-    const connection = signalr.hubConnection(`${AppConfig.API_HOST}signalr`, {
+    connection= signalr.hubConnection(`${AppConfig.API_HOST}signalr`, {
         useDefaultPath: false,
         qs: "access_token=" + user.access_token
     });

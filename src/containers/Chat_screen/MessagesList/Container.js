@@ -14,14 +14,40 @@ class MessagesListContainer extends Component {
     this.state = {
       messages: []
     };
-    proxy.on('messagePrivates', (messages, userId) => {    
+    proxy.on('messagePrivates', (messages, userId) => {
       var arrMessages = [];
       for (var i = messages.length - 1; i >= 0; i--) {
         arrMessages.push(messages[i]);
       }
       console.log('List Messages: ', arrMessages);
-      this.setState({ messages: arrMessages });
+      var arr15 = [];
+      if (arrMessages.length > 10) {
+        for (var i = 0; i < 10; i++) {
+          arr15.push(arrMessages[i]);
+        }
+      }
+      else{
+        arr15=arrMessages;
+      }
+      this.setState({ messages: arr15 });
     })
+    proxy.on('messagePrivate', (message, isMe) => {
+      var arrMessages = this.state.messages;
+      arrMessages.unshift(message);
+      var arr15 = [];
+      if (arrMessages.length > 10) {
+        for (var i = 0; i < 10; i++) {
+          arr15.push(arrMessages[i]);
+        }
+      }
+      else{
+        arr15=arrMessages;
+      }
+      this.setState({ messages: arr15 });
+      console.log('new Message: ', message);
+      console.log('isMe: ', isMe);
+    })
+
   }
   componentDidMount() {
     //this.props.loadMessages()
@@ -29,8 +55,9 @@ class MessagesListContainer extends Component {
     proxy.invoke('getAllMessagePrivate', user.ID);
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     proxy.off("messagePrivates");
+    proxy.off("messagePrivate");
   }
 
   render() {

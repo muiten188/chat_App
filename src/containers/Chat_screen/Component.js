@@ -18,7 +18,7 @@ class ChatScreenComponent extends Component {
     return (
       <View style={styles.container}>
         <MessagesList user={user} />
-        <MessageForm />
+        <MessageForm user={user} />
       </View>
     )
   }
