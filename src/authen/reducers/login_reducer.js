@@ -4,7 +4,7 @@ const initState = {
   Loging: false,
   logout: false,
   userForm: null,
-  user: {},
+  user: null,
   authen_expri: false
 };
 

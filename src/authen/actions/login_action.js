@@ -3,7 +3,7 @@ import { Keyboard } from "react-native";
 import * as types from "../../store/constants/action_types";
 import * as AppConfig from "../../config/app_config";
 import { Actions } from 'react-native-router-flux';
-import {setAsyncStorage} from "../../helper/index";
+import { setAsyncStorage } from "../../helper/index";
 export function login(user) {
 
   return dispatch => {
@@ -12,7 +12,7 @@ export function login(user) {
     // Actions.home()
     var oUser = user ? user : {};
     oUser.grant_type = "password";
-    
+
     dispatch(_loging());
     const searchParams = Object.keys(oUser).map((key) => {
       return encodeURIComponent(key) + '=' + encodeURIComponent(oUser[key]);
@@ -38,7 +38,6 @@ export function login(user) {
           dispatch(_login(true, user));
           Keyboard.dismiss();
           Actions.reset('home')
-          //setAsyncStorage("@user",user);
         }
       })
       .catch(function (error) {

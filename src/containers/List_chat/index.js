@@ -32,9 +32,12 @@ import Loading from "../../components/Loading";
 import { Actions, Router, Scene, Stack } from 'react-native-router-flux';
 import HeaderContent from '../../components/Header_content';
 import ItemChat from '../../components/Item_chat';
+
 const blockAction = false;
 const blockLoadMoreAction = false;
-import { proxy } from '../../helper/signalr';
+import { proxy,connection } from '../../helper/signalr';
+import * as helper from '../../helper';
+import * as helperSignal from '../../helper/signalr';
 class ListChat extends Component {
 
   static navigationOptions = {
@@ -52,18 +55,43 @@ class ListChat extends Component {
     I18n.defaultLocale = "vi";
     I18n.locale = "vi";
     I18n.currentLocale();
-    proxy.on('allUser', (users) => {
-      console.log('List Users: ', users);
-      this.setState({
-        listUsers: users,
-        isLocalLoading: false
-      });
-    })
+
   }
 
   componentDidMount() {
+    if (this.props.loginReducer.user != null) {
+      helperSignal.connectSignalr(this.props.loginReducer.user);
+      proxy.on('allUser', (users) => {
+        console.log('List Users: ', users);
+        this.setState({
+          listUsers: users,
+          isLocalLoading: false
+        });
+      })
+    }
+    else {
+      helper.getAsyncStorage("@user", this.onConnectSignal.bind(this));
+    }
 
   }
+
+  onConnectSignal(promise) {
+    promise.done((value) => {
+      var user = JSON.parse(value);
+      if(proxy){
+        connection.stop();
+      }
+      helperSignal.connectSignalr(user);
+      proxy.on('allUser', (users) => {
+        console.log('List Users: ', users);
+        this.setState({
+          listUsers: users,
+          isLocalLoading: false
+        });
+      })
+    })
+  }
+
   componentDidUpdate(prevProps, prevState) {
 
   }

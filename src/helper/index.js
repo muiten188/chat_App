@@ -2,7 +2,8 @@ import { AsyncStorage } from "react-native";
 import { Alert } from "react-native";
 export function setAsyncStorage(key, value) {
   try {
-    AsyncStorage.setItem(key, value);
+    Jsovalue=JSON.stringify(value);
+    AsyncStorage.setItem(key, Jsovalue);
   } catch (e) {
     alert("set error");
   }
@@ -10,9 +11,8 @@ export function setAsyncStorage(key, value) {
 
 export function getAsyncStorage(key, callback) {
   try {
-    const hadUser = AsyncStorage.getItem(key)
-      .then(callback)
-      .done();
+    const value =AsyncStorage.getItem(key);
+    callback(value)
   } catch (error) {
     alert(error);
     // Error retrieving data
