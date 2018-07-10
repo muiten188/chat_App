@@ -24,7 +24,7 @@ import User from "../User";
 import * as AppConfig from "../../config/app_config";
 const resolveAssetSource = require('resolveAssetSource');
 const userAvar = require("../../resources/assets/user.jpg")
-export default class extends PureComponent {
+export default class extends Component {
   static navigationOptions = {
     header: null
   };

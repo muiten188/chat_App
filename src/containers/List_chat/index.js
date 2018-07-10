@@ -35,7 +35,7 @@ import ItemChat from '../../components/Item_chat';
 
 const blockAction = false;
 const blockLoadMoreAction = false;
-import { proxy,connection } from '../../helper/signalr';
+import { proxy, connection } from '../../helper/signalr';
 import * as helper from '../../helper';
 import * as helperSignal from '../../helper/signalr';
 class ListChat extends Component {
@@ -61,13 +61,7 @@ class ListChat extends Component {
   componentDidMount() {
     if (this.props.loginReducer.user != null) {
       helperSignal.connectSignalr(this.props.loginReducer.user);
-      proxy.on('allUser', (users) => {
-        console.log('List Users: ', users);
-        this.setState({
-          listUsers: users,
-          isLocalLoading: false
-        });
-      })
+      this.onEventSignal();
     }
     else {
       helper.getAsyncStorage("@user", this.onConnectSignal.bind(this));
@@ -75,20 +69,67 @@ class ListChat extends Component {
 
   }
 
+  onEventSignal() {
+    var self = this;
+    proxy.on('allUser', (users) => {
+      console.log('List Users: ', users);
+      self.setState({
+        listUsers: users,
+        isLocalLoading: false
+      });
+    })
+    proxy.on('connect', (id, username, fullname, userID) => {
+      var listUsers = self.state.listUsers;
+      for (var i = 0; i < self.state.listUsers.length; i++) {
+        var item = listUsers[i];
+        if (item.ID == userID) {
+          item.Connected = true;
+          break;
+        }
+      }
+      self.setState({
+        listUsers: listUsers,
+      });
+    })
+    proxy.on('disConnect', (username, fullname, userID) => {
+      var listUsers = self.state.listUsers;
+      for (var i = 0; i < self.state.listUsers.length; i++) {
+        var item = listUsers[i];
+        if (item.ID == userID) {
+          item.Connected = false;
+          break;
+        }
+      }
+      self.setState({
+        listUsers: listUsers,
+      });
+    })
+    proxy.on('allMessageUser', (users, count) => {
+      debugger;
+    //   var listUsers = self.state.listUsers;
+    //   for (var i = 0; i < self.state.listUsers.length; i++) {
+    //     var item = listUsers[i];
+    //     for (var j = 0; j < users.length; j++) {
+    //       var itemY = users[j];
+
+    //     }
+    //   }
+    //   self.setState({
+    //     listUsers: listUsers,
+    //   });
+     })
+
+  }
+
   onConnectSignal(promise) {
     promise.done((value) => {
       var user = JSON.parse(value);
-      if(proxy){
+      if (proxy) {
         connection.stop();
       }
       helperSignal.connectSignalr(user);
-      proxy.on('allUser', (users) => {
-        console.log('List Users: ', users);
-        this.setState({
-          listUsers: users,
-          isLocalLoading: false
-        });
-      })
+      this.props.loginReducer.user = user;
+      this.onEventSignal();
     })
   }
 
