@@ -14,11 +14,11 @@ class ChatScreenComponent extends Component {
 
   }
   render() {
-    const { user } = this.props;
+    const { user,isGroupChat,group } = this.props;
     return (
       <View style={styles.container}>
-        <MessagesList user={user} />
-        <MessageForm user={user} />
+        <MessagesList user={user} group={group} isGroupChat={isGroupChat}/>
+        <MessageForm user={user} group={group} isGroupChat={isGroupChat}/>
       </View>
     )
   }

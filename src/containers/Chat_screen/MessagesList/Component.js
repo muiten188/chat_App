@@ -15,7 +15,7 @@ class MessageListComponent extends Component {
     super()
 
     this.renderItem = ({ index, item }) => {
-      return <MessageRow key={index} cUser={this.props.cUser} message={item} />
+      return <MessageRow key={index} cUser={this.props.cUser} group={this.props.group} message={item} />
     }
 
     this.emptyList = () => {

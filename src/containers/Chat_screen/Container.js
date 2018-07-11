@@ -14,14 +14,14 @@ class ChatScreenContainer extends Component {
 
   componentDidMount() {
     if (this.props.user && this.props.user.FullName) {
-      this.props.navigation.setParams({ title:  this.props.user.FullName })
+      this.props.navigation.setParams({ title: this.props.user.FullName })
     }
   }
 
   render() {
-    const { user } = this.props;
+    const { user, isGroupChat, group } = this.props;
     return (
-      <ChatScreen user={user} />
+      <ChatScreen user={user} group={group} isGroupChat={isGroupChat} />
     )
   }
 }

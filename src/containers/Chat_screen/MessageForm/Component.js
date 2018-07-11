@@ -18,7 +18,7 @@ class MessageFormComponent extends Component {
     }
 
     this.handleButtonPress = () => {
-      this.props.sendMessage(this.props.message,this.props.user)
+      this.props.sendMessage(this.props.message, this.props.group, this.props.isGroupChat)
     }
   }
 
@@ -46,7 +46,7 @@ class MessageFormComponent extends Component {
           returnKeyType='send'
           onChangeText={this.handleMessageChange}
           value={this.props.message}
-          underlineColorAndroid={'transparent'}/>
+          underlineColorAndroid={'transparent'} />
 
         <TouchableOpacity
           style={styles.button}

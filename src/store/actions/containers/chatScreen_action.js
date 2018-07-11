@@ -4,12 +4,20 @@ import { proxy } from '../../../helper/signalr';
 // const FIREBASE_REF_MESSAGES = firebaseService.database().ref('Messages')
 // const FIREBASE_REF_MESSAGES_LIMIT = 20
 
-export const sendMessage = (message, user) => {
+export const sendMessage = (message, user, isGroupChat) => {
     return (dispatch) => {
         dispatch(chatMessageLoading())
-        proxy.invoke('addMessagePrivate', user.ID, message).done(() => {
-            dispatch(chatMessageSuccess(message));
-        })
+        if (!isGroupChat) {
+            proxy.invoke('addMessagePrivate', user.ID, message).done(() => {
+                dispatch(chatMessageSuccess(message));
+            })
+        }
+        else {
+            proxy.invoke('addMessageToGroup', user.ID, user.Name, message).done(() => {
+                dispatch(chatMessageSuccess(message));
+            })
+        }
+
         //let currentUser = firebaseService.auth().currentUser
         // let createdAt = new Date().getTime()
         // let chatMessage = {

@@ -19,5 +19,6 @@ export default {
   message:'Tin nhắn',
   placeholder:'Chưa có tin nhắn',
   you:'Bạn',
-  conversation:"Trò chuyện"
+  conversation:"Trò chuyện",
+  Group:'Nhóm'
 };

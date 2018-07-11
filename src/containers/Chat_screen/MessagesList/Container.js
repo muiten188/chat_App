@@ -14,50 +14,96 @@ class MessagesListContainer extends Component {
     this.state = {
       messages: []
     };
-    proxy.on('messagePrivates', (messages, userId) => {
-      var arrMessages = [];
-      for (var i = messages.length - 1; i >= 0; i--) {
-        arrMessages.push(messages[i]);
-      }
-      console.log('List Messages: ', arrMessages);
-      var arr15 = [];
-      if (arrMessages.length > 10) {
-        for (var i = 0; i < 10; i++) {
-          arr15.push(arrMessages[i]);
-        }
-      }
-      else{
-        arr15=arrMessages;
-      }
-      this.setState({ messages: arr15 });
-    })
-    proxy.on('messagePrivate', (message, isMe) => {
-      var arrMessages = this.state.messages;
-      arrMessages.unshift(message);
-      var arr15 = [];
-      if (arrMessages.length > 10) {
-        for (var i = 0; i < 10; i++) {
-          arr15.push(arrMessages[i]);
-        }
-      }
-      else{
-        arr15=arrMessages;
-      }
-      this.setState({ messages: arr15 });
-      console.log('new Message: ', message);
-      console.log('isMe: ', isMe);
-    })
-
   }
   componentDidMount() {
     //this.props.loadMessages()
-    const { user } = this.props;
-    proxy.invoke('getAllMessagePrivate', user.ID);
+    const { user, isGroupChat,group } = this.props;
+    this.onSignalEvent(isGroupChat);
+    if(!isGroupChat){
+      proxy.invoke('getAllMessagePrivate', user.ID);
+    }
+    else{
+      proxy.invoke('getAllGroupMessage', group.ID);
+    }
   }
-
+  onSignalEvent(isGroupChat) {
+    if (!isGroupChat) {
+      proxy.on('messagePrivates', (messages, userId) => {
+        var arrMessages = [];
+        for (var i = messages.length - 1; i >= 0; i--) {
+          arrMessages.push(messages[i]);
+        }
+        console.log('List Messages: ', arrMessages);
+        var arr15 = [];
+        if (arrMessages.length > 10) {
+          for (var i = 0; i < 10; i++) {
+            arr15.push(arrMessages[i]);
+          }
+        }
+        else {
+          arr15 = arrMessages;
+        }
+        this.setState({ messages: arr15 });
+      })
+      proxy.on('messagePrivate', (message, isMe) => {
+        var arrMessages = this.state.messages;
+        arrMessages.unshift(message);
+        var arr15 = [];
+        if (arrMessages.length > 10) {
+          for (var i = 0; i < 10; i++) {
+            arr15.push(arrMessages[i]);
+          }
+        }
+        else {
+          arr15 = arrMessages;
+        }
+        this.setState({ messages: arr15 });
+        console.log('new Message: ', message);
+        console.log('isMe: ', isMe);
+      })
+    }
+    else{
+      proxy.on('allGroupMessage', (messages, userId) => {
+        var arrMessages = [];
+        for (var i = messages.length - 1; i >= 0; i--) {
+          arrMessages.push(messages[i]);
+        }
+        console.log('List Messages: ', arrMessages);
+        var arr15 = [];
+        if (arrMessages.length > 10) {
+          for (var i = 0; i < 10; i++) {
+            arr15.push(arrMessages[i]);
+          }
+        }
+        else {
+          arr15 = arrMessages;
+        }
+        this.setState({ messages: arr15 });
+      })
+      proxy.on('groupMessage', (message, isMe) => {
+        var arrMessages = this.state.messages;
+        debugger;
+        arrMessages.unshift(message);
+        var arr15 = [];
+        if (arrMessages.length > 10) {
+          for (var i = 0; i < 10; i++) {
+            arr15.push(arrMessages[i]);
+          }
+        }
+        else {
+          arr15 = arrMessages;
+        }
+        this.setState({ messages: arr15 });
+        console.log('new Message: ', message);
+        console.log('isMe: ', isMe);
+      })
+    }
+  }
   componentWillUnmount() {
     proxy.off("messagePrivates");
     proxy.off("messagePrivate");
+    proxy.off("allGroupMessage");
+    proxy.off("groupMessage");
   }
 
   render() {
@@ -65,7 +111,7 @@ class MessagesListContainer extends Component {
     //const data = getChatItems(props.chatScreenReducer.messages).reverse();
     return (
       <MessageListComponent
-        data={this.state.messages} cUser={props.user} />
+        data={this.state.messages} cUser={props.user} group={props.group} />
     )
   }
 }

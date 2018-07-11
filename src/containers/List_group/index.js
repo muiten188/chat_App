@@ -27,18 +27,18 @@ import { Grid, Col, Row } from "react-native-easy-grid";
 import I18n from "../../i18n/i18n";
 import { InputField } from "../../components/Element/Form/index";
 import Icon from "react-native-vector-icons/FontAwesome";
-import * as listChatAction from "../../store/actions/containers/listChat_action";
+import * as listGroupAction from "../../store/actions/containers/listChat_action";
 import Loading from "../../components/Loading";
 import { Actions, Router, Scene, Stack } from 'react-native-router-flux';
 import HeaderContent from '../../components/Header_content';
-import ItemChat from '../../components/Item_chat';
+import ItemGroupChat from '../../components/Item_Group_chat';
 
 const blockAction = false;
 const blockLoadMoreAction = false;
 import { proxy, connection } from '../../helper/signalr';
 import * as helper from '../../helper';
 import * as helperSignal from '../../helper/signalr';
-class ListChat extends Component {
+class ListGroup extends Component {
 
   static navigationOptions = {
     header: null
@@ -48,7 +48,7 @@ class ListChat extends Component {
     super(props);
 
     this.state = {
-      listUsers: [],
+      listGroups: [],
       isLocalLoading: true
     }
 
@@ -59,65 +59,24 @@ class ListChat extends Component {
   }
 
   componentDidMount() {
-    if (this.props.loginReducer.user != null) {
-      helperSignal.connectSignalr(this.props.loginReducer.user);
+    try {
       this.onEventSignal();
+      proxy.invoke('loadAllGroup');
     }
-    else {
-      helper.getAsyncStorage("@user", this.onConnectSignal.bind(this));
+    catch (err) {
+
     }
 
   }
 
   onEventSignal() {
     var self = this;
-    proxy.on('allUser', (users) => {
-      console.log('List Users: ', users);
+    proxy.on('allGroup', (groups, total) => {
       self.setState({
-        listUsers: users,
+        listGroups: groups,
         isLocalLoading: false
       });
     })
-    proxy.on('connect', (id, username, fullname, userID) => {
-      var listUsers = self.state.listUsers;
-      for (var i = 0; i < self.state.listUsers.length; i++) {
-        var item = listUsers[i];
-        if (item.ID == userID) {
-          item.Connected = true;
-          break;
-        }
-      }
-      self.setState({
-        listUsers: listUsers,
-      });
-    })
-    proxy.on('disConnect', (username, fullname, userID) => {
-      var listUsers = self.state.listUsers;
-      for (var i = 0; i < self.state.listUsers.length; i++) {
-        var item = listUsers[i];
-        if (item.ID == userID) {
-          item.Connected = false;
-          break;
-        }
-      }
-      self.setState({
-        listUsers: listUsers,
-      });
-    })
-    proxy.on('allMessageUser', (users, count) => {
-    //   var listUsers = self.state.listUsers;
-    //   for (var i = 0; i < self.state.listUsers.length; i++) {
-    //     var item = listUsers[i];
-    //     for (var j = 0; j < users.length; j++) {
-    //       var itemY = users[j];
-
-    //     }
-    //   }
-    //   self.setState({
-    //     listUsers: listUsers,
-    //   });
-     })
-
   }
 
   onConnectSignal(promise) {
@@ -146,7 +105,7 @@ class ListChat extends Component {
             this.list = ref;
           }}
           style={styles.listResult}
-          data={this.state.listUsers}
+          data={this.state.listGroups}
           keyExtractor={this._keyExtractor}
           renderItem={this.renderFlatListItem.bind(this)}
           numColumns={1}
@@ -195,11 +154,11 @@ class ListChat extends Component {
         onPress={() => {
           // if (!blockAction) {
           //     blockAction = true;
-          Actions.chatScreen({ user: item });
+          Actions.chatScreen({ user: this.props.loginReducer.user, group: item, isGroupChat: true });
           // }
         }}
       >
-        <ItemChat data={item}></ItemChat>
+        <ItemGroupChat data={item}></ItemGroupChat>
 
       </TouchableOpacity>
     );
@@ -212,15 +171,15 @@ class ListChat extends Component {
 }
 function mapStateToProps(state, props) {
   return {
-    listChatReducer: state.listChatReducer,
+    listGroupReducer: state.listGroupReducer,
     loginReducer: state.loginReducer
   };
 }
 function mapToDispatch(dispatch) {
   return {
-    listChatAction: bindActionCreators(listChatAction, dispatch)
+    listGroupAction: bindActionCreators(listGroupAction, dispatch)
   };
 }
 
-ListChat = connect(mapStateToProps, mapToDispatch)(ListChat);
-export default ListChat;
+ListGroup = connect(mapStateToProps, mapToDispatch)(ListGroup);
+export default ListGroup;

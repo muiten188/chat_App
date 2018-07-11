@@ -10,7 +10,7 @@ import Home from '../containers/Home';
 import ChatSreen from '../containers/Chat_screen';
 import Profile from '../containers/Profile';
 import ListChat from '../containers/List_chat';
-
+import ListGroup from "../containers/List_group";
 import PropTypes from 'prop-types';
 
 class RootNavigation extends React.Component {
@@ -61,6 +61,11 @@ class RootNavigation extends React.Component {
                     <Scene key="listChat"
                         component={ListChat}
                         title="List Chat"
+                        initial={false}
+                    />
+                    <Scene key="listGroup"
+                        component={ListGroup}
+                        title="List Group"
                         initial={false}
                     />
                     <Scene key="chatScreen"

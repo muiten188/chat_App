@@ -42,6 +42,7 @@ import IconIonicons from 'react-native-vector-icons/Ionicons';
 import ChatSreen from '../Chat_screen';
 import Profile from '../Profile';
 import ListChat from '../List_chat';
+import ListGroup from '../List_group';
 import * as helper from '../../helper/signalr';
 import * as _helper from '../../helper';
 const blockAction = false;
@@ -169,13 +170,29 @@ class Home extends Component {
                     <ListChat />
 
                   </Tab>
-                  <Tab heading={<TabHeading style={this.state.tabActivePosition == 1 ? styles.tabHeadingActive : styles.tabHeading}>
+                  <Tab
+                    heading={<TabHeading style={this.state.tabActivePosition == 1 ? styles.tabHeadingActive : styles.tabHeading}>
+                      <Grid>
+                        <Row style={styles.iconTab}>
+                          <IconIonicons name="md-chatboxes" size={20} style={this.state.tabActivePosition == 1 ? styles.textHeaderTabActive : {}} />
+                        </Row>
+                        <Row style={styles.textHeadingTab}>
+                          <Text style={this.state.tabActivePosition == 1 ? styles.textHeaderTabActive : styles.textHeaderTab}>{I18n.t("Group", {
+                            locale: "vn"
+                          })}</Text>
+                        </Row>
+                      </Grid>
+                    </TabHeading>}>
+                    <ListGroup />
+
+                  </Tab>
+                  <Tab heading={<TabHeading style={this.state.tabActivePosition == 2 ? styles.tabHeadingActive : styles.tabHeading}>
                     <Grid>
                       <Row style={styles.iconTab}>
-                        <IconVector name="user" size={20} style={this.state.tabActivePosition == 1 ? styles.textHeaderTabActive : {}} />
+                        <IconVector name="user" size={20} style={this.state.tabActivePosition == 2 ? styles.textHeaderTabActive : {}} />
                       </Row>
                       <Row style={styles.textHeadingTab}>
-                        <Text style={this.state.tabActivePosition == 1 ? styles.textHeaderTabActive : styles.textHeaderTab}>{I18n.t("profile", {
+                        <Text style={this.state.tabActivePosition == 2 ? styles.textHeaderTabActive : styles.textHeaderTab}>{I18n.t("profile", {
                           locale: "vn"
                         })}</Text>
                       </Row>
