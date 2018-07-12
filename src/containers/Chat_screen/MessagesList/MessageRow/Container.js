@@ -10,7 +10,6 @@ class MessageRowContainer extends PureComponent {
   render() {
     const {cUser,group}=this.props;
     let isCurrentUser=null;
-    debugger
     if(!group){
       isCurrentUser = this.props.message.ReceiveID==cUser.ID;
     }

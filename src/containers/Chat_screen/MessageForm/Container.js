@@ -20,6 +20,7 @@ class MessageFormContainer extends Component {
       <MessageForm
         isGroupChat={props.isGroupChat}
         group={props.group}
+        user={props.user}
         sending={props.chatScreenReducer.sending}
         sendMessage={props.chatScreen_action.sendMessage}
         updateMessage={props.chatScreen_action.updateMessage}

@@ -6,6 +6,7 @@ import { proxy } from '../../../helper/signalr';
 
 export const sendMessage = (message, user, isGroupChat) => {
     return (dispatch) => {
+        
         dispatch(chatMessageLoading())
         if (!isGroupChat) {
             proxy.invoke('addMessagePrivate', user.ID, message).done(() => {

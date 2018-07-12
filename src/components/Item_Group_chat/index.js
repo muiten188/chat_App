@@ -75,7 +75,7 @@ export default class extends Component {
           {(data.Count > 0) ?
             <Col style={styles.colTimeStatus}>
               <Badge style={{ backgroundColor: 'black', opacity: 0.8 }}>
-                <Text style={[{ color: 'white' }, styles.textMessage]}>data.Count</Text>
+                <Text style={[{ color: 'white' }, styles.textMessage]}>{data.Count}</Text>
               </Badge>
             </Col> : null}
         </Grid>

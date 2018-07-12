@@ -179,7 +179,7 @@ class login extends React.Component {
       })
 
       const user = await GoogleSignin.currentUserAsync()
-      debugger;
+      
       console.log(user)
       this.setState({ user })
     } catch (err) {
@@ -190,12 +190,12 @@ class login extends React.Component {
   _googleSignIn() {
     GoogleSignin.signIn()
       .then(user => {
-        debugger;
+        
         console.log(user)
         this.setState({ user: user })
       })
       .catch(err => {
-        debugger;
+        
         console.warn(err)
       })
       .done()
@@ -371,7 +371,7 @@ function mapStateToProps(state, props) {
     initialValues: state.loginReducer.userForm
       ? state.loginReducer.userForm
       : {
-        username: "test1@gmail.com",
+        username: "1@gmail.com",
         password: "111111"
       }
   };

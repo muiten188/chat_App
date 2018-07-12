@@ -31,7 +31,7 @@ export default class extends Component {
 
   render() {
     const { key, data } = this.props;
-
+    //
     return (
       <View key={key} style={styles.itemList}>
         <Grid>
@@ -62,9 +62,10 @@ export default class extends Component {
                 <Text style={styles.textMessage}>{data.UserName}</Text>
               </Col>
               <Col style={styles.colTimeStatus}>
-                {/* <Badge style={{ backgroundColor: 'black',opacity:0.8, position: 'absolute', right: 0, bottom: 5 }}>
-                  <Text style={[{ color: 'white' },styles.textMessage]}>4</Text>
-                </Badge> */}
+                {data.CountNew && data.CountNew > 0 ?
+                  <Badge style={{ backgroundColor: 'black', opacity: 0.8, position: 'absolute', right: 0, bottom: 5 }}>
+                    <Text style={[{ color: 'white' }, styles.textMessage]}>{data.CountNew}</Text>
+                  </Badge> : null}
               </Col>
             </Row>
           </Col>

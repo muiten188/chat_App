@@ -18,7 +18,8 @@ class MessageFormComponent extends Component {
     }
 
     this.handleButtonPress = () => {
-      this.props.sendMessage(this.props.message, this.props.group, this.props.isGroupChat)
+      
+      this.props.sendMessage(this.props.message, this.props.isGroupChat ? this.props.group : this.props.user, this.props.isGroupChat)
     }
   }
 

@@ -105,19 +105,36 @@ class ListChat extends Component {
       });
     })
     proxy.on('allMessageUser', (users, count) => {
-    //   var listUsers = self.state.listUsers;
-    //   for (var i = 0; i < self.state.listUsers.length; i++) {
-    //     var item = listUsers[i];
-    //     for (var j = 0; j < users.length; j++) {
-    //       var itemY = users[j];
 
-    //     }
-    //   }
-    //   self.setState({
-    //     listUsers: listUsers,
-    //   });
-     })
-
+      var listUsers = self.state.listUsers;
+      for (var i = 0; i < self.state.listUsers.length; i++) {
+        var oUser = listUsers[i];
+        for (var j = 0; j < users.length; j++) {
+          var itemY = users[j];
+          if (oUser.ID == itemY.ID) {
+            listUsers[i].CountNew = itemY.CountNew;
+          }
+        }
+      }
+      self.setState({
+        listUsers: listUsers,
+      });
+    })
+    proxy.on('devCountMessagePrivate', (userId, count) => {
+      if (count > 0) {
+        var listUsers = self.state.listUsers;
+        for (var i = 0; i < self.state.listUsers.length; i++) {
+          var oUser = listUsers[i];
+          if (oUser.ID == userId) {
+            listUsers[i].CountNew = 0;
+            break;
+          }
+        }
+        self.setState({
+          listUsers: listUsers,
+        });
+      }
+    })
   }
 
   onConnectSignal(promise) {

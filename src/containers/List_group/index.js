@@ -72,10 +72,39 @@ class ListGroup extends Component {
   onEventSignal() {
     var self = this;
     proxy.on('allGroup', (groups, total) => {
+
       self.setState({
         listGroups: groups,
         isLocalLoading: false
       });
+    })
+    proxy.on('addCountMessageGroup', (groupId) => {
+      var listGroups = this.state.listGroups;
+      for (var i = 0; i < listGroups.length; i++) {
+        var group = listGroups[i];
+        if (group.ID == groupId) {
+          listGroups[i].Count = listGroups[i].Count + 1;
+          break;
+        }
+      }
+      self.setState({
+        listGroups: listGroups,
+      });
+    })
+    proxy.on('devCountMessageGroup', (groupId, count) => {
+      if (count > 0) {
+        var listGroups = this.state.listGroups;
+        for (var i = 0; i < listGroups.length; i++) {
+          var group = listGroups[i];
+          if (group.ID == groupId) {
+            listGroups[i].Count = 0;
+            break;
+          }
+        }
+        self.setState({
+          listGroups: listGroups,
+        });
+      }
     })
   }
 

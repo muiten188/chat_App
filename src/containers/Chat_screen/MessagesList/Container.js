@@ -17,12 +17,15 @@ class MessagesListContainer extends Component {
   }
   componentDidMount() {
     //this.props.loadMessages()
-    const { user, isGroupChat,group } = this.props;
+    const { user, isGroupChat, group } = this.props;
     this.onSignalEvent(isGroupChat);
-    if(!isGroupChat){
+
+    if (!isGroupChat) {
+      proxy.invoke("removeInteracPrivate");
       proxy.invoke('getAllMessagePrivate', user.ID);
     }
-    else{
+    else {
+      proxy.invoke("removeInteracGroup");
       proxy.invoke('getAllGroupMessage', group.ID);
     }
   }
@@ -62,7 +65,7 @@ class MessagesListContainer extends Component {
         console.log('isMe: ', isMe);
       })
     }
-    else{
+    else {
       proxy.on('allGroupMessage', (messages, userId) => {
         var arrMessages = [];
         for (var i = messages.length - 1; i >= 0; i--) {
@@ -82,7 +85,7 @@ class MessagesListContainer extends Component {
       })
       proxy.on('groupMessage', (message, isMe) => {
         var arrMessages = this.state.messages;
-        debugger;
+
         arrMessages.unshift(message);
         var arr15 = [];
         if (arrMessages.length > 10) {
@@ -100,10 +103,21 @@ class MessagesListContainer extends Component {
     }
   }
   componentWillUnmount() {
+    const { isGroupChat } = this.props;
+    this.onSignalEvent(isGroupChat);
+    if (!isGroupChat) {
+      proxy.invoke("removeInteracPrivate");
+    }
+    else {
+      proxy.invoke("removeInteracGroup");
+    }
     proxy.off("messagePrivates");
     proxy.off("messagePrivate");
     proxy.off("allGroupMessage");
     proxy.off("groupMessage");
+
+
+
   }
 
   render() {
