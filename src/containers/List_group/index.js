@@ -61,7 +61,18 @@ class ListGroup extends Component {
   componentDidMount() {
     try {
       this.onEventSignal();
-      proxy.invoke('loadAllGroup');
+      if (proxy.connection.state != 4) {
+        proxy.invoke('loadAllGroup');
+      }
+      else {
+        Alert.alert('Thông báo', 'Kết nối đến server bị đóng xin vui lòng đăng nhập lại.', [{
+          text: 'Ok',
+          onPress: (e) => {
+            Actions.reset('login');
+          }
+        }],
+          { cancelable: false });
+      }
     }
     catch (err) {
 

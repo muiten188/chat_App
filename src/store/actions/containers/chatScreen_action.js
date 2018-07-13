@@ -1,24 +1,35 @@
 import * as types from "../../constants/action_types";
 import * as AppConfig from "../../../config/app_config";
+import {Alert} from 'react-native';
 import { proxy } from '../../../helper/signalr';
 // const FIREBASE_REF_MESSAGES = firebaseService.database().ref('Messages')
 // const FIREBASE_REF_MESSAGES_LIMIT = 20
 
 export const sendMessage = (message, user, isGroupChat) => {
     return (dispatch) => {
-        
+
         dispatch(chatMessageLoading())
-        if (!isGroupChat) {
-            proxy.invoke('addMessagePrivate', user.ID, message).done(() => {
-                dispatch(chatMessageSuccess(message));
-            })
+        if (proxy.connection.state != 4) {
+            if (!isGroupChat) {
+                proxy.invoke('addMessagePrivate', user.ID, message).done(() => {
+                    dispatch(chatMessageSuccess(message));
+                })
+            }
+            else {
+                proxy.invoke('addMessageToGroup', user.ID, user.Name, message).done(() => {
+                    dispatch(chatMessageSuccess(message));
+                })
+            }
         }
         else {
-            proxy.invoke('addMessageToGroup', user.ID, user.Name, message).done(() => {
-                dispatch(chatMessageSuccess(message));
-            })
+            Alert.alert('Thông báo', 'Kết nối đến server bị đóng xin vui lòng đăng nhập lại.', [{
+                text: 'Ok',
+                onPress: (e) => {
+                  Actions.reset('login');
+                }
+              }],
+                { cancelable: false });
         }
-
         //let currentUser = firebaseService.auth().currentUser
         // let createdAt = new Date().getTime()
         // let chatMessage = {

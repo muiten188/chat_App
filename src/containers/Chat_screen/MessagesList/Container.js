@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { Alert } from 'react-native';
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
 import * as chatScreen_action from '../../../store/actions/containers/chatScreen_action';
 import { proxy } from '../../../helper/signalr';
 import MessageListComponent from './Component'
+import { Actions } from '../../../../node_modules/react-native-router-flux';
 
 class MessagesListContainer extends Component {
 
@@ -19,14 +21,25 @@ class MessagesListContainer extends Component {
     //this.props.loadMessages()
     const { user, isGroupChat, group } = this.props;
     this.onSignalEvent(isGroupChat);
-
-    if (!isGroupChat) {
-      proxy.invoke("removeInteracPrivate");
-      proxy.invoke('getAllMessagePrivate', user.ID);
+    if (proxy.connection.state != 4) {
+      if (!isGroupChat) {
+        proxy.invoke("removeInteracPrivate");
+        proxy.invoke('getAllMessagePrivate', user.ID);
+      }
+      else {
+        proxy.invoke("removeInteracGroup");
+        proxy.invoke('getAllGroupMessage', group.ID);
+      }
     }
     else {
-      proxy.invoke("removeInteracGroup");
-      proxy.invoke('getAllGroupMessage', group.ID);
+
+      Alert.alert('Thông báo', 'Kết nối đến server bị đóng xin vui lòng đăng nhập lại.', [{
+        text: 'Ok',
+        onPress: (e) => {
+          Actions.reset('login');
+        }
+      }],
+        { cancelable: false });
     }
   }
   onSignalEvent(isGroupChat) {
@@ -104,20 +117,18 @@ class MessagesListContainer extends Component {
   }
   componentWillUnmount() {
     const { isGroupChat } = this.props;
-    this.onSignalEvent(isGroupChat);
-    if (!isGroupChat) {
-      proxy.invoke("removeInteracPrivate");
-    }
-    else {
-      proxy.invoke("removeInteracGroup");
+    if (proxy.connection.state != 4) {
+      if (!isGroupChat) {
+        proxy.invoke("removeInteracPrivate");
+      }
+      else {
+        proxy.invoke("removeInteracGroup");
+      }
     }
     proxy.off("messagePrivates");
     proxy.off("messagePrivate");
     proxy.off("allGroupMessage");
     proxy.off("groupMessage");
-
-
-
   }
 
   render() {
