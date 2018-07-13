@@ -21,6 +21,20 @@ export default {
     width: 40,
     fontSize: 33
   },
+  disconnectSignalr: {
+    width: '100%',
+    height: 25,
+    backgroundColor: 'red',
+    alignItems:'center',
+    justifyContent:'center'
+  },
+  connectingSignalr:{
+    width: '100%',
+    height: 25,
+    backgroundColor: '#28a745',
+    alignItems:'center',
+    justifyContent:'center'
+  },
   check_full: {
     position: 'absolute',
     bottom: 25,
@@ -131,12 +145,12 @@ export default {
   tabHeading: {
     backgroundColor: '#fff',
   },
-  iconTab: { justifyContent: 'center', alignItems: 'center', height: 22,marginTop:3 },
-  textHeadingTab:{ justifyContent: 'center', alignItems: 'center',marginTop:-8 },
-  tabHeadingActive:{
+  iconTab: { justifyContent: 'center', alignItems: 'center', height: 22, marginTop: 3 },
+  textHeadingTab: { justifyContent: 'center', alignItems: 'center', marginTop: -8 },
+  tabHeadingActive: {
     backgroundColor: '#fff',
   },
-  textHeaderTabActive:{
-    color:'#007db7'
+  textHeaderTabActive: {
+    color: '#007db7'
   }
 };

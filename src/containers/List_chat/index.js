@@ -59,13 +59,15 @@ class ListChat extends Component {
   }
 
   componentDidMount() {
-    if (this.props.loginReducer.user != null) {
-      helperSignal.connectSignalr(this.props.loginReducer.user);
+    helperSignal.connectSignalr(this.props.loginReducer.user);
       this.onEventSignal();
-    }
-    else {
-      helper.getAsyncStorage("@user", this.onConnectSignal.bind(this));
-    }
+    // if (this.props.loginReducer.user != null) {
+    //   helperSignal.connectSignalr(this.props.loginReducer.user);
+    //   this.onEventSignal();
+    // }
+    // else {
+    //   helper.getAsyncStorage("@user", this.onConnectSignal.bind(this));
+    // }
 
   }
 

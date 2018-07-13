@@ -9,13 +9,13 @@ import reducers from './reducers/index';
 const initialState = {};
 
 const middleware = [thunk]
-
+export var store = null;
 // if (__DEV__) {
 //     middleware.push(logger);
 // }
 
 export default function storeConfig(callback) {
-    const store = createStore(reducers,
+    store = createStore(reducers,
         initialState,
         compose(
             applyMiddleware(...middleware)
@@ -29,7 +29,7 @@ export default function storeConfig(callback) {
     //         window.devToolsExtension ? window.devToolsExtension() : x => x
     //     )
     // )
-     callback(store)
+    callback(store)
     // persistStore(store, { storage: AsyncStorage }, () => callback(store))
     // let createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
     // let store1 = createStoreWithMiddleware(reducers, initialState);

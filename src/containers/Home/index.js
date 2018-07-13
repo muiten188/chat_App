@@ -45,6 +45,13 @@ import ListChat from '../List_chat';
 import ListGroup from '../List_group';
 import * as helper from '../../helper/signalr';
 import * as _helper from '../../helper';
+import { NetInfo } from 'react-native';
+
+NetInfo.getConnectionInfo().then((connectionInfo) => {
+  console.log('Initial, type: ' + connectionInfo.type + ', effectiveType: ' + connectionInfo.effectiveType);
+});
+
+
 const blockAction = false;
 const blockLoadMoreAction = false;
 
@@ -70,8 +77,26 @@ class Home extends Component {
     if (this.props.loginReducer.user != null) {
       _helper.setAsyncStorage("@user", this.props.loginReducer.user);
     }
-
+    NetInfo.addEventListener(
+      'connectionChange',
+      this.handleFirstConnectivityChange.bind(this)
+    );
   }
+  handleFirstConnectivityChange(connectionInfo) {
+    const { homeAction, homeReducer } = this.props;
+    console.log('First change, type: ' + connectionInfo.type + ', effectiveType: ' + connectionInfo.effectiveType);
+    // NetInfo.removeEventListener(
+    //     'connectionChange',
+    //     handleFirstConnectivityChange
+    // );
+    if (connectionInfo.type == 'none') {
+      homeAction.onDisconnect();
+    }
+    else if (homeReducer.signalrDisconnect == true) {
+      homeAction.onReconnecting();
+    }
+  }
+
   componentDidUpdate(prevProps, prevState) {
     const { dispatch } = this.props.navigation;
     const { isLoading, listResult } = this.props.homeReducer;
@@ -100,32 +125,14 @@ class Home extends Component {
     const locale = "vn";
     const { dispatch } = this.props.navigation;
     const {
-      listResult,
       isLoading,
-      searchErorr,
-      valuesForm,
-      currentPage,
-      pageSize,
-      loadEnd
+      signalrDisconnect,
+      signalrReconnecting,
+      signalrConnected
     } = this.props.homeReducer;
-    blockLoadMoreAction = loadEnd;
     const { homeAction } = this.props;
     const { user } = this.props.loginReducer;
-    if (searchErorr == true) {
-      Alert.alert(
-        "Thông báo",
-        "Tìm kiếm lỗi kiểm tra lại đường truyền.",
-        [
-          {
-            text: "Ok",
-            onPress: e => {
-              homeAction.clearError();
-            }
-          }
-        ],
-        { cancelable: false }
-      );
-    }
+
     return (
 
       <Container style={styles.container}>
@@ -142,6 +149,16 @@ class Home extends Component {
                 }} />
               </View>
               <HeaderContent />
+              {
+                signalrDisconnect ? <View style={styles.disconnectSignalr}>
+                  <Text style={{ color: '#fff' }}>{"Mất kết nối..."}</Text>
+                </View> : null
+              }
+              {
+                signalrReconnecting ? <View style={styles.connectingSignalr}>
+                  <Text style={{ color: '#fff' }}>{"Đang kết nối..."}</Text>
+                </View> : null
+              }
               <View style={styles.listResult_container}>
                 <Tabs initialPage={0}
                   tabBarPosition={'bottom'}

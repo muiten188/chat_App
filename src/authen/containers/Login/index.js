@@ -151,7 +151,31 @@ class login extends React.Component {
   componentDidMount() {
     const { loginAction } = this.props;
     const { loginReducer } = this.props;
+    helper.getAsyncStorage("@user", this.onLoginFromCache.bind(this));
     //this._setupGoogleSignin();
+  }
+  onLoginFromCache(promise) {
+    const { setUser } = this.props.loginAction;
+    promise.done((value) => {
+      var user = JSON.parse(value);
+      setUser(user);
+    })
+  }
+  
+  componentDidUpdate() {
+    const { loginReducer } = this.props;
+    if (
+      loginReducer.Logged != null &&
+      loginReducer.Logged == false &&
+      loginReducer.Loging == false
+    ) {
+      Alert.alert("Thông báo", "Đăng nhập thất bại");
+      loginReducer.Logged = null;
+    }
+    else if (loginReducer.Logged == true) {
+      helper.setAsyncStorage("@user", loginReducer.user);
+      Actions.reset('home');
+    }
   }
 
   onValueChange(value) {
@@ -179,7 +203,7 @@ class login extends React.Component {
       })
 
       const user = await GoogleSignin.currentUserAsync()
-      
+
       console.log(user)
       this.setState({ user })
     } catch (err) {
@@ -190,12 +214,12 @@ class login extends React.Component {
   _googleSignIn() {
     GoogleSignin.signIn()
       .then(user => {
-        
+
         console.log(user)
         this.setState({ user: user })
       })
       .catch(err => {
-        
+
         console.warn(err)
       })
       .done()
@@ -213,14 +237,6 @@ class login extends React.Component {
   render() {
     const { loginAction, handleSubmit, submitting, loginReducer } = this.props;
     const locale = "vn";
-    if (
-      loginReducer.Logged != null &&
-      loginReducer.Logged == false &&
-      loginReducer.Loging == false
-    ) {
-      Alert.alert("Thông báo", "Đăng nhập thất bại");
-      loginReducer.Logged = null;
-    }
     return (
       <Container>
 

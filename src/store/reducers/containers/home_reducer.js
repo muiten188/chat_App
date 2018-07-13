@@ -1,61 +1,34 @@
 import * as types from "../../constants/action_types";
 import { FETCH_CATCH } from "../../constants/action_types";
 const initState = {
-  isLoading: false,
-  listResult: [{},{},{},{},{}],
-  searchErorr: false,
-  valuesForm: {},
-  currentPage: 1,
-  pageSize: 10,
-  loadEnd: false
+  isLoading:false,
+  signalrDisconnect:false,
+  signalrReconnecting:false,
+  signalrConnected:true
 };
 
-export default function(state = initState, action = {}) {
+export default function (state = initState, action = {}) {
   switch (action.type) {
-    case types.LIST_RESULT:
+    case types.SIGNALR_DISCONNECT:
       return {
         ...state,
-        listResult: action.data,
-        isLoading: initState.isLoading,
-        currentPage: initState.currentPage,
-        searchErorr: initState.searchErorr,
-        valuesForm: action.valuesForm,
-        loadEnd: initState.loadEnd
+        signalrDisconnect: true,
+        signalrReconnecting:false,
+        signalrConnected:false
       };
-    case types.SEARCHING:
+    case types.SIGNALR_RECONNECTING:
       return {
         ...state,
-        isLoading: action.isLoading,
-        searchErorr: initState.searchErorr
+        signalrDisconnect: false,
+        signalrReconnecting:true,
+        signalrConnected:false
       };
-    case types.SEARCH_ERROR:
+    case types.SIGNALR_CONNECTED:
       return {
         ...state,
-        isLoading: action.isLoading,
-        searchErorr: true
-      };
-    case types.FETCH_CATCH:
-      return {
-        ...state,
-        isLoading: action.isLoading,
-        searchErorr: true
-      };
-    case types.SEARCH_RESET:
-      return {
-        ...state,
-        ...initState
-      };
-    case types.SEARCH_LOAD_MORE:
-      return {
-        ...state,
-        listResult: [...state.listResult, ...action.data],
-        loadEnd:
-          action.data && action.data.length == initState.pageSize
-            ? initState.loadEnd
-            : true,
-        isLoading: initState.isLoading,
-        searchErorr: initState.searchErorr,
-        currentPage: state.currentPage + 1
+        signalrDisconnect: false,
+        signalrReconnecting:false,
+        signalrConnected:true
       };
     case types.SEARCH_CLEAR_ERROR:
       return {

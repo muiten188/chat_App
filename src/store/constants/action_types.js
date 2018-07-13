@@ -11,6 +11,10 @@ export const LOGGED_IN = "LOGGED_IN";
 export const LOGGED_OUT = "LOGGED_OUT";
 export const EXPORT_FORM = "EXPORT_FORM";
 export const AUTHEN_EXPRI = "AUTHEN_EXPRI";
+//Home(App)
+export const SIGNALR_DISCONNECT = "SIGNALR_DISCONNECT";
+export const SIGNALR_RECONNECTING = "SIGNALR_RECONNECTING";
+export const SIGNALR_CONNECTED = "SIGNALR_CONNECTED";
 
 export const DEFAULT = "DEFAULT";
 //search actions

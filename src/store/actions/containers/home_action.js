@@ -2,129 +2,21 @@ import * as types from "../../constants/action_types";
 import * as AppConfig from "../../../config/app_config";
 import { buildHeader, fetchCatch, _logout } from "../../../helper";
 
-export function search(values, currentPage, pageSize, user) {
-  let data = [];
-  let dataPost = values || {};
-  dataPost = { ...dataPost, currentPage: 1, pageSize: pageSize };
-  return dispatch => {
-    //dispatch(_searching());
-
-    fetch(`${AppConfig.API_HOST}?${getQueryString(dataPost)}`, {
-      headers: buildHeader(user),
-      method: "GET",
-      qs: dataPost
-    })
-      .then(function (response) {
-        if (response.status == 401) {
-          dispatch(_logout());
-        } else if (response.status != 200) {
-          dispatch(_seachError());
-        } else {
-          return response.json();
-        }
-      })
-      .then(function (responseJson) {
-        if (responseJson) {
-          if (responseJson.data) {
-            data = responseJson.data;
-            dispatch(_search(data, dataPost));
-          } else {
-            dispatch(_seachError());
-          }
-        }
-        else {
-          dispatch(_seachError());
-        }
-      })
-      .catch(function (error) {
-        dispatch(_seachError());
-      });
-  };
-}
-
-function _search(data, valuesForm) {
+export function onDisconnect() {
   return {
-    type: types.LIST_RESULT,
-    data: data,
-    isLoading: false,
-    valuesForm: valuesForm
+    type: types.SIGNALR_DISCONNECT,
   };
 }
 
-function _searching() {
+export function onReconnecting() {
   return {
-    type: types.SEARCHING,
-    isLoading: true
+    type: types.SIGNALR_RECONNECTING,
   };
 }
 
-function _seachError() {
+export function onConnected(){
   return {
-    type: types.SEARCH_ERROR,
-    isLoading: false
-  };
-}
-
-function getQueryString(params) {
-  return Object.keys(params)
-    .map(k => {
-      if (Array.isArray(params[k])) {
-        return params[k]
-          .map(val => `${encodeURIComponent(k)}[]=${encodeURIComponent(val)}`)
-          .join("&");
-      }
-
-      return `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}`;
-    })
-    .join("&");
-}
-
-export function searchReset() {
-  return {
-    type: types.SEARCH_RESET
-  };
-}
-
-export function loadMore(values, currentPage, pageSize, user) {
-  let data = [];
-  let dataPost = values || {};
-  dataPost = { ...dataPost, currentPage: currentPage + 1, pageSize: pageSize };
-  return dispatch => {
-    // dispatch(_searching());
-    fetch(`${AppConfig.API_HOST}?${getQueryString(dataPost)}`, {
-      headers: buildHeader(user),
-      method: "GET",
-      qs: dataPost
-    })
-      .then(function (response) {
-        if (response.status == 401) {
-          dispatch(_logout());
-        } else if (response.status != 200) {
-          dispatch(_seachError());
-        } else {
-          return response.json();
-        }
-      })
-      .then(function (responseJson) {
-        if (responseJson) {
-          if (responseJson.data) {
-            data = responseJson.data;
-            dispatch(_dataMore(data));
-          } else {
-            dispatch(_seachError());
-          }
-        }
-      })
-      .catch(function (error) {
-        dispatch(_seachError());
-      });
-  };
-}
-
-function _dataMore(data) {
-  return {
-    type: types.SEARCH_LOAD_MORE,
-    data: data
+    type: types.SIGNALR_CONNECTED,
   };
 }
 
