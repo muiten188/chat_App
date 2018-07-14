@@ -73,6 +73,9 @@ class ListChat extends Component {
 
   onEventSignal() {
     var self = this;
+    if(!proxy){
+      return;
+    }
     proxy.on('allUser', (users) => {
       console.log('List Users: ', users);
       self.setState({

@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Alert } from 'react-native';
+import { Alert,View,Text } from 'react-native';
 import { connect } from 'react-redux'
+import { Container } from 'native-base';
 import { bindActionCreators } from "redux";
 import * as chatScreen_action from '../../../store/actions/containers/chatScreen_action';
 import { proxy } from '../../../helper/signalr';
 import MessageListComponent from './Component'
 import { Actions } from '../../../../node_modules/react-native-router-flux';
-
+import styles from "./Styles";
 class MessagesListContainer extends Component {
 
   constructor(props) {
@@ -133,10 +134,26 @@ class MessagesListContainer extends Component {
 
   render() {
     const { props } = this;
+    const {
+      signalrDisconnect,
+      signalrReconnecting,
+    } = this.props.homeReducer;
     //const data = getChatItems(props.chatScreenReducer.messages).reverse();
     return (
-      <MessageListComponent
-        data={this.state.messages} cUser={props.user} group={props.group} />
+      <Container>
+        {
+          signalrDisconnect ? <View style={styles.disconnectSignalr}>
+            <Text style={{ color: '#fff' }}>{"Mất kết nối..."}</Text>
+          </View> : null
+        }
+        {
+          signalrReconnecting ? <View style={styles.connectingSignalr}>
+            <Text style={{ color: '#fff' }}>{"Đang kết nối..."}</Text>
+          </View> : null
+        }
+        <MessageListComponent
+          data={this.state.messages} cUser={props.user} group={props.group} />
+      </Container>
     )
   }
 }
@@ -146,6 +163,7 @@ const getChatItems = data => {
 }
 
 const mapStateToProps = state => ({
+  homeReducer: state.homeReducer,
   chatScreenReducer: state.chatScreenReducer
 })
 

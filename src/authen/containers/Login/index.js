@@ -151,6 +151,7 @@ class login extends React.Component {
   componentDidMount() {
     const { loginAction } = this.props;
     const { loginReducer } = this.props;
+    
     helper.getAsyncStorage("@user", this.onLoginFromCache.bind(this));
     //this._setupGoogleSignin();
   }
@@ -158,12 +159,15 @@ class login extends React.Component {
     const { setUser } = this.props.loginAction;
     promise.done((value) => {
       var user = JSON.parse(value);
-      setUser(user);
+      if(value&&value!=''){
+        setUser(user);
+      }
     })
   }
   
   componentDidUpdate() {
     const { loginReducer } = this.props;
+    
     if (
       loginReducer.Logged != null &&
       loginReducer.Logged == false &&

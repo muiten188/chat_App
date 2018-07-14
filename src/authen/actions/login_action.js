@@ -4,6 +4,7 @@ import * as types from "../../store/constants/action_types";
 import * as AppConfig from "../../config/app_config";
 import { Actions } from 'react-native-router-flux';
 import { setAsyncStorage } from "../../helper/index";
+import * as helper from '../../helper';
 export function login(user) {
 
   return dispatch => {
@@ -37,7 +38,7 @@ export function login(user) {
           user = responseJson;
           dispatch(_login(true, user));
           Keyboard.dismiss();
-          
+
         }
       })
       .catch(function (error) {
@@ -61,6 +62,7 @@ export function _loging() {
 }
 
 export function _login(status, user) {
+  
   if (status) {
     return {
       type: types.LOGIN_SUCCESS,
@@ -82,6 +84,8 @@ export function setUser(user) {
 }
 
 export function logout() {
+  helper.clearAsyncStorage();
+    //Actions.reset('login');
   return {
     type: types.LOGGED_OUT
   };

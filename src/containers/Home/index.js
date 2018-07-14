@@ -45,11 +45,7 @@ import ListChat from '../List_chat';
 import ListGroup from '../List_group';
 import * as helper from '../../helper/signalr';
 import * as _helper from '../../helper';
-import { NetInfo } from 'react-native';
 
-NetInfo.getConnectionInfo().then((connectionInfo) => {
-  console.log('Initial, type: ' + connectionInfo.type + ', effectiveType: ' + connectionInfo.effectiveType);
-});
 
 
 const blockAction = false;
@@ -77,25 +73,9 @@ class Home extends Component {
     if (this.props.loginReducer.user != null) {
       _helper.setAsyncStorage("@user", this.props.loginReducer.user);
     }
-    NetInfo.addEventListener(
-      'connectionChange',
-      this.handleFirstConnectivityChange.bind(this)
-    );
+    
   }
-  handleFirstConnectivityChange(connectionInfo) {
-    const { homeAction, homeReducer } = this.props;
-    console.log('First change, type: ' + connectionInfo.type + ', effectiveType: ' + connectionInfo.effectiveType);
-    // NetInfo.removeEventListener(
-    //     'connectionChange',
-    //     handleFirstConnectivityChange
-    // );
-    if (connectionInfo.type == 'none') {
-      homeAction.onDisconnect();
-    }
-    else if (homeReducer.signalrDisconnect == true) {
-      homeAction.onReconnecting();
-    }
-  }
+  
 
   componentDidUpdate(prevProps, prevState) {
     const { dispatch } = this.props.navigation;
