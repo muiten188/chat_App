@@ -10,7 +10,7 @@ import { Actions } from '../../node_modules/react-native-router-flux';
 export var proxy = null;
 export var connection = null;
 let intervalReConnection = null;
-
+let isAuthorize = true;
 var netConnected = true;
 NetInfo.getConnectionInfo().then((connectionInfo) => {
     console.log('khởi tạo net info, type: ' + connectionInfo.type + ', effectiveType: ' + connectionInfo.effectiveType);
@@ -39,6 +39,11 @@ function handleFirstConnectivityChange(connectionInfo) {
 }
 
 export function connectSignalr(user) {
+    isAuthorize = true;
+    if (intervalReConnection) {
+        clearInterval(intervalReConnection);
+    }
+    intervalReConnection = null;
     if (!user) {
         store.dispatch(loginAction.logout());
         return;
@@ -67,12 +72,12 @@ export function connectSignalr(user) {
         console.log('We are currently experiencing difficulties with the connection.')
     });
 
-    connection.disconnected(function () {
+    connection.disconnected(function (error) {
         console.log('disabled signal')
-        if (typeof (error.source) == "string" || error.source.status != 401) {
+        if (isAuthorize) {
             //connection.start().done(onConnected).fail(onConnectedFail);
-            if (intervalReConnection) {
-                intervalReConnection = setInterval(onReconnect(connection), 2000);
+            if (!intervalReConnection) {
+                intervalReConnection = setInterval(onReconnect, 2000);
             }
         }
     });
@@ -81,7 +86,7 @@ export function connectSignalr(user) {
         if (netConnected) {
             store.dispatch(homeAction.onReconnecting());
         }
-        if (typeof (error.source) == "string" || error.source.status != 401) {
+        if (!(error && error.source && error.source.status == 401)) {
             const errorMessage = error.message;
             let detailedError = '';
             console.log('signalr error!', error)
@@ -92,10 +97,11 @@ export function connectSignalr(user) {
                 console.log('When using react-native-signalr on ios with http remember to enable http in App Transport Security https://github.com/olofd/react-native-signalr/issues/14')
             }
             if (!intervalReConnection && connection.state == 4) {
-                intervalReConnection = setInterval(onReconnect(connection), 2000);
+                intervalReConnection = setInterval(onReconnect, 2000);
             }
         }
         else {
+            isAuthorize = false;
             if (intervalReConnection) {
                 clearInterval(intervalReConnection);
             }
@@ -124,14 +130,18 @@ function onConnected() {
 }
 
 function onConnectedFail(e) {
-    if (typeof (e.source) == "string" || e.source.status != 401) {
-        intervalReConnection = setInterval(onReconnect, 2000); //kết nối lại trong vòng 2 giây
+    if (!(e && e.source && e.source.status == 401)) {
+        if (!intervalReConnection) {
+            intervalReConnection = setInterval(onReconnect, 2000); //kết nối lại trong vòng 2 giây
+        }
+
         var reducer = store.getState();
         if (!(reducer.homeReducer.signalrDisconnect == true || reducer.homeReducer.signalrReconnecting == true)) {
             store.dispatch(homeAction.onDisconnect());
         }
-        console.log('Connection Failed: ', e);
+
     }
+    console.log('Connection Failed: ', e);
 }
 
 function onReconnect() {

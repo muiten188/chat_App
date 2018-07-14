@@ -59,21 +59,19 @@ class ListChat extends Component {
   }
 
   componentDidMount() {
-    helperSignal.connectSignalr(this.props.loginReducer.user);
+    if (this.props.loginReducer.user != null) {
+      helperSignal.connectSignalr(this.props.loginReducer.user);
       this.onEventSignal();
-    // if (this.props.loginReducer.user != null) {
-    //   helperSignal.connectSignalr(this.props.loginReducer.user);
-    //   this.onEventSignal();
-    // }
-    // else {
-    //   helper.getAsyncStorage("@user", this.onConnectSignal.bind(this));
-    // }
+    }
+    else {
+      helper.getAsyncStorage("@user", this.onConnectSignal.bind(this));
+    }
 
   }
 
   onEventSignal() {
     var self = this;
-    if(!proxy){
+    if (!proxy) {
       return;
     }
     proxy.on('allUser', (users) => {
@@ -143,15 +141,18 @@ class ListChat extends Component {
   }
 
   onConnectSignal(promise) {
-    promise.done((value) => {
+    promise.then((value) => {
       var user = JSON.parse(value);
-      if (proxy) {
+      if (connection&&connection.state!=4) {
         connection.stop();
+      }else{
+        helperSignal.connectSignalr(user);
       }
-      helperSignal.connectSignalr(user);
-      this.props.loginReducer.user = user;
       this.onEventSignal();
-    })
+      this.props.loginReducer.user = user;
+    }).catch((e)=> {
+      console.log( "get cache failed!".e );
+    });
   }
 
   componentDidUpdate(prevProps, prevState) {

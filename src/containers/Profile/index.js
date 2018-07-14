@@ -31,6 +31,7 @@ import * as profileAction from "../../store/actions/containers/profile_action";
 import Loading from "../../components/Loading";
 import { Actions, Router, Scene, Stack } from 'react-native-router-flux';
 import { connection } from '../../helper/signalr';
+import * as loginAction from '../../authen/actions/login_action';
 const blockAction = false;
 const blockLoadMoreAction = false;
 
@@ -56,12 +57,13 @@ class Profile extends Component {
 
   render() {
     const locale = "vn";
+    const { loginAction, loginReducer } = this.props;
     return (
       <Container style={styles.container}>
-        <Text>abc</Text>
-        <Button onPress={() => { connection.stop() }}>
-            <Text>Click Me!</Text>
-          </Button>
+        <Text>{loginReducer.user ? loginReducer.user.username : 'name'}</Text>
+        <Button onPress={() => { loginAction.logout(); Actions.reset('login') }}>
+          <Text>Đăng xuất</Text>
+        </Button>
       </Container>
     );
   }
@@ -76,7 +78,8 @@ function mapStateToProps(state, props) {
 }
 function mapToDispatch(dispatch) {
   return {
-    profileAction: bindActionCreators(profileAction, dispatch)
+    profileAction: bindActionCreators(profileAction, dispatch),
+    loginAction: bindActionCreators(loginAction, dispatch),
   };
 }
 
