@@ -11,13 +11,11 @@ export default StyleSheet.create({
   },
   bubbleView_me: {
     backgroundColor: '#1E90FF',
-    flex: 1,
     borderRadius: 8,
     padding:8
   },
   bubbleView_friend: {
     backgroundColor: '#cccc',
-    flex: 1,
     borderRadius: 8,
     padding:8
   },

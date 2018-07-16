@@ -21,6 +21,7 @@ class MessageFormContainer extends Component {
         isGroupChat={props.isGroupChat}
         group={props.group}
         user={props.user}
+        userAuthen={props.loginReducer.user}
         sending={props.chatScreenReducer.sending}
         sendMessage={props.chatScreen_action.sendMessage}
         updateMessage={props.chatScreen_action.updateMessage}
@@ -31,7 +32,8 @@ class MessageFormContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  chatScreenReducer: state.chatScreenReducer//,
+  chatScreenReducer: state.chatScreenReducer,
+  loginReducer: state.loginReducer
   // sending: state.chat.sending,
   // sendingError: state.chat.sendingError,
   // message: state.chat.message
