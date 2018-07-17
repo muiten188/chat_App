@@ -143,15 +143,17 @@ class ListChat extends Component {
   onConnectSignal(promise) {
     promise.then((value) => {
       var user = JSON.parse(value);
-      if (connection&&connection.state!=4) {
-        connection.stop();
-      }else{
+      if (connection && connection.state != 4) {
+        proxy.invoke("loadAllContact");
+        proxy.invoke("GetAllMessageUser");
+
+      } else {
         helperSignal.connectSignalr(user);
       }
       this.onEventSignal();
       this.props.loginReducer.user = user;
-    }).catch((e)=> {
-      console.log( "get cache failed!".e );
+    }).catch((e) => {
+      console.log("get cache failed!".e);
     });
   }
 
