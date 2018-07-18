@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-const FBSDK = require('react-native-fbsdk');
 import {
   TouchableOpacity,
   Image,
@@ -35,10 +34,12 @@ import { Field, reduxForm } from "redux-form";
 import { InputField } from "../../../components/Element/Form";
 import Loading from "../../../components/Loading";
 import { Actions } from "react-native-router-flux";
-const { LoginButton, LoginManager, ShareDialog, AccessToken, GraphRequestManager, GraphRequest } = FBSDK;
-import { GoogleSignin, GoogleSigninButton } from 'react-native-google-signin';
+
 import * as helper from "../../../helper";
 import PropTypes from 'prop-types';
+
+import FcmClient from '../../../helper/fcmClient';
+
 const username = "";
 const password = "";
 
@@ -68,41 +69,6 @@ class login extends React.Component {
     header: null
   };
 
-  _fbAuth() {
-    LoginManager.logInWithReadPermissions(['public_profile']).then((result) => {
-      if (result.isCancelled) {
-        console.log("Login Cancelled");
-      } else {
-        console.log("Login Success permission granted:" + result.grantedPermissions);
-        AccessToken.getCurrentAccessToken().then(
-          (data) => {
-            let accessToken = data.accessToken;
-            //alert(accessToken.toString());
-
-            const infoRequest = new GraphRequest(
-              '/me',
-              {
-                accessToken: accessToken,
-                parameters: {
-                  fields: {
-                    string: 'email,name,first_name,middle_name,last_name'
-                  }
-                }
-              },
-              this.responseInfoCallback.bind(this)
-            );
-
-            // Start the graph request.
-            new GraphRequestManager().addRequest(infoRequest).start();
-
-          })
-      }
-    }, function (error) {
-      console.log("some error occurred!!");
-    })
-  }
-
-
   constructor(props) {
     super(props);
 
@@ -116,43 +82,18 @@ class login extends React.Component {
     I18n.defaultLocale = "vi";
     I18n.locale = "vi";
     I18n.currentLocale();
-    AccessToken.getCurrentAccessToken().then(
-      (data) => {
-        if (data) {
-          let accessToken = data.accessToken;
 
-          const infoRequest = new GraphRequest(
-            '/me',
-            {
-              accessToken: accessToken,
-              parameters: {
-                fields: {
-                  string: 'email,name,first_name,middle_name,last_name'
-                }
-              }
-            },
-            this.responseInfoCallback.bind(this)
-          );
-
-          // Start the graph request.
-          new GraphRequestManager().addRequest(infoRequest).start();
-        }
-      })
   }
 
   componentWillMount() {
-    GoogleSignin.hasPlayServices({ autoResolve: true });
-    GoogleSignin.configure({
-      iosClientId: '617324734115-od9b4l2mf95331gg9m4u0a4gggq0fpjo.apps.googleusercontent.com',
-      webClientId: '229107549229-mqe085vtq1s6pt07frl00ptcnjb0c7t7.apps.googleusercontent.com'
-    })
+    FcmClient.registerFCM();
   }
 
   componentDidMount() {
     const { loginAction } = this.props;
     const { loginReducer } = this.props;
     helper.getAsyncStorage("@user", this.onLoginFromCache.bind(this));
-    //this._setupGoogleSignin();
+
   }
   onLoginFromCache(promise) {
     const { setUser } = this.props.loginAction;
@@ -184,56 +125,6 @@ class login extends React.Component {
     this.setState({
       languageSelect: value
     });
-  }
-
-  async _setupGoogleSignin() {
-    try {
-      await GoogleSignin.hasPlayServices({ autoResolve: true })
-      // const configPlatform = {
-      //   ...Platform.select({
-      //     ios: {
-      //       iosClientId: config.iosClientId
-      //     },
-      //     android: {}
-      //   })
-      // }
-
-      await GoogleSignin.configure({
-        //...configPlatform,
-        webClientId: '229107549229-q7qch6d8soskk5577u3so1s4np1s9aps.apps.googleusercontent.com',
-        offlineAccess: false
-      })
-
-      const user = await GoogleSignin.currentUserAsync()
-
-      console.log(user)
-      this.setState({ user })
-    } catch (err) {
-      console.warn('Google signin error', err.code, err.message)
-    }
-  }
-
-  _googleSignIn() {
-    GoogleSignin.signIn()
-      .then(user => {
-
-        console.log(user)
-        this.setState({ user: user })
-      })
-      .catch(err => {
-
-        console.warn(err)
-      })
-      .done()
-  }
-
-  _googleSignOut() {
-    GoogleSignin.revokeAccess()
-      .then(() => GoogleSignin.signOut())
-      .then(() => {
-        this.setState({ user: null })
-      })
-      .done()
   }
 
   render() {

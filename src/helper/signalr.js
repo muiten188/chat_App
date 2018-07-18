@@ -25,6 +25,9 @@ function handleFirstConnectivityChange(connectionInfo) {
     //     'connectionChange',
     //     handleFirstConnectivityChange
     // );
+    if(!store){
+        return;
+    }
     var reducer = store.getState();
     if (connectionInfo.type == 'none') {
         netConnected = false;

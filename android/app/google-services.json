@@ -1,47 +1,27 @@
 {
   "project_info": {
-    "project_number": "229107549229",
-    "firebase_url": "https://wifi-marketing-196509.firebaseio.com",
-    "project_id": "wifi-marketing-196509",
-    "storage_bucket": "wifi-marketing-196509.appspot.com"
+    "project_number": "746826718564",
+    "firebase_url": "https://chat-app-1a4dc.firebaseio.com",
+    "project_id": "chat-app-1a4dc",
+    "storage_bucket": "chat-app-1a4dc.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:229107549229:android:d319bec6d8bb8dec",
+        "mobilesdk_app_id": "1:746826718564:android:c70c84e9871da2ee",
         "android_client_info": {
           "package_name": "com.chat_app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "229107549229-knm366me6satqo7d1mepr5ihi7j2tpca.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.chat_app",
-            "certificate_hash": "4748b6adc001a8bb0c3ef284b20149a86ff650a8"
-          }
-        },
-        {
-          "client_id": "229107549229-mqe085vtq1s6pt07frl00ptcnjb0c7t7.apps.googleusercontent.com",
-          "client_type": 3
-        },
-        {
-          "client_id": "229107549229-q7qch6d8soskk5577u3so1s4np1s9aps.apps.googleusercontent.com",
-          "client_type": 3
-        },
-        {
-          "client_id": "229107549229-uuiaqkemvctrven1eo3q6h0npkuuu6kb.apps.googleusercontent.com",
-          "client_type": 3
-        },
-        {
-          "client_id": "229107549229-mqe085vtq1s6pt07frl00ptcnjb0c7t7.apps.googleusercontent.com",
+          "client_id": "746826718564-ku4cuog6fac7ujkpkqmljomr0eav8770.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD5kBQtHbhB5M-PJdTpO9asfuUT3TGlQYc"
+          "current_key": "AIzaSyB6gRqZZVhPQFbzwliRM9HdusyFZ_0mkWo"
         }
       ],
       "services": {
@@ -49,13 +29,8 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "229107549229-mqe085vtq1s6pt07frl00ptcnjb0c7t7.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2
