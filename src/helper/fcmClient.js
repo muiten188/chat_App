@@ -22,20 +22,21 @@ class FcmClient {
     } catch (e) {
       console.log(e);
     }
-    // FCM.getFCMToken().then(token => {
-    //   if (token) {
-    //     this.device_token = token;
-    //     this.updateFcmToken(token);
-    //   }
-    //   setTimeout(() => {
-    //     FCM.getInitialNotification().then((notif) => {
-    //       if (notif) {
-    //         //notif.opened_from_tray = true;
-    //       }
-    //       this.processNotification(notif);
-    //     });
-    //   }, 1500);
-    // });
+    FCM.getFCMToken().then(token => {
+      if (token) {
+        this.device_token = token;
+        debugger;
+        this.updateFcmToken(token);
+      }
+      setTimeout(() => {
+        FCM.getInitialNotification().then((notif) => {
+          if (notif) {
+            notif.opened_from_tray = true;
+          }
+          this.processNotification(notif);
+        });
+      }, 1500);
+    });
 
     this.notificationListener = FCM.on(FCMEvent.Notification, (notify) => {
       this.processNotification(notify);
@@ -44,7 +45,9 @@ class FcmClient {
     this.refreshTokenListener = FCM.on(FCMEvent.RefreshToken, (token) => {
       if (token) {
         this.device_token = token;
-        //this.updateFcmToken(token);
+        debugger;
+        console.log('device_token:',token)
+        this.updateFcmToken(token);
       }
     });
   };
@@ -111,7 +114,7 @@ class FcmClient {
         if (!message_id && notif) {
           message_id = notif['message_id'];
         }
-        let last_message_id = await StorageHelper.get('message_id');
+        let last_message_id = ''//await StorageHelper.get('message_id');
         let image_link = null;
         if (!image_link) {
           image_link = notif['gcm.notification.image_link'];
@@ -120,7 +123,7 @@ class FcmClient {
           image_link = notif['image_link'];
         }
         if (message_id != last_message_id && notif.body != '' && notif.body != undefined) {
-          StorageHelper.set('message_id', message_id);
+          //StorageHelper.set('message_id', message_id);
           try {
             console.log('notif', notif);
             let hapuType = notif.hapuType;
@@ -176,8 +179,8 @@ class FcmClient {
   showLocalMsg(type, title, body, image_link, message_id, objectId) {
     console.log(body);
     FCM.presentLocalNotification({
-      id: message_id,//"UNIQ_ID_STRING",                               // (optional for instant notification)
-      message_id: message_id,
+      //id: message_id,//"UNIQ_ID_STRING",                               // (optional for instant notification)
+      //message_id: message_id,
       title: title,                     // as FCM payload
       body: body,                    // as FCM payload (required)
       sound: 'default',                                   // as FCM payload
@@ -194,11 +197,11 @@ class FcmClient {
       sub_text: body,                      // Android only
       color: 'red',                                       // Android only
       vibrate: 300,                                       // Android only default: 300, no vibration if you pass null
-      tag: 'some_tag',                                    // Android only
-      group: 'group',                                     // Android only
-      image_link: image_link,
-      picture: "https://google.png",                      // Android only bigPicture style
-      my_custom_data:'my_custom_field_value',             // extra data you want to throw
+      // tag: 'some_tag',                                    // Android only
+      // group: 'group',                                     // Android only
+      // image_link: image_link,
+      // picture: "https://google.png",                      // Android only bigPicture style
+      // my_custom_data:'my_custom_field_value',             // extra data you want to throw
       lights: true,                                       // Android only, LED blinking (default false)
       show_in_foreground: true                                  // notification when app is in foreground (local & remote)
     });
@@ -206,19 +209,19 @@ class FcmClient {
   }
 
   initSubscribe() {
-    setTimeout(async () => {
-      try {
-        let userInfo = await StorageHelper.getUserInfo();
-        let new_group = userInfo.topics;
-        for (let i in new_group) {
-          if (new_group[i]) {
-            FCM.subscribeToTopic(new_group[i]);
-          }
-        }
-      } catch (e) {
-        console.log('initSubscribe', e);
-      }
-    }, 500);
+    // setTimeout(async () => {
+    //   try {
+    //     let userInfo = await StorageHelper.getUserInfo();
+    //     let new_group = userInfo.topics;
+    //     for (let i in new_group) {
+    //       if (new_group[i]) {
+    //         FCM.subscribeToTopic(new_group[i]);
+    //       }
+    //     }
+    //   } catch (e) {
+    //     console.log('initSubscribe', e);
+    //   }
+    // }, 500);
   }
 
   unRegisterFCM() {

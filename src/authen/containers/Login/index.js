@@ -38,7 +38,6 @@ import { Actions } from "react-native-router-flux";
 import * as helper from "../../../helper";
 import PropTypes from 'prop-types';
 
-import FcmClient from '../../../helper/fcmClient';
 
 const username = "";
 const password = "";
@@ -86,7 +85,7 @@ class login extends React.Component {
   }
 
   componentWillMount() {
-    FcmClient.registerFCM();
+    
   }
 
   componentDidMount() {

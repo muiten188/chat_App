@@ -45,7 +45,7 @@ import ListChat from '../List_chat';
 import ListGroup from '../List_group';
 import * as helper from '../../helper/signalr';
 import * as _helper from '../../helper';
-
+import FcmClient from '../../helper/fcmClient';
 
 
 const blockAction = false;
@@ -67,6 +67,14 @@ class Home extends Component {
     I18n.locale = "vi";
     I18n.currentLocale();
 
+  }
+
+  componentWillMount(){
+    FcmClient.registerFCM();
+  }
+
+  componentWillUnmount(){
+    FcmClient.unRegisterFCM();
   }
 
   componentDidMount() {
