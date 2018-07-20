@@ -7,8 +7,8 @@ import FCM, {
 } from 'react-native-fcm';
 
 import { Actions } from 'react-native-router-flux';
-
-//import User from '../models/User';
+import * as helper from '../helper';
+import * as signalr from '../helper/signalr';
 import moment from 'moment';
 
 class FcmClient {
@@ -16,7 +16,11 @@ class FcmClient {
   device_token = null;
 
   registerFCM() {
-    FCM.requestPermissions().then(() => console.log('fcm granted')).catch(() => console.log('notification permission rejected'));
+    FCM.requestPermissions({
+      badge: false,
+      sound: true,
+      alert: true
+    }).then(() => console.log('fcm granted')).catch(() => console.log('notification permission rejected'));
     try {
       FCM.setBadgeNumber(0);
     } catch (e) {
@@ -25,11 +29,10 @@ class FcmClient {
     FCM.getFCMToken().then(token => {
       if (token) {
         this.device_token = token;
-        debugger;
         this.updateFcmToken(token);
       }
       setTimeout(() => {
-        FCM.getInitialNotification().then((notif) => {
+        FCM.getInitialNotification().then((notif) => {   
           if (notif) {
             notif.opened_from_tray = true;
           }
@@ -45,8 +48,7 @@ class FcmClient {
     this.refreshTokenListener = FCM.on(FCMEvent.RefreshToken, (token) => {
       if (token) {
         this.device_token = token;
-        debugger;
-        console.log('device_token:',token)
+        console.log('device_token:', token)
         this.updateFcmToken(token);
       }
     });
@@ -81,6 +83,7 @@ class FcmClient {
   async processNotification(notif) {
     if (notif == undefined) return;
     try {
+      //this.showLocalMsg('message', "title", "body");
       if (notif != undefined) {
         if (!notif.local_notification && !notif.opened_from_tray) {
           if (Platform.OS == 'android') {
@@ -122,35 +125,13 @@ class FcmClient {
         if (!image_link) {
           image_link = notif['image_link'];
         }
-        if (message_id != last_message_id && notif.body != '' && notif.body != undefined) {
-          //StorageHelper.set('message_id', message_id);
-          try {
-            console.log('notif', notif);
-            let hapuType = notif.hapuType;
-            if (hapuType === 'NOTIFY_COMMON' || hapuType === 'NOTIFY_INDIVIDUAL') {
-              Actions.notice({ hapuType: hapuType, title: I18n.t('notice') });
-              HttpClientHelper.get('loadById', { objectId: notif.objectId }, (err, item) => {
-                if (!err && item) {
-                  item.apartmentId = User.currentApartmentId;
-                  item.isRead = 1;
-                  let date = moment();
-                  try {
-                    date = moment.unix((item.issueDate ? item.issueDate : null) / 1000);
-                  } catch (e) { }
-                  RealmHelper.getInstance().create(hapuType === 'NOTIFY_COMMON' ? 'GeneralMessage' : 'IndividualMessage', item, true);
-                  Functions.showModal({
-                    title: item.title,
-                    date: date.format('DD-MM-YYYY'),
-                    body: <TextView style={{ color: '#4e5a5e' }}>
-                      {item.content}
-                    </TextView>
-                  });
-                }
-              });
-            }
-            if (hapuType === 'INBOX') {
-              Actions.reportConversation({ item: { conversationId: notif.objectId } });
-            }
+        
+        if (notif.body != '' && notif.body != undefined) {
+           try {
+            helper.setAsyncStorage('@notifiUserID', notif.userID);
+            // if(signalr.connection&&signalr.connection.state != 4){
+            //   proxy.invoke("loadAllContact");
+            // }
           } catch (e) {
             console.log(e);
           }
@@ -187,20 +168,21 @@ class FcmClient {
       priority: 'high',                                   // as FCM payload
       click_action: 'fcm.click',                             // as FCM payload
       //objectId: objectId,
-      badge: 1,                                          // as FCM payload IOS only, set 0 to clear badges
-      number: 0,                                         // Android only
-      ticker: title,                   // Android only
+      //badge: 1,                                          // as FCM payload IOS only, set 0 to clear badges
+      //number: 0,                                         // Android only
+      //ticker: title,                   // Android only
       auto_cancel: true,                                  // Android only (default true)
       //large_icon: 'ic_launcher',                           // Android only
       //icon: 'ic_notify',                                // as FCM payload, you can relace this with custom icon you put in mipmap
       big_text: body,     // Android only
-      sub_text: body,                      // Android only
+      //sub_text: body,                      // Android only
       color: 'red',                                       // Android only
-      vibrate: 300,                                       // Android only default: 300, no vibration if you pass null
+      vibrate: 500,
+      wake_screen: true,                                   // Android only default: 300, no vibration if you pass null
       // tag: 'some_tag',                                    // Android only
       // group: 'group',                                     // Android only
       // image_link: image_link,
-      // picture: "https://google.png",                      // Android only bigPicture style
+      picture: "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_150x54dp.png",                     // Android only bigPicture style
       // my_custom_data:'my_custom_field_value',             // extra data you want to throw
       lights: true,                                       // Android only, LED blinking (default false)
       show_in_foreground: true                                  // notification when app is in foreground (local & remote)

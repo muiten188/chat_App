@@ -6,7 +6,7 @@ import * as homeAction from '../store/actions/containers/home_action';
 import * as loginAction from '../authen/actions/login_action';
 import { NetInfo } from 'react-native';
 import { Actions } from '../../node_modules/react-native-router-flux';
-
+import FcmClient from '../helper/fcmClient';
 export var proxy = null;
 export var connection = null;
 let intervalReConnection = null;
@@ -125,7 +125,10 @@ function onConnected() {
     if (intervalReConnection) {
         clearInterval(intervalReConnection);
     }
-
+    var s=FcmClient.device_token;
+    if(FcmClient.device_token!=null){
+        proxy.invoke("addDeviceTokenFCM",FcmClient.device_token);
+    }
     if (reducer.homeReducer.signalrDisconnect == true || reducer.homeReducer.signalrReconnecting == true) {
         store.dispatch(homeAction.onConnected());
     }

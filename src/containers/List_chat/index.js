@@ -122,6 +122,37 @@ class ListChat extends Component {
       self.setState({
         listUsers: listUsers,
       });
+      helper.getAsyncStorage('@notifiUserID',(promise)=>{
+        promise.then((value) => {
+          var userId = JSON.parse(value);
+          if(userId==null){
+            return;
+          }
+          var oUser=null;
+          for(var i=0;i<listUsers.length;i++){
+            var user=listUsers[i];
+            if(user.ID==userId){
+              oUser=user;
+              break;
+            }
+          }
+          if(oUser!=null){
+            helper.removeItem("@notifiUserID");
+            Actions.chatScreen({ user: oUser })
+          }
+          // if (connection && connection.state != 4) {
+          //   proxy.invoke("loadAllContact");
+          //   proxy.invoke("GetAllMessageUser");
+    
+          // } else {
+          //   helperSignal.connectSignalr(user);
+          // }
+          // this.onEventSignal();
+          // this.props.loginReducer.user = user;
+        }).catch((e) => {
+          console.log("get cache failed!".e);
+        });
+      })
     })
     proxy.on('devCountMessagePrivate', (userId, count) => {
       if (count > 0) {

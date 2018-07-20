@@ -2,6 +2,7 @@ import * as types from "../../constants/action_types";
 import * as AppConfig from "../../../config/app_config";
 import {Alert} from 'react-native';
 import { proxy } from '../../../helper/signalr';
+import {Actions} from 'react-native-router-flux';
 // const FIREBASE_REF_MESSAGES = firebaseService.database().ref('Messages')
 // const FIREBASE_REF_MESSAGES_LIMIT = 20
 

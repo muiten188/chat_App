@@ -19,6 +19,15 @@ export function getAsyncStorage(key, callback) {
   }
 }
 
+export function removeItem(key){
+  try {
+    const value =AsyncStorage.removeItem(key);
+  } catch (error) {
+  alert(error);
+    // Error retrieving data
+  }
+}
+
 export function clearAsyncStorage() {
   try {
     AsyncStorage.clear();
