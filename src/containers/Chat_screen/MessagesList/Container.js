@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Alert,View,Text } from 'react-native';
+import { Alert, View, Text } from 'react-native';
 import { connect } from 'react-redux'
 import { Container } from 'native-base';
 import { bindActionCreators } from "redux";
 import * as chatScreen_action from '../../../store/actions/containers/chatScreen_action';
 import { proxy } from '../../../helper/signalr';
+import * as helperSignal from '../../../helper/signalr';
 import MessageListComponent from './Component'
 import { Actions } from '../../../../node_modules/react-native-router-flux';
 import styles from "./Styles";
@@ -20,27 +21,40 @@ class MessagesListContainer extends Component {
   }
   componentDidMount() {
     //this.props.loadMessages()
-    const { user, isGroupChat, group } = this.props;
+    const { user, isGroupChat, group } = this.props; 
     this.onSignalEvent(isGroupChat);
-    if (proxy.connection.state != 4) {
-      if (!isGroupChat) {
-        proxy.invoke("removeInteracPrivate");
-        proxy.invoke('getAllMessagePrivate', user.ID);
+    if (proxy.connection.state == 1) {
+      try {
+        if (!isGroupChat) {
+          proxy.invoke("removeInteracPrivate");
+          proxy.invoke('getAllMessagePrivate', user.ID);
+        }
+        else {
+          proxy.invoke("removeInteracGroup");
+          proxy.invoke('getAllGroupMessage', group.ID);
+        }
       }
-      else {
-        proxy.invoke("removeInteracGroup");
-        proxy.invoke('getAllGroupMessage', group.ID);
+      catch (e) {
+        Alert.alert('Thông báo', 'Kết nối đến server bị đóng xin vui lòng đăng nhập lại.', [{
+          text: 'Ok',
+          onPress: (e) => {
+            Actions.reset('login');
+          }
+        }],
+          { cancelable: false });
       }
     }
     else {
-
-      Alert.alert('Thông báo', 'Kết nối đến server bị đóng xin vui lòng đăng nhập lại.', [{
-        text: 'Ok',
-        onPress: (e) => {
-          Actions.reset('login');
+      helperSignal.onReconnect(() => {
+        if (!isGroupChat) {
+          proxy.invoke("removeInteracPrivate");
+          proxy.invoke('getAllMessagePrivate', user.ID);
         }
-      }],
-        { cancelable: false });
+        else {
+          proxy.invoke("removeInteracGroup");
+          proxy.invoke('getAllGroupMessage', group.ID);
+        }
+      });
     }
   }
   onSignalEvent(isGroupChat) {

@@ -32,7 +32,7 @@ import Loading from "../../components/Loading";
 import { Actions, Router, Scene, Stack } from 'react-native-router-flux';
 import HeaderContent from '../../components/Header_content';
 import ItemGroupChat from '../../components/Item_Group_chat';
-
+import fcmClient from '../../helper/fcmClient';
 const blockAction = false;
 const blockLoadMoreAction = false;
 import { proxy, connection } from '../../helper/signalr';
@@ -56,6 +56,29 @@ class ListGroup extends Component {
     I18n.locale = "vi";
     I18n.currentLocale();
 
+  }
+
+  componentWillMount() {
+    fcmClient.newEvent.addListener('fcm-event-group', () => {
+      if (helperSignal.connection && helperSignal.connection.state == 1) {
+
+        if (fcmClient.groupID != null) {
+          var oGroup = null;
+          debugger
+          for (var i = 0; i < this.state.listGroups.length; i++) {
+            var group = this.state.listGroups[i];
+            if (group.ID == fcmClient.groupID) {
+              oGroup = group;
+              break;
+            }
+          }
+          if (oGroup != null) {
+            fcmClient.groupID = null;
+            Actions.chatScreen({ user: this.props.loginReducer.user, group: oGroup, isGroupChat: true })
+          }
+        }
+      }
+    });
   }
 
   componentDidMount() {
@@ -88,6 +111,23 @@ class ListGroup extends Component {
         listGroups: groups,
         isLocalLoading: false
       });
+      if (helperSignal.connection && helperSignal.connection.state == 1) {
+        
+        if (fcmClient.groupID != null) {
+          var oGroup = null;
+          for (var i = 0; i < this.state.listGroups.length; i++) {
+            var group = this.state.listGroups[i];
+            if (group.ID == fcmClient.groupID) {
+              oGroup = group;
+              break;
+            }
+          }
+          if (oGroup != null) {
+            fcmClient.groupID = null;
+            Actions.chatScreen({ user: this.props.loginReducer.user, group: oGroup, isGroupChat: true })
+          }
+        }
+      }
     })
     proxy.on('addCountMessageGroup', (groupId) => {
       var listGroups = this.state.listGroups;

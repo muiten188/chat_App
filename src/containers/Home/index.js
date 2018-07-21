@@ -69,11 +69,18 @@ class Home extends Component {
 
   }
 
-  componentWillMount(){
+  componentWillMount() {
     FcmClient.registerFCM();
+    FcmClient.newEvent.addListener('fcm-event-user-group', (obj) => {
+      if (obj.isUser) {
+        this.setState({ tabActivePosition: 0 })
+      } else {
+        this.setState({ tabActivePosition: 1 })
+      }
+    });
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     FcmClient.unRegisterFCM();
   }
 
@@ -81,9 +88,9 @@ class Home extends Component {
     if (this.props.loginReducer.user != null) {
       _helper.setAsyncStorage("@user", this.props.loginReducer.user);
     }
-    
+
   }
-  
+
 
   componentDidUpdate(prevProps, prevState) {
     const { dispatch } = this.props.navigation;
@@ -148,7 +155,8 @@ class Home extends Component {
                 </View> : null
               }
               <View style={styles.listResult_container}>
-                <Tabs initialPage={0}
+                <Tabs initialPage={this.state.tabActivePosition}
+                  page={this.state.tabActivePosition}
                   tabBarPosition={'bottom'}
                   tabBarUnderlineStyle={styles.tabBarUnderlineStyle}
                   tabBarTextStyle={{ color: 'red' }}

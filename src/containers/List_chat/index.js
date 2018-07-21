@@ -32,12 +32,14 @@ import Loading from "../../components/Loading";
 import { Actions, Router, Scene, Stack } from 'react-native-router-flux';
 import HeaderContent from '../../components/Header_content';
 import ItemChat from '../../components/Item_chat';
+var EventEmitter = require('EventEmitter');
 
 const blockAction = false;
 const blockLoadMoreAction = false;
 import { proxy, connection } from '../../helper/signalr';
 import * as helper from '../../helper';
 import * as helperSignal from '../../helper/signalr';
+import fcmClient from '../../helper/fcmClient';
 class ListChat extends Component {
 
   static navigationOptions = {
@@ -56,6 +58,30 @@ class ListChat extends Component {
     I18n.locale = "vi";
     I18n.currentLocale();
 
+  }
+
+  componentWillMount() {
+    fcmClient.newEvent.addListener('fcm-event-user', () => {
+      if (helperSignal.connection && helperSignal.connection.state != 4) {
+        if (fcmClient.userID != null) {
+          var oUser = null;
+          if (fcmClient.userID == null) {
+            return;
+          }
+          for (var i = 0; i < this.state.listUsers.length; i++) {
+            var user = this.state.listUsers[i];
+            if (user.ID == fcmClient.userID) {
+              oUser = user;
+              break;
+            }
+          }
+          if (oUser != null) {
+            fcmClient.userID = null;
+            Actions.chatScreen({ user: oUser })
+          }
+        }
+      }
+    });
   }
 
   componentDidMount() {
@@ -122,37 +148,26 @@ class ListChat extends Component {
       self.setState({
         listUsers: listUsers,
       });
-      helper.getAsyncStorage('@notifiUserID',(promise)=>{
-        promise.then((value) => {
-          var userId = JSON.parse(value);
-          if(userId==null){
+      if (helperSignal.connection && helperSignal.connection != 4) {
+        if (fcmClient.userID != null) {
+          var oUser = null;
+          if (fcmClient.userID == null) {
             return;
           }
-          var oUser=null;
-          for(var i=0;i<listUsers.length;i++){
-            var user=listUsers[i];
-            if(user.ID==userId){
-              oUser=user;
+          for (var i = 0; i < listUsers.length; i++) {
+            var user = listUsers[i];
+            if (user.ID == fcmClient.userID) {
+              oUser = user;
               break;
             }
           }
-          if(oUser!=null){
-            helper.removeItem("@notifiUserID");
+
+          if (oUser != null) {
+            fcmClient.userID = null;
             Actions.chatScreen({ user: oUser })
           }
-          // if (connection && connection.state != 4) {
-          //   proxy.invoke("loadAllContact");
-          //   proxy.invoke("GetAllMessageUser");
-    
-          // } else {
-          //   helperSignal.connectSignalr(user);
-          // }
-          // this.onEventSignal();
-          // this.props.loginReducer.user = user;
-        }).catch((e) => {
-          console.log("get cache failed!".e);
-        });
-      })
+        }
+      }
     })
     proxy.on('devCountMessagePrivate', (userId, count) => {
       if (count > 0) {

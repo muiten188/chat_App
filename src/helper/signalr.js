@@ -9,6 +9,7 @@ import { Actions } from '../../node_modules/react-native-router-flux';
 import FcmClient from '../helper/fcmClient';
 export var proxy = null;
 export var connection = null;
+var _callBack=null;
 let intervalReConnection = null;
 let isAuthorize = true;
 var netConnected = true;
@@ -122,6 +123,10 @@ export function connectSignalr(user) {
 }
 function onConnected() {
     var reducer = store.getState();
+    if(_callBack!=null){
+        _callBack();
+        _callBack=null;
+    }
     if (intervalReConnection) {
         clearInterval(intervalReConnection);
     }
@@ -150,7 +155,8 @@ function onConnectedFail(e) {
     console.log('Connection Failed: ', e);
 }
 
-function onReconnect() {
+export function onReconnect(callBack) {
+    _callBack=callBack;
     if (netConnected) {
         var reducer = store.getState();
         if (!(reducer.homeReducer.signalrReconnecting == true)) {

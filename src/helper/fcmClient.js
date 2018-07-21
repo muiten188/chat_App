@@ -5,6 +5,7 @@ import FCM, {
   WillPresentNotificationResult,
   NotificationType
 } from 'react-native-fcm';
+var EventEmitter = require('EventEmitter');
 
 import { Actions } from 'react-native-router-flux';
 import * as helper from '../helper';
@@ -12,9 +13,10 @@ import * as signalr from '../helper/signalr';
 import moment from 'moment';
 
 class FcmClient {
-
   device_token = null;
-
+  newEvent = new EventEmitter();
+  userID = null;
+  groupID = null;
   registerFCM() {
     FCM.requestPermissions({
       badge: false,
@@ -32,7 +34,7 @@ class FcmClient {
         this.updateFcmToken(token);
       }
       setTimeout(() => {
-        FCM.getInitialNotification().then((notif) => {   
+        FCM.getInitialNotification().then((notif) => {
           if (notif) {
             notif.opened_from_tray = true;
           }
@@ -125,10 +127,19 @@ class FcmClient {
         if (!image_link) {
           image_link = notif['image_link'];
         }
-        
+
         if (notif.body != '' && notif.body != undefined) {
-           try {
-            helper.setAsyncStorage('@notifiUserID', notif.userID);
+          try {
+            this.userID = notif.userID;
+            this.groupID = notif.groupID;
+            if (notif.userID) {
+              this.newEvent.emit('fcm-event-user-group', { isUser: true });
+              this.newEvent.emit('fcm-event-user', { es6rules: true, mixinsAreLame: true });
+            }
+            else if (notif.groupID) {
+              this.newEvent.emit('fcm-event-user-group', { isUser: false });
+              this.newEvent.emit('fcm-event-group', { es6rules: true, mixinsAreLame: true });
+            }
             // if(signalr.connection&&signalr.connection.state != 4){
             //   proxy.invoke("loadAllContact");
             // }
