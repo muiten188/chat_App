@@ -1,8 +1,8 @@
 export default {
   header: {
     width: '100%',
-    backgroundColor: "#007db7",
-    height:45,
+    backgroundColor: "#fff",
+    height:60,
     paddingLeft:0,
     paddingRight:0,
   },
@@ -13,7 +13,13 @@ export default {
   },
   itemHeaderBody: {
     justifyContent: "center",
-    alignItems: "flex-start",
+    alignItems: "center",
+  },
+  titleCon:{
+    height:50,
+    width:50,
+    justifyContent: "center",
+    alignItems: "center"
   },
   itemHeader: {
     width: 180,
@@ -36,7 +42,7 @@ export default {
     alignItems: "center",
   },
   whileText:{
-    color:'#fff'
+    color:'red'
   },
   iconTitle:{
     width:60,

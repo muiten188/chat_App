@@ -45,8 +45,7 @@ class MessageFormComponent extends Component {
         console.log(res)
       })
       .catch(err => {
-        debugger
-        console.log(err)
+        Alert.alert('Thông báo',"Gửi ảnh thất bại vui lòng thử lại!");
       })
   }
 

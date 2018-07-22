@@ -77,7 +77,11 @@ class ListChat extends Component {
           }
           if (oUser != null) {
             fcmClient.userID = null;
-            Actions.chatScreen({ user: oUser })
+            debugger;
+            var s = Actions.currentScene;
+            if (s != 'chatScreen') {
+              Actions.chatScreen({ user: oUser })
+            }
           }
         }
       }
@@ -164,7 +168,11 @@ class ListChat extends Component {
 
           if (oUser != null) {
             fcmClient.userID = null;
-            Actions.chatScreen({ user: oUser })
+            debugger;
+            var s = Actions.currentScene;
+            if (s != 'chatScreen') {
+              Actions.chatScreen({ user: oUser })
+            }
           }
         }
       }

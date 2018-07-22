@@ -143,7 +143,9 @@ class Home extends Component {
                   this.smallLoading = ref;
                 }} />
               </View>
-              <HeaderContent />
+              <HeaderContent onHeaderClick={() => {
+                this.setState({ tabActivePosition: 2 })
+              }} />
               {
                 signalrDisconnect ? <View style={styles.disconnectSignalr}>
                   <Text style={{ color: '#fff' }}>{"Mất kết nối..."}</Text>
@@ -158,6 +160,7 @@ class Home extends Component {
                 <Tabs initialPage={this.state.tabActivePosition}
                   page={this.state.tabActivePosition}
                   tabBarPosition={'bottom'}
+                  tabContainerStyle={{ height: 45 }}
                   tabBarUnderlineStyle={styles.tabBarUnderlineStyle}
                   tabBarTextStyle={{ color: 'red' }}
                   style={{ backgroundColor: 'transparent' }}
@@ -171,7 +174,7 @@ class Home extends Component {
                     heading={<TabHeading style={this.state.tabActivePosition == 0 ? styles.tabHeadingActive : styles.tabHeading}>
                       <Grid>
                         <Row style={styles.iconTab}>
-                          <IconIonicons name="md-chatboxes" size={20} style={this.state.tabActivePosition == 0 ? styles.textHeaderTabActive : {}} />
+                          <IconIonicons name="md-chatboxes" size={18} style={this.state.tabActivePosition == 0 ? styles.iconHeaderTabActive : { fontSize: 12 }} />
                         </Row>
                         <Row style={styles.textHeadingTab}>
                           <Text style={this.state.tabActivePosition == 0 ? styles.textHeaderTabActive : styles.textHeaderTab}>{I18n.t("conversation", {
@@ -187,7 +190,7 @@ class Home extends Component {
                     heading={<TabHeading style={this.state.tabActivePosition == 1 ? styles.tabHeadingActive : styles.tabHeading}>
                       <Grid>
                         <Row style={styles.iconTab}>
-                          <IconIonicons name="md-chatboxes" size={20} style={this.state.tabActivePosition == 1 ? styles.textHeaderTabActive : {}} />
+                          <IconVector name="group" size={18} style={this.state.tabActivePosition == 1 ? styles.iconHeaderTabActive : { fontSize: 12 }} />
                         </Row>
                         <Row style={styles.textHeadingTab}>
                           <Text style={this.state.tabActivePosition == 1 ? styles.textHeaderTabActive : styles.textHeaderTab}>{I18n.t("Group", {
@@ -202,7 +205,7 @@ class Home extends Component {
                   <Tab heading={<TabHeading style={this.state.tabActivePosition == 2 ? styles.tabHeadingActive : styles.tabHeading}>
                     <Grid>
                       <Row style={styles.iconTab}>
-                        <IconVector name="user" size={20} style={this.state.tabActivePosition == 2 ? styles.textHeaderTabActive : {}} />
+                        <IconVector name="user" size={18} style={this.state.tabActivePosition == 2 ? styles.iconHeaderTabActive : { fontSize: 12 }} />
                       </Row>
                       <Row style={styles.textHeadingTab}>
                         <Text style={this.state.tabActivePosition == 2 ? styles.textHeaderTabActive : styles.textHeaderTab}>{I18n.t("profile", {

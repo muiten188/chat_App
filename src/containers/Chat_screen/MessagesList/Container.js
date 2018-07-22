@@ -23,28 +23,30 @@ class MessagesListContainer extends Component {
     //this.props.loadMessages()
     const { user, isGroupChat, group } = this.props;
     AppState.addEventListener('change', (val) => {
-      console.log('app change: ',val);
-      if (val == 'active') {
-        if (!isGroupChat) {
-          proxy.invoke("removeInteracPrivate");
-          proxy.invoke('getAllMessagePrivate', user.ID);
+      console.log('app change: ', val);
+      if (proxy.connection.state == 1) {
+        if (val == 'active') {
+          if (!isGroupChat) {
+            proxy.invoke("removeInteracPrivate");
+            proxy.invoke('getAllMessagePrivate', user.ID);
+          }
+          else {
+            proxy.invoke("removeInteracGroup");
+            proxy.invoke('getAllGroupMessage', group.ID);
+          }
         }
         else {
-          proxy.invoke("removeInteracGroup");
-          proxy.invoke('getAllGroupMessage', group.ID);
+          if (!isGroupChat) {
+            proxy.invoke("removeInteracPrivate");
+          }
+          else {
+            proxy.invoke("removeInteracGroup");
+          }
         }
       }
-      else {
-        if (!isGroupChat) {
-          proxy.invoke("removeInteracPrivate");
-        }
-        else {
-          proxy.invoke("removeInteracGroup");
-        }
-      }
-
     });
     this.onSignalEvent(isGroupChat);
+
     if (proxy.connection.state == 1) {
       try {
         if (!isGroupChat) {

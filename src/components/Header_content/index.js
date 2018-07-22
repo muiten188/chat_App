@@ -11,9 +11,10 @@ import {
   Text,
   H3,
   H5,
-  Item
+  Item,
+  Thumbnail
 } from "native-base";
-import { StatusBar, Image, Platform } from 'react-native';
+import { StatusBar, Image, Platform, View,TouchableOpacity } from 'react-native';
 import IconVector from 'react-native-vector-icons/FontAwesome';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 import { Grid, Col, Row } from "react-native-easy-grid/";
@@ -31,7 +32,7 @@ export default class extends Component {
     };
     const {
       showButtonLeft,
-      headerTitle,
+      onHeaderClick,
       onBack
     } = this.props;
     if (onBack) {
@@ -49,19 +50,29 @@ export default class extends Component {
             </Col>
           ) : null}
           <Col style={styles.itemHeaderBody}>
-            <Row>
-              <Col style={styles.iconTitle}>
-                <Image source={require("../../resources/assets/icon_title.png")} style={{ height: 35, resizeMode: 'contain' }}></Image>
-              </Col>
-              <Col style={styles.itemHeaderBody}>
-                <Text style={styles.whileText}>{headerTitle ? headerTitle : I18n.t("easyLink", {
+            <Row style={styles.itemHeaderBody}>
+              <TouchableOpacity onPress={onHeaderClick} style={styles.titleCon}>
+                <Thumbnail style={{ height: 45, width: 45 }} source={{ uri: 'http://images6.fanpop.com/image/photos/40600000/PRISTIN-WE-LIKE-Promotion-Nayoung-pristin-40694319-500-333.jpg' }} />
+
+                {/* <Text style={styles.whileText}>{headerTitle ? headerTitle : I18n.t("easyLink", {
                   locale: "vn"
-                })}</Text>
-              </Col>
+                })}</Text> */}
+                <View style={{
+                  position: 'absolute',
+                  right: 2, 
+                  bottom: 2, 
+                  height: 14, 
+                  width: 14, 
+                  backgroundColor: '#94d82d',
+                  borderRadius:40,
+                  borderWidth:2.2,
+                  borderColor:'#fff'
+                }}/>
+              </TouchableOpacity>
             </Row>
 
           </Col>
-          <Col style={styles.itemHeaderEnd}>
+          {/* <Col style={styles.itemHeaderEnd}>
             <Button transparent>
               <IconVector name="search" size={20} style={{ color: '#fff' }} />
             </Button>
@@ -70,7 +81,7 @@ export default class extends Component {
             <Button transparent>
               <IconIonicons name="md-qr-scanner" size={24} style={{ color: '#fff' }} />
             </Button>
-          </Col>
+          </Col> */}
         </Grid>
       </Header>
     );

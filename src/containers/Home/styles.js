@@ -129,7 +129,7 @@ export default {
     flex: 1
   },
   textHeaderTab: {
-    fontSize: 14,
+    fontSize: 12,
     color: "black",
     fontWeight: '100',
     alignItems: 'center',
@@ -141,7 +141,7 @@ export default {
   activeTextStyle: {
     color: 'red'
   },
-  tabBarUnderlineStyle: { backgroundColor: '#007db7' },
+  tabBarUnderlineStyle: { backgroundColor: '#1686d7',height:1 },
   tabHeading: {
     backgroundColor: '#fff',
   },
@@ -150,7 +150,11 @@ export default {
   tabHeadingActive: {
     backgroundColor: '#fff',
   },
+  iconHeaderTabActive:{
+    color: '#1686d7',
+  },
   textHeaderTabActive: {
-    color: '#007db7'
+    color: '#1686d7',
+    fontSize:12
   }
 };
