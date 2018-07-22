@@ -64,7 +64,6 @@ class ListGroup extends Component {
 
         if (fcmClient.groupID != null) {
           var oGroup = null;
-          debugger
           for (var i = 0; i < this.state.listGroups.length; i++) {
             var group = this.state.listGroups[i];
             if (group.ID == fcmClient.groupID) {
@@ -84,17 +83,13 @@ class ListGroup extends Component {
   componentDidMount() {
     try {
       this.onEventSignal();
-      if (proxy.connection.state != 4) {
+      if (proxy.connection.state == 1) {
         proxy.invoke('loadAllGroup');
       }
       else {
-        Alert.alert('Thông báo', 'Kết nối đến server bị đóng xin vui lòng đăng nhập lại.', [{
-          text: 'Ok',
-          onPress: (e) => {
-            Actions.reset('login');
-          }
-        }],
-          { cancelable: false });
+        helperSignal.onReconnect(() => {
+          proxy.invoke('loadAllGroup');
+        });
       }
     }
     catch (err) {
@@ -112,7 +107,7 @@ class ListGroup extends Component {
         isLocalLoading: false
       });
       if (helperSignal.connection && helperSignal.connection.state == 1) {
-        
+
         if (fcmClient.groupID != null) {
           var oGroup = null;
           for (var i = 0; i < this.state.listGroups.length; i++) {

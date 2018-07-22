@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Alert, View, Text } from 'react-native';
+import { Alert, View, Text, AppState } from 'react-native';
 import { connect } from 'react-redux'
 import { Container } from 'native-base';
 import { bindActionCreators } from "redux";
@@ -21,7 +21,29 @@ class MessagesListContainer extends Component {
   }
   componentDidMount() {
     //this.props.loadMessages()
-    const { user, isGroupChat, group } = this.props; 
+    const { user, isGroupChat, group } = this.props;
+    AppState.addEventListener('change', (val) => {
+      console.log('app change: ',val);
+      if (val == 'active') {
+        if (!isGroupChat) {
+          proxy.invoke("removeInteracPrivate");
+          proxy.invoke('getAllMessagePrivate', user.ID);
+        }
+        else {
+          proxy.invoke("removeInteracGroup");
+          proxy.invoke('getAllGroupMessage', group.ID);
+        }
+      }
+      else {
+        if (!isGroupChat) {
+          proxy.invoke("removeInteracPrivate");
+        }
+        else {
+          proxy.invoke("removeInteracGroup");
+        }
+      }
+
+    });
     this.onSignalEvent(isGroupChat);
     if (proxy.connection.state == 1) {
       try {
@@ -132,7 +154,7 @@ class MessagesListContainer extends Component {
   }
   componentWillUnmount() {
     const { isGroupChat } = this.props;
-    if (proxy.connection.state != 4) {
+    if (proxy.connection.state == 1) {
       if (!isGroupChat) {
         proxy.invoke("removeInteracPrivate");
       }
@@ -144,6 +166,7 @@ class MessagesListContainer extends Component {
     proxy.off("messagePrivate");
     proxy.off("allGroupMessage");
     proxy.off("groupMessage");
+    AppState.removeEventListener('change');
   }
 
   render() {

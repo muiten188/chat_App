@@ -140,9 +140,6 @@ class FcmClient {
               this.newEvent.emit('fcm-event-user-group', { isUser: false });
               this.newEvent.emit('fcm-event-group', { es6rules: true, mixinsAreLame: true });
             }
-            // if(signalr.connection&&signalr.connection.state != 4){
-            //   proxy.invoke("loadAllContact");
-            // }
           } catch (e) {
             console.log(e);
           }

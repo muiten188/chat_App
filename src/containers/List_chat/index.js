@@ -62,7 +62,7 @@ class ListChat extends Component {
 
   componentWillMount() {
     fcmClient.newEvent.addListener('fcm-event-user', () => {
-      if (helperSignal.connection && helperSignal.connection.state != 4) {
+      if (helperSignal.connection && helperSignal.connection.state == 1) {
         if (fcmClient.userID != null) {
           var oUser = null;
           if (fcmClient.userID == null) {
@@ -189,12 +189,16 @@ class ListChat extends Component {
   onConnectSignal(promise) {
     promise.then((value) => {
       var user = JSON.parse(value);
-      if (connection && connection.state != 4) {
+      if (connection && connection.state == 1) {
         proxy.invoke("loadAllContact");
         proxy.invoke("GetAllMessageUser");
 
       } else {
-        helperSignal.connectSignalr(user);
+        helperSignal.onReconnect(() => {
+          proxy.invoke("loadAllContact");
+          proxy.invoke("GetAllMessageUser");
+        });
+        //helperSignal.connectSignalr(user);
       }
       this.onEventSignal();
       this.props.loginReducer.user = user;

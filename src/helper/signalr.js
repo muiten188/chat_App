@@ -36,7 +36,7 @@ function handleFirstConnectivityChange(connectionInfo) {
     }
     else {
         netConnected = true;
-        if (connection && connection.state != 4) {
+        if (connection && connection.state == 1) {
             store.dispatch(homeAction.onConnected());
         }
     }
