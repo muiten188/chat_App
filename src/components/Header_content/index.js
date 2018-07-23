@@ -14,13 +14,14 @@ import {
   Item,
   Thumbnail
 } from "native-base";
-import { StatusBar, Image, Platform, View,TouchableOpacity } from 'react-native';
+import { StatusBar, Image, Platform, View, TouchableOpacity } from 'react-native';
 import IconVector from 'react-native-vector-icons/FontAwesome';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 import { Grid, Col, Row } from "react-native-easy-grid/";
 import styles from "./styles";
 import I18n from "../../i18n/i18n";
 import { Actions } from 'react-native-router-flux';
+import * as appConfig from '../../config/app_config';
 export default class extends Component {
   static navigationOptions = {
     header: null
@@ -33,10 +34,15 @@ export default class extends Component {
     const {
       showButtonLeft,
       onHeaderClick,
-      onBack
+      onBack,
+      user
     } = this.props;
     if (onBack) {
       _onBack = onBack;
+    }
+    var avartarUrl = null;
+    if (user && user.avartar) {
+      avartarUrl = `${appConfig.API_HOST_NO}${user.avartar}`;
     }
     return (
       <Header style={styles.header}>
@@ -52,22 +58,22 @@ export default class extends Component {
           <Col style={styles.itemHeaderBody}>
             <Row style={styles.itemHeaderBody}>
               <TouchableOpacity onPress={onHeaderClick} style={styles.titleCon}>
-                <Thumbnail style={{ height: 45, width: 45 }} source={{ uri: 'http://images6.fanpop.com/image/photos/40600000/PRISTIN-WE-LIKE-Promotion-Nayoung-pristin-40694319-500-333.jpg' }} />
+                <Thumbnail style={{ height: 45, width: 45 }} source={{ uri: avartarUrl ? avartarUrl : 'http://images6.fanpop.com/image/photos/40600000/PRISTIN-WE-LIKE-Promotion-Nayoung-pristin-40694319-500-333.jpg' }} />
 
                 {/* <Text style={styles.whileText}>{headerTitle ? headerTitle : I18n.t("easyLink", {
                   locale: "vn"
                 })}</Text> */}
                 <View style={{
                   position: 'absolute',
-                  right: 2, 
-                  bottom: 2, 
-                  height: 14, 
-                  width: 14, 
+                  right: 2,
+                  bottom: 2,
+                  height: 14,
+                  width: 14,
                   backgroundColor: '#94d82d',
-                  borderRadius:40,
-                  borderWidth:2.2,
-                  borderColor:'#fff'
-                }}/>
+                  borderRadius: 40,
+                  borderWidth: 2.2,
+                  borderColor: '#fff'
+                }} />
               </TouchableOpacity>
             </Row>
 

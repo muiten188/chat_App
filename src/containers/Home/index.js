@@ -143,7 +143,7 @@ class Home extends Component {
                   this.smallLoading = ref;
                 }} />
               </View>
-              <HeaderContent onHeaderClick={() => {
+              <HeaderContent user={user} onHeaderClick={() => {
                 this.setState({ tabActivePosition: 2 })
               }} />
               {
