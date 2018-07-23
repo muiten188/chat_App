@@ -5,6 +5,7 @@ import FCM, {
   WillPresentNotificationResult,
   NotificationType
 } from 'react-native-fcm';
+import * as AppConfig from '../config/app_config'
 var EventEmitter = require('EventEmitter');
 
 import { Actions } from 'react-native-router-flux';
@@ -217,6 +218,42 @@ class FcmClient {
   unRegisterFCM() {
     this.notificationListener.remove();
     this.refreshTokenListener.remove();
+  }
+
+removeFcmTokenServer(user) {
+debugger
+    if (user != null&& this.device_token!=null) {
+      var accessToken = user.access_token;
+      var fcmToken = this.device_token;
+      var osearch = {
+        fcmToken: fcmToken
+      };
+      const searchParams = Object.keys(osearch).map((key) => {
+        return encodeURIComponent(key) + '=' + encodeURIComponent(osearch[key]);
+      }).join('&');
+      fetch(`${AppConfig.API_REMOVE_FCMTOKEN}`, {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+          'Authorization': `Bearer ${accessToken}`,
+          "X-Requested-With": 'XMLHttpRequest'
+        },
+        body: searchParams
+      })
+        .then(function (response) {
+          if (response.status == 200) {
+
+          }
+          else {
+
+          }
+        })
+        .catch((error) => {
+          //dispatch(_login(false));
+          console.log('remove fcm token thất bại');
+
+        });
+    }
   }
 }
 

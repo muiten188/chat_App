@@ -34,7 +34,7 @@ import { connection } from '../../helper/signalr';
 import * as loginAction from '../../authen/actions/login_action';
 const blockAction = false;
 const blockLoadMoreAction = false;
-
+import fcmClient from '../../helper/fcmClient';
 class Profile extends Component {
 
   static navigationOptions = {
@@ -61,7 +61,7 @@ class Profile extends Component {
     return (
       <Container style={styles.container}>
         <Text>{loginReducer.user ? loginReducer.user.username : 'name'}</Text>
-        <Button onPress={() => { loginAction.logout(); Actions.reset('login') }}>
+        <Button onPress={() => { fcmClient.removeFcmTokenServer(loginReducer.user);loginAction.logout(); Actions.reset('login') }}>
           <Text>Đăng xuất</Text>
         </Button>
       </Container>
