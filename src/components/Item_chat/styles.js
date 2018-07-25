@@ -18,8 +18,8 @@ export default {
     alignItems: 'center'
   },
   avartar: {
-    width: 55,
-    height: 55,
+    width: 48,
+    height: 48,
     borderWidth: 0.5,
     borderColor: '#cecece'
   },

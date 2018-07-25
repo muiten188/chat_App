@@ -1,15 +1,18 @@
 export default {
-    container: {
-        height: '100%',
+    viewContain: {
+        height: 130,
+        width:'100%',
         backgroundColor: '#fff',
-        flex: 1
+        borderBottomWidth:0.5,
+        borderBottomColor:'#cecece'
     },
-    header:{
-        width:100,
-        height:60
+    avartarCol:{
+        width:'35%',
+        height:'100%',
+        justifyContent: "center",
+        alignItems: "center"
     },
-    thumbnail_avatar:{
-        width:32,
-        height:32
+    editCol:{
+        width:25,
     }
 }

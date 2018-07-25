@@ -46,7 +46,7 @@ class ChatScreenComponent extends Component {
       name: 'Người gửi',
       avatar: user.Avatar ? `${appConfig.API_HOST_NO}${user.Avatar}` : 'https://i2-prod.croydonadvertiser.co.uk/news/croydon-news/article474950.ece/ALTERNATES/s810/Croydon-tram.jpg'
     };
-    debugger;
+    
     if (fromGroup) {
       newMessGirfChat.user.avatar = oMessage.FromAvatar ? `${appConfig.API_HOST_NO}${oMessage.FromAvatar}` : 'https://i2-prod.croydonadvertiser.co.uk/news/croydon-news/article474950.ece/ALTERNATES/s810/Croydon-tram.jpg';
     }
@@ -154,7 +154,7 @@ class ChatScreenComponent extends Component {
         var messGiftChat = this.convertMessageToGiftChat(message, true);
         //arrMessages.unshift(messGiftChat);
         // this.setState({ messages: arrMessages });
-        debugger;
+        
         this.setState((previousState) => {
           return {
             messages: GiftedChat.append(previousState.messages, messGiftChat),

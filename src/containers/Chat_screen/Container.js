@@ -1,14 +1,17 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
+import { View, Text } from 'react-native';
+import {Container} from 'native-base';
 import ChatScreen from './Component'
+import styles from "./Styles";
 //import LogoutButton from './LogoutButton'
 
 class ChatScreenContainer extends Component {
 
   constructor(props) {
     super(props);
-    
+
   }
   static navigationOptions = ({ navigation }) => ({
 
@@ -25,15 +28,32 @@ class ChatScreenContainer extends Component {
   }
 
   render() {
-    const { user, isGroupChat, group,loginReducer } = this.props;
+    const { user, isGroupChat, group, loginReducer } = this.props;
+    const {
+      signalrDisconnect,
+      signalrReconnecting,
+    } = this.props.homeReducer;
     return (
-      <ChatScreen user={user} loginReducerUser={loginReducer.user} group={group} isGroupChat={isGroupChat} />
+      <Container>
+        {
+          signalrDisconnect ? <View style={styles.disconnectSignalr}>
+            <Text style={{ color: '#fff' }}>{"Mất kết nối..."}</Text>
+          </View> : null
+        }
+        {
+          signalrReconnecting ? <View style={styles.connectingSignalr}>
+            <Text style={{ color: '#fff' }}>{"Đang kết nối..."}</Text>
+          </View> : null
+        }
+        <ChatScreen user={user} style={{ flex: 1 }} loginReducerUser={loginReducer.user} group={group} isGroupChat={isGroupChat} />
+      </Container>
     )
   }
 }
 const mapStateToProps = state => ({
   chatScreenReducer: state.chatScreenReducer,
-  loginReducer: state.loginReducer
+  loginReducer: state.loginReducer,
+  homeReducer: state.homeReducer
   // sending: state.chat.sending,
   // sendingError: state.chat.sendingError,
   // message: state.chat.message

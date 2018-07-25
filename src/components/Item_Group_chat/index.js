@@ -36,8 +36,8 @@ export default class extends Component {
         <Grid>
           <Col style={styles.colAvar}>
             <View style={{
-              width: 50,
-              height: 50,
+              width: 48,
+              height: 48,
               borderRadius: 50,
               justifyContent: 'center',
               alignItems: 'center',
@@ -45,7 +45,7 @@ export default class extends Component {
               borderWidth: 0.5,
               borderColor: '#cccc'
             }}>
-              <Icon name="group" style={{ color: '#fff' }} size={30} />
+              <Icon name="group" style={{ color: '#fff' }} size={24} />
             </View>
 
             {/* <Thumbnail style={styles.avartar} large source={{ uri: data.Avatar ? `${AppConfig.API_HOST}${data.Avatar}` : 'http://images6.fanpop.com/image/photos/40600000/PRISTIN-WE-LIKE-Promotion-Nayoung-pristin-40694319-500-333.jpg' }} /> */}

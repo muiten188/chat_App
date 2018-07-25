@@ -24,10 +24,10 @@ export default {
     borderColor: '#cecece'
   },
   colContent: {
-    borderBottomWidth: 2,
-    borderBottomColor: '#e8eff5',
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#cecece',
     marginLeft: 6,
-    marginRight: 0,
+    marginRight: 6,
     paddingTop:5,
     paddingBottom:5
   },

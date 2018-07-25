@@ -25,15 +25,11 @@ import styles from "./styles";
 import { connect } from "react-redux";
 import { Grid, Col, Row } from "react-native-easy-grid";
 import I18n from "../../i18n/i18n";
-import { InputField } from "../../components/Element/Form/index";
-import Icon from "react-native-vector-icons/FontAwesome";
 import * as profileAction from "../../store/actions/containers/profile_action";
-import Loading from "../../components/Loading";
 import { Actions, Router, Scene, Stack } from 'react-native-router-flux';
 import { connection } from '../../helper/signalr';
 import * as loginAction from '../../authen/actions/login_action';
-const blockAction = false;
-const blockLoadMoreAction = false;
+import User from '../../components/User';
 import fcmClient from '../../helper/fcmClient';
 class Profile extends Component {
 
@@ -60,10 +56,14 @@ class Profile extends Component {
     const { loginAction, loginReducer } = this.props;
     return (
       <Container style={styles.container}>
-        <Text>{loginReducer.user ? loginReducer.user.username : 'name'}</Text>
-        <Button onPress={() => { fcmClient.removeFcmTokenServer(loginReducer.user);loginAction.logout(); Actions.reset('login') }}>
-          <Text>Đăng xuất</Text>
-        </Button>
+        <User user={loginReducer.user}></User>
+        <Grid style={{justifyContent:'center',alignItems:'flex-end'}}>
+          <Col style={{marginBottom:10,paddingLeft:10,paddingRight:10}}> 
+            <Button block bordered  onPress={() => { fcmClient.removeFcmTokenServer(loginReducer.user); loginAction.logout(); Actions.reset('login') }}>
+              <Text>Đăng xuất</Text>
+            </Button>
+          </Col>
+        </Grid>
       </Container>
     );
   }
