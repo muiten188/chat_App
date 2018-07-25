@@ -10,6 +10,8 @@ import * as helperSignal from '../../../helper/signalr';
 import MessageListComponent from './Component'
 import { Actions } from '../../../../node_modules/react-native-router-flux';
 import styles from "./Styles";
+
+
 class MessagesListContainer extends Component {
 
   constructor(props) {
@@ -90,8 +92,8 @@ class MessagesListContainer extends Component {
         }
         console.log('List Messages: ', arrMessages);
         var arr15 = [];
-        if (arrMessages.length > 10) {
-          for (var i = 0; i < 10; i++) {
+        if (arrMessages.length > 15) {
+          for (var i = 0; i < 15; i++) {
             arr15.push(arrMessages[i]);
           }
         }
@@ -104,8 +106,8 @@ class MessagesListContainer extends Component {
         var arrMessages = this.state.messages;
         arrMessages.unshift(message);
         var arr15 = [];
-        if (arrMessages.length > 10) {
-          for (var i = 0; i < 10; i++) {
+        if (arrMessages.length > 15) {
+          for (var i = 0; i < 15; i++) {
             arr15.push(arrMessages[i]);
           }
         }
@@ -125,8 +127,8 @@ class MessagesListContainer extends Component {
         }
         console.log('List Messages: ', arrMessages);
         var arr15 = [];
-        if (arrMessages.length > 10) {
-          for (var i = 0; i < 10; i++) {
+        if (arrMessages.length > 15) {
+          for (var i = 0; i < 15; i++) {
             arr15.push(arrMessages[i]);
           }
         }
@@ -140,8 +142,8 @@ class MessagesListContainer extends Component {
 
         arrMessages.unshift(message);
         var arr15 = [];
-        if (arrMessages.length > 10) {
-          for (var i = 0; i < 10; i++) {
+        if (arrMessages.length > 15) {
+          for (var i = 0; i < 15; i++) {
             arr15.push(arrMessages[i]);
           }
         }

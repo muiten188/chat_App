@@ -15,6 +15,7 @@ class MessageListComponent extends Component {
     super()
 
     this.renderItem = ({ index, item }) => {
+      
       return <MessageRow key={index} cUser={this.props.cUser} group={this.props.group} message={item} />
     }
 
@@ -36,7 +37,7 @@ class MessageListComponent extends Component {
 
   componentDidUpdate() {
     if (this.props.data.length) {
-      this.flatList.scrollToIndex({ animated: true, index: 0 });
+        this.flatList.scrollToIndex({ animated: true, index: 0 });
     }
   }
 
@@ -47,9 +48,14 @@ class MessageListComponent extends Component {
       <FlatList
         ref={(c) => { this.flatList = c }}
         style={styles.container}
+        windowSize={8}
+        viewabilityThreshold
         contentContainerStyle={contentContainerStyle}
+        removeClippedSubviews={false}
+        enableEmptySections
+        automaticallyAdjustContentInsets={false}
         data={data}
-        keyExtractor={(item,index) => index}
+        keyExtractor={(item, index) => index}
         renderItem={this.renderItem}
         getItemLayout={this.itemLayout}
         ListEmptyComponent={this.emptyList}
