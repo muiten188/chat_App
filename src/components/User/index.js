@@ -41,7 +41,7 @@ class user extends React.Component {
   render() {
     const { state } = this;
     const {user}=this.props;
-    debugger;
+    
     var avartarUrl=null;
     if(user&&user.avartar){
       avartarUrl=`${AppConfig.API_HOST_NO}${user.avartar}`;

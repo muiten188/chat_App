@@ -46,7 +46,7 @@ class ChatScreenComponent extends Component {
       name: 'Người gửi',
       avatar: user.Avatar ? `${appConfig.API_HOST_NO}${user.Avatar}` : 'https://i2-prod.croydonadvertiser.co.uk/news/croydon-news/article474950.ece/ALTERNATES/s810/Croydon-tram.jpg'
     };
-    
+
     if (fromGroup) {
       newMessGirfChat.user.avatar = oMessage.FromAvatar ? `${appConfig.API_HOST_NO}${oMessage.FromAvatar}` : 'https://i2-prod.croydonadvertiser.co.uk/news/croydon-news/article474950.ece/ALTERNATES/s810/Croydon-tram.jpg';
     }
@@ -145,7 +145,7 @@ class ChatScreenComponent extends Component {
       proxy.on('allGroupMessage', (messages, userId) => {
         var arrMessages = [];
         for (var i = 0; i < messages.length; i++) {
-          var messGiftChat = this.convertMessageToGiftChat(messages[i],true)
+          var messGiftChat = this.convertMessageToGiftChat(messages[i], true)
           arrMessages.push(messGiftChat);
         }
         this.setState({ messages: arrMessages.reverse() });
@@ -154,7 +154,7 @@ class ChatScreenComponent extends Component {
         var messGiftChat = this.convertMessageToGiftChat(message, true);
         //arrMessages.unshift(messGiftChat);
         // this.setState({ messages: arrMessages });
-        
+
         this.setState((previousState) => {
           return {
             messages: GiftedChat.append(previousState.messages, messGiftChat),
@@ -255,7 +255,15 @@ class ChatScreenComponent extends Component {
     ];
     uploadFile(data, this.props.loginReducerUser ? this.props.loginReducerUser.access_token : '')
       .then(res => {
-        debugger
+        if (res && res.data) {
+          var data = JSON.parse(res.data);
+          if (!data.success) {
+            Alert.alert('Thông báo', "Gửi ảnh thất bại vui lòng thử lại!");
+          }
+        }
+        else {
+          Alert.alert('Thông báo', "Gửi ảnh thất bại vui lòng thử lại!");
+        }
         console.log(res)
       })
       .catch(err => {
@@ -272,6 +280,7 @@ class ChatScreenComponent extends Component {
     return (
 
       <GiftedChat
+        style={{ backgroundColor: 'red' }}
         messages={this.state.messages}
         onSend={messages => this.onSend(messages)}
         user={{
@@ -282,7 +291,7 @@ class ChatScreenComponent extends Component {
             <TouchableOpacity
               style={styles.button}
               onPress={() => { this.pickImage() }}>
-              <IconVector name="upload" size={22}></IconVector>
+              <IconVector name="upload" size={19}></IconVector>
 
             </TouchableOpacity>
           )

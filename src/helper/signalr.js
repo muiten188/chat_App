@@ -113,6 +113,7 @@ export function connectSignalr(user) {
             Alert.alert('Thông báo', 'Kết nối đến server bị đóng xin vui lòng đăng nhập lại.', [{
                 text: 'Ok',
                 onPress: (e) => {
+                    //fcmClient.removeFcmTokenServer(loginReducer.user);
                     store.dispatch(loginAction.logout());
                     Actions.reset('login');
                 }
@@ -157,6 +158,7 @@ function onConnectedFail(e) {
 
 export function onReconnect(callBack) {
     _callBack=callBack;
+    console.log('reconecting...')
     if (netConnected) {
         var reducer = store.getState();
         if (!(reducer.homeReducer.signalrReconnecting == true)) {

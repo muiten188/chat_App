@@ -4,7 +4,7 @@ export default {
         width:'100%',
         backgroundColor: '#fff',
         borderBottomWidth:0.5,
-        borderBottomColor:'#cecece'
+        borderBottomColor:'#dadadc'
     },
     avartarCol:{
         width:'35%',

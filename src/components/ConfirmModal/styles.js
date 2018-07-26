@@ -11,7 +11,7 @@ export default {
     width: 350,
     height: 150,
     borderRadius: 4,
-    borderColor: "#cecece",
+    borderColor: "#dadadc",
     backgroundColor: "#fff",
     justifyContent: "center",
     alignItems: "center"
@@ -24,7 +24,7 @@ export default {
     bottom: 0,
     backgroundColor: "#fff",
     borderTopWidth: 1,
-    borderColor: "#cecece"
+    borderColor: "#dadadc"
   },
   buttonOk: {
     paddingLeft: 25,

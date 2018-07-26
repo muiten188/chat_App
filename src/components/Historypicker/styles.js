@@ -3,7 +3,7 @@ export default {
         width: '100%',
         height: 60,
         borderBottomWidth: 1.5,
-        borderBottomColor: '#cecece'
+        borderBottomColor: '#dadadc'
     },
     buttonChangeDate: {
         width: 30,

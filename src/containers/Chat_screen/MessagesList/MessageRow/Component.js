@@ -72,7 +72,7 @@ class MessageRowComponent extends PureComponent {
                 <TouchableOpacity onPress={() => {
                   this.setState({ isShowPreview: true })
                 }}>
-                  <View style={{ height: 100, width: 130, borderWidth: 0.5, borderColor: '#cecece', borderRadius: 3 }}>
+                  <View style={{ height: 100, width: 130, borderWidth: 0.5, borderColor: '#dadadc', borderRadius: 3 }}>
                     <Image style={{ flex: 1, resizeMode: 'stretch', borderRadius: 3 }} source={props.message.Content ? { uri: urlImage } : userAvar} />
                   </View></TouchableOpacity>
                 : <Text

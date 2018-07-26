@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
 import { View, Text } from 'react-native';
-import {Container} from 'native-base';
+import { Container } from 'native-base';
 import ChatScreen from './Component'
 import styles from "./Styles";
 //import LogoutButton from './LogoutButton'
@@ -13,11 +13,17 @@ class ChatScreenContainer extends Component {
     super(props);
 
   }
-  static navigationOptions = ({ navigation }) => ({
-
-    title: typeof (navigation.state.params) === 'undefined' || typeof (navigation.state.params.title) === 'undefined' ? 'Chat' : navigation.state.params.title,
-
-  });
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: typeof (navigation.state.params) === 'undefined' || typeof (navigation.state.params.title) === 'undefined' ? 'Chat' : navigation.state.params.title,
+      headerStyle: {
+        elevation: 0,
+        shadowOpacity: 0,
+        borderBottomWidth: 0.7,
+        borderBottomColor: '#dadadc'
+      }
+    }
+  };
 
 
 

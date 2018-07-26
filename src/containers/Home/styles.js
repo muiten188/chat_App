@@ -121,7 +121,7 @@ export default {
   buttomSearchDisabled: {
     marginLeft: 50,
     marginRight: 50,
-    backgroundColor: '#cecece',
+    backgroundColor: '#dadadc',
     borderRadius: 5,
   },
   tabBarStyle: {
@@ -144,11 +144,15 @@ export default {
   tabBarUnderlineStyle: { backgroundColor: '#1686d7',height:1 },
   tabHeading: {
     backgroundColor: '#fff',
+    borderTopWidth:0.7,
+    borderTopColor:'#dadadc'
   },
   iconTab: { justifyContent: 'center', alignItems: 'center', height: 22, marginTop: 3 },
   textHeadingTab: { justifyContent: 'center', alignItems: 'center', marginTop: -8 },
   tabHeadingActive: {
     backgroundColor: '#fff',
+    borderTopWidth:0.7,
+    borderTopColor:'#dadadc'
   },
   iconHeaderTabActive:{
     color: '#1686d7',

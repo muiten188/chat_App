@@ -45,7 +45,7 @@ export default class extends Component {
       avartarUrl = `${appConfig.API_HOST_NO}${user.avartar}`;
     }
     return (
-      <Header style={styles.header}>
+      <View style={styles.header}>
         {/* <StatusBar backgroundColor="#007db7"></StatusBar> */}
         <Grid>
           {showButtonLeft == true || Platform.OS === 'ios' ? (
@@ -89,7 +89,7 @@ export default class extends Component {
             </Button>
           </Col> */}
         </Grid>
-      </Header>
+      </View>
     );
   }
 }

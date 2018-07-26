@@ -21,11 +21,11 @@ export default {
     width: 55,
     height: 55,
     borderWidth: 0.5,
-    borderColor: '#cecece'
+    borderColor: '#dadadc'
   },
   colContent: {
     borderBottomWidth: 0.5,
-    borderBottomColor: '#cecece',
+    borderBottomColor: '#dadadc',
     marginLeft: 6,
     marginRight: 6,
     paddingTop:5,

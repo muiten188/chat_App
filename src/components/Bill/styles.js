@@ -3,7 +3,7 @@ export default {
     height: 60,
     width: "100%",
     borderBottomWidth: 0.5,
-    borderColor: "#cecece"
+    borderColor: "#dadadc"
   },
   header_payed: {
     backgroundColor: "#fff2c5"
@@ -15,7 +15,7 @@ export default {
     width: "85%",
     borderWidth: 1,
     borderRadius: 5,
-    borderColor: "#cecece",
+    borderColor: "#dadadc",
     justifyContent: "center",
     alignItems: "center"
   },
@@ -44,7 +44,7 @@ export default {
     paddingTop: 0,
     paddingBottom: 0,
     borderTopWidth: 1,
-    borderColor: "#cecece",
+    borderColor: "#dadadc",
     borderStyle: "dashed"
   },
   itemPay: {
@@ -52,12 +52,12 @@ export default {
     paddingBottom: 15,
     height: 75,
     borderTopWidth: 1,
-    borderColor: "#cecece",
+    borderColor: "#dadadc",
     borderStyle: "dashed"
   },
   itemRent: {
     borderBottomWidth: 2,
-    borderColor: "#cecece"
+    borderColor: "#dadadc"
   },
   text_paymented: {
     color: "#f5a036",

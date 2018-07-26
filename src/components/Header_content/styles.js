@@ -5,6 +5,8 @@ export default {
     height:60,
     paddingLeft:0,
     paddingRight:0,
+    borderBottomWidth:0.7,
+    borderBottomColor:'#dadadc'
   },
   text: {
     color: "#fff",
