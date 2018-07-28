@@ -78,12 +78,14 @@ export default class extends Component {
             </Row>
 
           </Col>
-          {/* <Col style={styles.itemHeaderEnd}>
-            <Button transparent>
-              <IconVector name="search" size={20} style={{ color: '#fff' }} />
+          <Col style={styles.itemHeaderEnd}>
+            <Button full transparent onPress={() => {
+              Actions.chatEdit();
+            }}>
+              <IconVector name="edit" size={20} style={{}} />
             </Button>
           </Col>
-          <Col style={styles.itemHeaderEnd}>
+          {/* <Col style={styles.itemHeaderEnd}>
             <Button transparent>
               <IconIonicons name="md-qr-scanner" size={24} style={{ color: '#fff' }} />
             </Button>

@@ -32,10 +32,12 @@ import Loading from "../../components/Loading";
 import { Actions, Router, Scene, Stack } from 'react-native-router-flux';
 import HeaderContent from '../../components/Header_content';
 import ItemChat from '../../components/Item_chat';
+
 var EventEmitter = require('EventEmitter');
 
 const blockAction = false;
 const blockLoadMoreAction = false;
+import ItemGroupChat from '../../components/Item_Group_chat';
 import { proxy, connection } from '../../helper/signalr';
 import * as helper from '../../helper';
 import * as helperSignal from '../../helper/signalr';
@@ -51,6 +53,7 @@ class ListChat extends Component {
 
     this.state = {
       listUsers: [],
+      listGroups: [],
       isLocalLoading: true
     }
 
@@ -77,11 +80,30 @@ class ListChat extends Component {
           }
           if (oUser != null) {
             fcmClient.userID = null;
-            
+
             var s = Actions.currentScene;
             if (s != 'chatScreen') {
               Actions.chatScreen({ user: oUser })
             }
+          }
+        }
+      }
+    });
+    fcmClient.newEvent.addListener('fcm-event-group', () => {
+      if (helperSignal.connection && helperSignal.connection.state == 1) {
+
+        if (fcmClient.groupID != null) {
+          var oGroup = null;
+          for (var i = 0; i < this.state.listGroups.length; i++) {
+            var group = this.state.listGroups[i];
+            if (group.ID == fcmClient.groupID) {
+              oGroup = group;
+              break;
+            }
+          }
+          if (oGroup != null) {
+            fcmClient.groupID = null;
+            Actions.chatScreen({ user: this.props.loginReducer.user, group: oGroup, isGroupChat: true })
           }
         }
       }
@@ -92,6 +114,14 @@ class ListChat extends Component {
     if (this.props.loginReducer.user != null) {
       helperSignal.connectSignalr(this.props.loginReducer.user);
       this.onEventSignal();
+      if (connection && connection.state == 1) {
+        proxy.invoke('loadAllGroup');
+      } else {
+        helperSignal.onReconnect(() => {
+          proxy.invoke('loadAllGroup');
+        });
+      }
+
     }
     else {
       helper.getAsyncStorage("@user", this.onConnectSignal.bind(this));
@@ -104,6 +134,60 @@ class ListChat extends Component {
     if (!proxy) {
       return;
     }
+    //group
+    proxy.on('allGroup', (groups, total) => {
+
+      self.setState({
+        listGroups: groups,
+        isLocalLoading: false
+      });
+      if (helperSignal.connection && helperSignal.connection.state == 1) {
+
+        if (fcmClient.groupID != null) {
+          var oGroup = null;
+          for (var i = 0; i < this.state.listGroups.length; i++) {
+            var group = this.state.listGroups[i];
+            if (group.ID == fcmClient.groupID) {
+              oGroup = group;
+              break;
+            }
+          }
+          if (oGroup != null) {
+            fcmClient.groupID = null;
+            Actions.chatScreen({ user: this.props.loginReducer.user, group: oGroup, isGroupChat: true })
+          }
+        }
+      }
+    })
+    proxy.on('addCountMessageGroup', (groupId) => {
+      var listGroups = this.state.listGroups;
+      for (var i = 0; i < listGroups.length; i++) {
+        var group = listGroups[i];
+        if (group.ID == groupId) {
+          listGroups[i].Count = listGroups[i].Count + 1;
+          break;
+        }
+      }
+      self.setState({
+        listGroups: listGroups,
+      });
+    })
+    proxy.on('devCountMessageGroup', (groupId, count) => {
+      if (count > 0) {
+        var listGroups = this.state.listGroups;
+        for (var i = 0; i < listGroups.length; i++) {
+          var group = listGroups[i];
+          if (group.ID == groupId) {
+            listGroups[i].Count = 0;
+            break;
+          }
+        }
+        self.setState({
+          listGroups: listGroups,
+        });
+      }
+    })
+    //user
     proxy.on('allUser', (users) => {
       console.log('List Users: ', users);
       self.setState({
@@ -168,7 +252,7 @@ class ListChat extends Component {
 
           if (oUser != null) {
             fcmClient.userID = null;
-            
+
             var s = Actions.currentScene;
             if (s != 'chatScreen') {
               Actions.chatScreen({ user: oUser })
@@ -200,11 +284,13 @@ class ListChat extends Component {
       if (connection && connection.state == 1) {
         proxy.invoke("loadAllContact");
         proxy.invoke("GetAllMessageUser");
+        proxy.invoke('loadAllGroup');
 
       } else {
         helperSignal.onReconnect(() => {
           proxy.invoke("loadAllContact");
           proxy.invoke("GetAllMessageUser");
+          proxy.invoke('loadAllGroup');
         });
         //helperSignal.connectSignalr(user);
       }
@@ -229,37 +315,13 @@ class ListChat extends Component {
             this.list = ref;
           }}
           style={styles.listResult}
-          data={this.state.listUsers}
+          data={[...this.state.listGroups, ...this.state.listUsers]}
           keyExtractor={this._keyExtractor}
           renderItem={this.renderFlatListItem.bind(this)}
           numColumns={1}
           onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
           onEndReached={({ distanceFromEnd }) => {
-            if (distanceFromEnd > 0) {
-              // // this.onEndReachedCalledDuringMomentum = true;
-              // if (
-              //     !blockLoadMoreAction &&
-              //     !(listResult.length < pageSize)
-              // ) {
 
-              //     blockLoadMoreAction = true;
-              //     this.smallLoading.show(),
-              //         setTimeout(() => {
-              //             searchAction.loadMore(
-              //                 valuesForm,
-              //                 currentPage,
-              //                 pageSize,
-              //                 user
-              //             )
-              //         }, 0);
-
-              //     setTimeout(() => {
-              //         if (loadEnd != true) {
-              //             blockLoadMoreAction = false;
-              //         }
-              //     }, 700);
-              // }
-            }
           }}
           onEndReachedThreshold={0.7}
         />
@@ -276,14 +338,16 @@ class ListChat extends Component {
           styles.item_container_half
         }
         onPress={() => {
-          // if (!blockAction) {
-          //     blockAction = true;
-          Actions.chatScreen({ user: item });
-          // }
+          if (!item.Name) {
+            Actions.chatScreen({ user: item });
+          }
+          else {
+            Actions.chatScreen({ user: this.props.loginReducer.user, group: item, isGroupChat: true });
+          }
         }}
       >
-        <ItemChat data={item}></ItemChat>
-
+        {item.Name ? <ItemGroupChat data={item}></ItemGroupChat>
+          : <ItemChat data={item}></ItemChat>}
       </TouchableOpacity>
     );
   }

@@ -214,6 +214,21 @@ class ListGroup extends Component {
           }}
           onEndReachedThreshold={0.7}
         />
+        <TouchableOpacity 
+          onPress={()=>{
+            Actions.groupEdit();
+          }}
+        style={{
+          position: 'absolute',
+          width: 50,
+          height: 50,
+          borderRadius: 50,
+          bottom: 10,
+          right: 10,
+          backgroundColor:'#1686d7',
+          justifyContent:'center',
+          alignItems:'center'
+        }}><Icon name="plus" size={20} style={{color:'#fff'}}></Icon></TouchableOpacity>
       </Container>
     );
   }

@@ -4,7 +4,7 @@ const FBSDK = require('react-native-fbsdk');
 import {
   View
 } from "react-native";
-import { Button, Text, Thumbnail, Container, Badge,H3 } from "native-base";
+import { Button, Text, Thumbnail, Container, Badge, H3 } from "native-base";
 import IconVector from "react-native-vector-icons/FontAwesome";
 import * as AppConfig from "../../config/app_config";
 import styles from "./styles";
@@ -40,38 +40,40 @@ class user extends React.Component {
 
   render() {
     const { state } = this;
-    const {user}=this.props;
-    
-    var avartarUrl=null;
-    if(user&&user.avartar){
-      avartarUrl=`${AppConfig.API_HOST_NO}${user.avartar}`;
+    const { user } = this.props;
+
+    var avartarUrl = null;
+    if (user && user.avartar) {
+      avartarUrl = `${AppConfig.API_HOST_NO}${user.avartar}`;
     }
     return (
       <View style={styles.viewContain}>
         <Grid>
           <Col style={styles.avartarCol}>
-            <Thumbnail style={{ width: 100, height: 100, borderRadius: 50 }} source={{ uri: avartarUrl?avartarUrl:'http://images6.fanpop.com/image/photos/40600000/PRISTIN-WE-LIKE-Promotion-Nayoung-pristin-40694319-500-333.jpg' }} />
+            <Thumbnail style={{ width: 100, height: 100, borderRadius: 50 }} source={{ uri: avartarUrl ? avartarUrl : 'http://images6.fanpop.com/image/photos/40600000/PRISTIN-WE-LIKE-Promotion-Nayoung-pristin-40694319-500-333.jpg' }} />
           </Col>
           <Col style={{
             justifyContent: "center",
             alignItems: "flex-start",
           }}>
-          <Row>
+            <Row>
 
-          </Row>
-            <Row style={{justifyContent: "flex-start",
-            alignItems: "center",
-            paddingLeft:10,
-            width:'100%'}}>
-              <H3>{user.fullName}</H3>
+            </Row>
+            <Row style={{
+              justifyContent: "flex-start",
+              alignItems: "center",
+              paddingLeft: 10,
+              width: '100%'
+            }}>
+              <H3>{user ? user.fullName : ''}</H3>
             </Row>
             <Row style={{ marginTop: 10 }}>
               <Badge primary>
-                <Text>{user.username}</Text>
+                <Text>{user ? user.username : ''}</Text>
               </Badge>
             </Row>
-            <Row/>
-            <Row/>
+            <Row />
+            <Row />
           </Col>
         </Grid>
       </View>

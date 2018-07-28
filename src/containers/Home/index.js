@@ -71,13 +71,13 @@ class Home extends Component {
 
   componentWillMount() {
     FcmClient.registerFCM();
-    FcmClient.newEvent.addListener('fcm-event-user-group', (obj) => {
-      if (obj.isUser) {
-        this.setState({ tabActivePosition: 0 })
-      } else {
-        this.setState({ tabActivePosition: 1 })
-      }
-    });
+    // FcmClient.newEvent.addListener('fcm-event-user-group', (obj) => {
+    //   if (obj.isUser) {
+    //     this.setState({ tabActivePosition: 0 })
+    //   } else {
+    //     this.setState({ tabActivePosition: 1 })
+    //   }
+    // });
   }
 
   componentWillUnmount() {
@@ -190,6 +190,19 @@ class Home extends Component {
                     heading={<TabHeading style={this.state.tabActivePosition == 1 ? styles.tabHeadingActive : styles.tabHeading}>
                       <Grid>
                         <Row style={styles.iconTab}>
+                          <IconVector name="phone" size={18} style={this.state.tabActivePosition == 1 ? styles.iconHeaderTabActive : { fontSize: 12 }} />
+                        </Row>
+                        <Row style={styles.textHeadingTab}>
+                          <Text style={this.state.tabActivePosition == 1 ? styles.textHeaderTabActive : styles.textHeaderTab}>{'Call'}</Text>
+                        </Row>
+                      </Grid>
+                    </TabHeading>}>
+                    {/* <ListGroup /> */}
+                  </Tab>
+                  {/* <Tab
+                    heading={<TabHeading style={this.state.tabActivePosition == 1 ? styles.tabHeadingActive : styles.tabHeading}>
+                      <Grid>
+                        <Row style={styles.iconTab}>
                           <IconVector name="group" size={18} style={this.state.tabActivePosition == 1 ? styles.iconHeaderTabActive : { fontSize: 12 }} />
                         </Row>
                         <Row style={styles.textHeadingTab}>
@@ -201,20 +214,18 @@ class Home extends Component {
                     </TabHeading>}>
                     <ListGroup />
 
-                  </Tab>
+                  </Tab> */}
                   <Tab heading={<TabHeading style={this.state.tabActivePosition == 2 ? styles.tabHeadingActive : styles.tabHeading}>
                     <Grid>
                       <Row style={styles.iconTab}>
-                        <IconVector name="user" size={18} style={this.state.tabActivePosition == 2 ? styles.iconHeaderTabActive : { fontSize: 12 }} />
+                        <IconVector name="camera" size={18} style={this.state.tabActivePosition == 2 ? styles.iconHeaderTabActive : { fontSize: 12 }} />
                       </Row>
                       <Row style={styles.textHeadingTab}>
-                        <Text style={this.state.tabActivePosition == 2 ? styles.textHeaderTabActive : styles.textHeaderTab}>{I18n.t("profile", {
-                          locale: "vn"
-                        })}</Text>
+                        <Text style={this.state.tabActivePosition == 2 ? styles.textHeaderTabActive : styles.textHeaderTab}>{'Camera'}</Text>
                       </Row>
                     </Grid>
                   </TabHeading>}>
-                    <Profile />
+                    {/* <Profile /> */}
                   </Tab>
                 </Tabs>
                 <Loading
