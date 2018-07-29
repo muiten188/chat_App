@@ -46,7 +46,8 @@ class Profile extends Component {
     this.state = {
       groupName: '',
       groupNameSearch: '',
-      listUsers: []
+      listUsers: [],
+      _listUsers: null
     }
     I18n.defaultLocale = "vi";
     I18n.locale = "vi";
@@ -88,6 +89,21 @@ class Profile extends Component {
 
   }
 
+  filterSearch(value) {
+    let { listUsers } = this.state;
+    if (value != '') {
+      var _listUsers = listUsers.filter(user => user.FullName.toLowerCase().indexOf(value.toLowerCase()) != -1)
+      this.setState({
+        _listUsers: _listUsers,
+      })
+    }
+    else {
+      this.setState({
+        _listUsers: null,
+      })
+    }
+  }
+
   render() {
     const locale = "vn";
     const { chatEditAction, loginReducer } = this.props;
@@ -114,11 +130,12 @@ class Profile extends Component {
                 value={this.state.groupNameSearch}
                 onChangeText={(value) => {
                   this.setState({ groupNameSearch: value })
+                  this.filterSearch(value);
                 }}></Input>
             </Item>
           </Row>
           <Row style={{ height: 90 }}>
-            <Col style={{ alignItems: 'center', justifyContent: 'center' }}>
+            <Col style={{ width: 90, alignItems: 'center', justifyContent: 'center' }}>
               <TouchableOpacity
                 onPress={() => {
                   Actions.groupEdit();
@@ -135,7 +152,7 @@ class Profile extends Component {
               </TouchableOpacity>
               <Text>Nhóm mới</Text>
             </Col>
-            <Col style={{ alignItems: 'center', justifyContent: 'center' }}>
+            <Col style={{ width: 90, alignItems: 'center', justifyContent: 'center' }}>
               <TouchableOpacity
                 onPress={() => {
 
@@ -153,13 +170,13 @@ class Profile extends Component {
             <Col>
             </Col>
           </Row>
-          <Row style={{ paddingBottom: 60 }}>
+          <Row style={{ paddingBottom: 10 }}>
             <FlatList
               ref={ref => {
                 this.list = ref;
               }}
               style={styles.listResult}
-              data={this.state.listUsers ? this.state.listUsers : []}
+              data={this.state._listUsers ? this.state._listUsers : this.state.listUsers}
               extraData={this.state}
               keyExtractor={this._keyExtractor}
               renderItem={this.renderFlatListItem.bind(this)}
@@ -168,21 +185,6 @@ class Profile extends Component {
             />
           </Row>
         </Grid>
-        <TouchableOpacity
-          onPress={() => {
-            Actions.groupEdit();
-          }}
-          style={{
-            position: 'absolute',
-            width: 50,
-            height: 50,
-            borderRadius: 50,
-            bottom: 5,
-            right: 10,
-            backgroundColor: '#1686d7',
-            justifyContent: 'center',
-            alignItems: 'center'
-          }}><Icon name="arrow-right" size={20} style={{ color: '#fff' }}></Icon></TouchableOpacity>
       </Container >
     );
   }

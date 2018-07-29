@@ -5,7 +5,8 @@ import {
   KeyboardAvoidingView,
   FlatList,
   TouchableOpacity,
-  Alert
+  Alert,
+  RefreshControl
 } from "react-native";
 import {
   Container,
@@ -54,6 +55,8 @@ class ListChat extends Component {
     this.state = {
       listUsers: [],
       listGroups: [],
+      _listUsers: null,
+      _listGroups: null,
       isLocalLoading: true
     }
 
@@ -305,17 +308,71 @@ class ListChat extends Component {
 
   }
 
+  filterSearch(value) {
+    let { listUsers, listGroups } = this.state;
+    if (value != '') {
+      var _listUsers = listUsers.filter(user => user.FullName.toLowerCase().indexOf(value.toLowerCase()) != -1)
+      var _listGroups = listGroups.filter(group => group.Name.toLowerCase().indexOf(value.toLowerCase()) != -1)
+      this.setState({
+        _listUsers: _listUsers,
+        _listGroups: _listGroups
+      })
+    }
+    else {
+      this.setState({
+        _listUsers: null,
+        _listGroups: null
+      })
+    }
+  }
+
   render() {
     const locale = "vn";
     return (
       <Container style={styles.container}>
         <Loading isShow={this.state.isLocalLoading} />
+        <Item style={{ marginTop: 4, marginLeft: 6, marginRight: 6, height: 40, width: '97%' }} rounded>
+          <Icon name="search" style={{ paddingLeft: 10 }} size={18}></Icon>
+          <Input
+            height={40}
+            style={{
+              textAlign: 'center',
+              marginLeft: -15
+            }}
+            placeholder={"Tìm kiếm"}
+            value={this.state.groupNameSearch}
+            onChangeText={(value) => {
+              this.setState({ groupNameSearch: value });
+              this.filterSearch(value);
+            }}></Input>
+        </Item>
         <FlatList
           ref={ref => {
             this.list = ref;
           }}
+          refreshControl={
+            <RefreshControl
+              colors={["#9Bd35A", "#689F38"]}
+              refreshing={this.state.isLocalLoading}
+              onRefresh={() => {
+                if (connection && connection.state == 1) {
+                  proxy.invoke("loadAllContact");
+                  proxy.invoke("GetAllMessageUser");
+                  proxy.invoke('loadAllGroup');
+
+                } else {
+                  helperSignal.onReconnect(() => {
+                    proxy.invoke("loadAllContact");
+                    proxy.invoke("GetAllMessageUser");
+                    proxy.invoke('loadAllGroup');
+                  });
+                  //helperSignal.connectSignalr(user);
+                }
+              }}
+            />
+          }
           style={styles.listResult}
-          data={[...this.state.listGroups, ...this.state.listUsers]}
+          data={(this.state._listGroups != null || this.state._listUsers != null) ? [...this.state._listGroups, ...this.state._listUsers] : [...this.state.listGroups, ...this.state.listUsers]}
           keyExtractor={this._keyExtractor}
           renderItem={this.renderFlatListItem.bind(this)}
           numColumns={1}

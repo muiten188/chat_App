@@ -19,16 +19,20 @@ import {
   Input,
   H1,
   H2,
-  H3
+  H3,
+  Icon
 } from "native-base";
 import styles from "./styles";
 import { connect } from "react-redux";
 import { Grid, Col, Row } from "react-native-easy-grid";
 import I18n from "../../i18n/i18n";
 import * as profileAction from "../../store/actions/containers/profile_action";
+import IconVector from "react-native-vector-icons/Ionicons";
+import IconFontAwesome from "react-native-vector-icons/FontAwesome";
 import { Actions, Router, Scene, Stack } from 'react-native-router-flux';
 import { connection } from '../../helper/signalr';
 import * as loginAction from '../../authen/actions/login_action';
+import * as AppConfig from "../../config/app_config";
 import User from '../../components/User';
 import fcmClient from '../../helper/fcmClient';
 class Profile extends Component {
@@ -54,12 +58,53 @@ class Profile extends Component {
   render() {
     const locale = "vn";
     const { loginAction, loginReducer } = this.props;
+    var avartarUrl = null;
+    if (loginReducer.user && loginReducer.user.avartar) {
+      avartarUrl = `${AppConfig.API_HOST_NO}${loginReducer.user.avartar}`;
+    }
     return (
       <Container style={styles.container}>
-        <User user={loginReducer.user}></User>
-        <Grid style={{justifyContent:'center',alignItems:'flex-end'}}>
-          <Col style={{marginBottom:10,paddingLeft:10,paddingRight:10}}> 
-            <Button block bordered  onPress={() => { fcmClient.removeFcmTokenServer(loginReducer.user); loginAction.logout(); Actions.reset('login') }}>
+        <View style={styles.headerProfile}>
+          <View style={styles.headerProfile_Inside} />
+          <Grid>
+            <Col style={{ width: 50, backgroundColor: 'transparent', justifyContent: 'center', alignItems: 'center' }}>
+              <Button transparent full onPress={()=>{
+                Actions.pop();
+              }}>
+                <IconVector name="md-close" color={'#fff'} size={28}></IconVector>
+              </Button>
+            </Col>
+            <Col style={{ justifyContent: 'center', alignItems: 'center' }}>
+              <View style={{ marginTop: 40 }}>
+                <Thumbnail style={{ marginLeft: -50, width: 95, height: 95, borderRadius: 50 }} source={{ uri: avartarUrl ? avartarUrl : 'http://images6.fanpop.com/image/photos/40600000/PRISTIN-WE-LIKE-Promotion-Nayoung-pristin-40694319-500-333.jpg' }} />
+                <View style={{
+                  position: 'absolute',
+                  right: 2,
+                  bottom: 2,
+                  height: 18,
+                  width: 18,
+                  backgroundColor: '#94d82d',
+                  borderRadius: 40,
+                  borderWidth: 2,
+                  borderColor: '#fff'
+                }} />
+              </View>
+            </Col>
+          </Grid>
+        </View>
+        <View style={{marginTop:30,height:60,width:'100%',justifyContent: 'center', alignItems: 'center'}}>
+          <H2>Dinh Bách</H2>
+          <View style={{position:'absolute',right:0,height:'80%',width:50}}>
+          <Button transparent full onPress={()=>{
+              }}>
+                <IconFontAwesome name="pencil" size={23}></IconFontAwesome>
+          </Button>
+          </View>
+        </View>
+        <User style={{}} user={loginReducer.user}></User>     
+        <Grid style={{ justifyContent: 'center', alignItems: 'flex-end'}}>
+          <Col style={{ marginBottom: 10, paddingLeft: 10, paddingRight: 10 }}>
+            <Button block bordered onPress={() => { fcmClient.removeFcmTokenServer(loginReducer.user); loginAction.logout(); Actions.reset('login') }}>
               <Text>Đăng xuất</Text>
             </Button>
           </Col>

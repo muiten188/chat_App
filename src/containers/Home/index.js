@@ -144,7 +144,7 @@ class Home extends Component {
                 }} />
               </View>
               <HeaderContent user={user} onHeaderClick={() => {
-                this.setState({ tabActivePosition: 2 })
+                Actions.profile();
               }} />
               {
                 signalrDisconnect ? <View style={styles.disconnectSignalr}>
@@ -158,6 +158,7 @@ class Home extends Component {
               }
               <View style={styles.listResult_container}>
                 <Tabs initialPage={this.state.tabActivePosition}
+                  locked={true}
                   page={this.state.tabActivePosition}
                   tabBarPosition={'bottom'}
                   tabContainerStyle={{ height: 45 }}

@@ -27,6 +27,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import * as groupEditAction from "../../store/actions/containers/groupEdit_action";
 import { Actions, Router, Scene, Stack } from 'react-native-router-flux';
 import { connection, proxy } from '../../helper/signalr';
+import * as helperSignal from '../../helper/signalr';
 import HeaderContent from "../../components/Header_content";
 
 class Profile extends Component {
@@ -46,7 +47,9 @@ class Profile extends Component {
     this.state = {
       groupName: '',
       groupNameSearch: '',
-      listUsersGroups: []
+      listUsersGroups: [],
+      _listUsers: null,
+      render: false
     }
     I18n.defaultLocale = "vi";
     I18n.locale = "vi";
@@ -77,14 +80,48 @@ class Profile extends Component {
         listUsersGroups: usersGroup
       });
     })
+    proxy.on('createGroupSuccess', (Name, ID) => {
+      if (connection && connection.state == 1) {
+        proxy.invoke('loadAllGroup');
+        Actions.home();
+      } else {
+        helperSignal.onReconnect(() => {
+          proxy.invoke('loadAllGroup');
+          Actions.home();
+        });
+      }
+    })
+    proxy.on('alertMessage', (message, isSuccess) => {
+      if (!isSuccess) {
+        Alert.alert('Thông báo', message);
+      }
+    })
+
   }
 
   componentWillUnmount() {
     proxy.off('getAllUserForGroup');
+    proxy.off('createGroupSuccess');
+    proxy.off('alertMessage');
   }
 
   componentDidUpdate(prevProps, prevState) {
 
+  }
+
+  filterSearch(value) {
+    let { listUsersGroups } = this.state;
+    if (value != '') {
+      var _listUsers = listUsersGroups.filter(user => user.FullName.toLowerCase().indexOf(value.toLowerCase()) != -1)
+      this.setState({
+        _listUsers: _listUsers,
+      })
+    }
+    else {
+      this.setState({
+        _listUsers: null,
+      })
+    }
   }
 
   render() {
@@ -125,6 +162,7 @@ class Profile extends Component {
               value={this.state.groupNameSearch}
               onChangeText={(value) => {
                 this.setState({ groupNameSearch: value })
+                this.filterSearch(value);
               }}></Input>
           </Row>
           <Row style={{ paddingBottom: 60 }}>
@@ -133,7 +171,7 @@ class Profile extends Component {
                 this.list = ref;
               }}
               style={styles.listResult}
-              data={this.state.listUsersGroups ? this.state.listUsersGroups : [{}, {}, {}, {}, {}, {}, {}]}
+              data={this.state._listUsers ? this.state._listUsers : this.state.listUsersGroups}
               extraData={this.state}
               keyExtractor={this._keyExtractor}
               renderItem={this.renderFlatListItem.bind(this)}
@@ -144,7 +182,23 @@ class Profile extends Component {
         </Grid>
         <TouchableOpacity
           onPress={() => {
-            Actions.groupEdit();
+            if (this.state.groupName == '') {
+              Alert.alert('Thông báo', 'Tên nhóm trống vui lòng nhập tên nhóm!');
+              return;
+            }
+            var userGroups = this.state.listUsersGroups.filter(userGroup => userGroup.IsChecked == true);
+            var _userGroups = [];
+            for (var i = 0; i < userGroups.length; i++) {
+              _userGroups.push(userGroups.UserName);
+            }
+            if (proxy.connection.state == 1) {
+              proxy.invoke('addUserGroup', _userGroups, this.state.groupName);
+            }
+            else {
+              helperSignal.onReconnect(() => {
+                proxy.invoke('addUserGroup', _userGroups, this.state.groupName);
+              });
+            }
           }}
           style={{
             position: 'absolute',
@@ -167,7 +221,6 @@ class Profile extends Component {
 
   renderFlatListItem(dataItem) {
     const item = dataItem.item;
-    debugger;
     return (
       <TouchableOpacity
         key={item.index}
@@ -181,7 +234,7 @@ class Profile extends Component {
               arrUserGroup[i].IsChecked = !arrUserGroup[i].IsChecked;
             }
           }
-          this.setState({ listUsersGroups: arrUserGroup });
+          this.setState({ listUsersGroups: arrUserGroup, render: !this.state.render });
         }}
       >
         <Grid>
@@ -194,7 +247,15 @@ class Profile extends Component {
                 <Text style={styles.userName}>{item.FullName}</Text>
               </Col>
               <Col style={styles.colTimeStatus}>
-                <CheckBox color={"#448fcd"} checked={item.IsChecked} />
+                <CheckBox color={"#448fcd"} onPress={(value) => {
+                  var arrUserGroup = this.state.listUsersGroups;
+                  for (var i = 0; i < arrUserGroup.length; i++) {
+                    if (arrUserGroup[i].UserID == item.UserID) {
+                      arrUserGroup[i].IsChecked = !arrUserGroup[i].IsChecked;
+                    }
+                  }
+                  this.setState({ listUsersGroups: arrUserGroup, render: !this.state.render });
+                }} checked={item.IsChecked} />
               </Col>
             </Row>
           </Col>
