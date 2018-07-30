@@ -403,7 +403,9 @@ class ListChat extends Component {
           }
         }}
       >
-        {item.Name ? <ItemGroupChat data={item}></ItemGroupChat>
+        {item.Name ? <ItemGroupChat data={item} onGroupEdit={() => {
+          Actions.groupEdit({ groupEdit: item });
+        }}></ItemGroupChat>
           : <ItemChat data={item}></ItemChat>}
       </TouchableOpacity>
     );

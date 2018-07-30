@@ -58,7 +58,7 @@ export default class extends Component {
           <Col style={styles.itemHeaderBody}>
             <Row style={styles.itemHeaderBody}>
               <TouchableOpacity onPress={onHeaderClick} style={styles.titleCon}>
-                <Thumbnail style={{ height: 45, width: 45 }} source={{ uri: avartarUrl ? avartarUrl : 'http://images6.fanpop.com/image/photos/40600000/PRISTIN-WE-LIKE-Promotion-Nayoung-pristin-40694319-500-333.jpg' }} />
+                <Thumbnail style={{ height: 45, width: 45 }} source={{ uri: avartarUrl ? avartarUrl : 'https://cdn.washingtoncitypaper.com/files/base/scomm/wcp/image/2009/04/640w/__contexts.org_socimages_files_2009_04_d_silhouette.jpg' }} />
 
                 {/* <Text style={styles.whileText}>{headerTitle ? headerTitle : I18n.t("easyLink", {
                   locale: "vn"

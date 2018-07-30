@@ -36,7 +36,7 @@ export default class extends Component {
       <View key={key} style={styles.itemList}>
         <Grid>
           <Col style={styles.colAvar}>
-            <Thumbnail style={styles.avartar} source={{ uri: data.Avatar ? `${AppConfig.API_HOST}${data.Avatar}` : 'http://images6.fanpop.com/image/photos/40600000/PRISTIN-WE-LIKE-Promotion-Nayoung-pristin-40694319-500-333.jpg' }} />
+            <Thumbnail style={styles.avartar} source={{ uri: data.Avatar ? `${AppConfig.API_HOST}${data.Avatar}` : 'https://cdn.washingtoncitypaper.com/files/base/scomm/wcp/image/2009/04/640w/__contexts.org_socimages_files_2009_04_d_silhouette.jpg' }} />
             {data.Connected ? <View style={{
               position: 'absolute',
               bottom: 10,

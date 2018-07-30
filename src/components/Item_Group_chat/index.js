@@ -18,6 +18,7 @@ import {
 } from "native-base";
 import { View, Image } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
+import IconVector from "react-native-vector-icons/Entypo";
 import { Grid, Col, Row } from "react-native-easy-grid";
 import styles from "./styles";
 import User from "../User";
@@ -30,7 +31,7 @@ export default class extends Component {
   };
 
   render() {
-    const { key, data } = this.props;
+    const { key, data,onGroupEdit } = this.props;
     return (
       <View key={key} style={styles.itemList}>
         <Grid>
@@ -48,7 +49,7 @@ export default class extends Component {
               <Icon name="group" style={{ color: '#fff' }} size={24} />
             </View>
 
-            {/* <Thumbnail style={styles.avartar} large source={{ uri: data.Avatar ? `${AppConfig.API_HOST}${data.Avatar}` : 'http://images6.fanpop.com/image/photos/40600000/PRISTIN-WE-LIKE-Promotion-Nayoung-pristin-40694319-500-333.jpg' }} /> */}
+            {/* <Thumbnail style={styles.avartar} large source={{ uri: data.Avatar ? `${AppConfig.API_HOST}${data.Avatar}` : 'https://cdn.washingtoncitypaper.com/files/base/scomm/wcp/image/2009/04/640w/__contexts.org_socimages_files_2009_04_d_silhouette.jpg' }} /> */}
             {/* {data.Connected ? <View style={{
               position: 'absolute',
               bottom: 10,
@@ -72,12 +73,11 @@ export default class extends Component {
               </Col>
             </Row> */}
           </Col>
-          {(data.Count > 0) ?
-            <Col style={styles.colTimeStatus}>
-              <Badge style={{ backgroundColor: 'black', opacity: 0.8 }}>
-                <Text style={[{ color: 'white' }, styles.textMessage]}>{data.Count}</Text>
-              </Badge>
-            </Col> : null}
+          <Col style={styles.colTimeStatus}>
+            <Button full transparent onPress={onGroupEdit}>
+              <IconVector name="dots-three-vertical" size={22}></IconVector>
+            </Button>
+          </Col>
         </Grid>
       </View>
     );

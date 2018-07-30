@@ -27,7 +27,7 @@ export default {
     borderBottomWidth: 0.5,
     borderBottomColor: '#dadadc',
     marginLeft: 6,
-    marginRight: 6,
+    marginRight: 0,
     paddingTop:5,
     paddingBottom:5
   },
@@ -35,8 +35,9 @@ export default {
     justifyContent: 'center',
     alignItems: 'center',
     width: 30,
-    borderBottomWidth: 2,
-    borderBottomColor: '#e8eff5',
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#dadadc',
+    marginRight: 6,
   },
   colUserMessage: {
     justifyContent: 'center',

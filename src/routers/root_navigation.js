@@ -13,6 +13,7 @@ import ListChat from '../containers/List_chat';
 import ListGroup from "../containers/List_group";
 import GroupEdit from "../containers/Group_edit";
 import ChatEdit from '../containers/Chat_edit';
+import ChangePassword from "../containers/ChangePassword";
 import PropTypes from 'prop-types';
 
 class RootNavigation extends React.Component {
@@ -93,6 +94,11 @@ class RootNavigation extends React.Component {
                     <Scene key="profile"
                         component={Profile}
                         title="Profile"
+                        initial={false}
+                    />
+                    <Scene key="changePassword"
+                        component={ChangePassword}
+                        title="Change Password"
                         initial={false}
                     />
                 </Stack>

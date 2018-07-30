@@ -16,5 +16,9 @@ export default {
     bottom: 0,
     backgroundColor: '#448fcd',
     opacity: 0.75
+  },
+  titleProfile:{
+    fontSize:17,
+    fontWeight:'500'
   }
 }

@@ -50,7 +50,7 @@ class user extends React.Component {
       <View style={styles.viewContain}>
         <Grid>
           <Col style={styles.avartarCol}>
-            <Thumbnail style={{ width: 100, height: 100, borderRadius: 50 }} source={{ uri: avartarUrl ? avartarUrl : 'http://images6.fanpop.com/image/photos/40600000/PRISTIN-WE-LIKE-Promotion-Nayoung-pristin-40694319-500-333.jpg' }} />
+            <Thumbnail style={{ width: 100, height: 100, borderRadius: 50 }} source={{ uri: avartarUrl ? avartarUrl : 'https://cdn.washingtoncitypaper.com/files/base/scomm/wcp/image/2009/04/640w/__contexts.org_socimages_files_2009_04_d_silhouette.jpg' }} />
           </Col>
           <Col style={{
             justifyContent: "center",

@@ -59,13 +59,27 @@ class Profile extends Component {
   componentDidMount() {
     try {
       this.onEventSignal();
-      if (proxy.connection.state == 1) {
-        proxy.invoke('getUserForGroup');
+      const { groupEdit } = this.props;
+      if (groupEdit) {
+        this.setState({ groupName: groupEdit.Name })
+        if (proxy.connection.state == 1) {
+          proxy.invoke('getListUserInGroup', groupEdit.ID);
+        }
+        else {
+          helperSignal.onReconnect(() => {
+            proxy.invoke('getListUserInGroup', groupEdit.ID);
+          });
+        }
       }
       else {
-        helperSignal.onReconnect(() => {
+        if (proxy.connection.state == 1) {
           proxy.invoke('getUserForGroup');
-        });
+        }
+        else {
+          helperSignal.onReconnect(() => {
+            proxy.invoke('getUserForGroup');
+          });
+        }
       }
     }
     catch (err) {
@@ -75,6 +89,13 @@ class Profile extends Component {
 
   onEventSignal() {
     var self = this;
+
+    proxy.on('listUserInGroup', (usersGroup) => {
+      self.setState({
+        listUsersGroups: usersGroup
+      });
+    })
+
     proxy.on('getAllUserForGroup', (usersGroup) => {
       self.setState({
         listUsersGroups: usersGroup
@@ -92,6 +113,17 @@ class Profile extends Component {
       }
     })
     proxy.on('alertMessage', (message, isSuccess) => {
+      if (this.props.groupEdit && isSuccess) {
+        if (connection && connection.state == 1) {
+          proxy.invoke('loadAllGroup');
+          Actions.home();
+        } else {
+          helperSignal.onReconnect(() => {
+            proxy.invoke('loadAllGroup');
+            Actions.home();
+          });
+        }
+      }
       if (!isSuccess) {
         Alert.alert('Thông báo', message);
       }
@@ -140,6 +172,7 @@ class Profile extends Component {
               fontWeight: '500',
               color: '#fff'
             }}
+              disabled={this.props.groupEdit}
               placeholder={"Tên nhóm"}
               value={this.state.groupName}
               onChangeText={(value) => {
@@ -189,15 +222,27 @@ class Profile extends Component {
             var userGroups = this.state.listUsersGroups.filter(userGroup => userGroup.IsChecked == true);
             var _userGroups = [];
             for (var i = 0; i < userGroups.length; i++) {
-              _userGroups.push(userGroups.UserName);
+              _userGroups.push(userGroups[i].UserName);
             }
-            if (proxy.connection.state == 1) {
-              proxy.invoke('addUserGroup', _userGroups, this.state.groupName);
+            if (this.props.groupEdit) {
+              if (proxy.connection.state == 1) {
+                proxy.invoke('updateUserGroup', _userGroups, this.state.groupName);
+              }
+              else {
+                helperSignal.onReconnect(() => {
+                  proxy.invoke('updateUserGroup', _userGroups, this.state.groupName);
+                });
+              }
             }
             else {
-              helperSignal.onReconnect(() => {
+              if (proxy.connection.state == 1) {
                 proxy.invoke('addUserGroup', _userGroups, this.state.groupName);
-              });
+              }
+              else {
+                helperSignal.onReconnect(() => {
+                  proxy.invoke('addUserGroup', _userGroups, this.state.groupName);
+                });
+              }
             }
           }}
           style={{
@@ -239,7 +284,7 @@ class Profile extends Component {
       >
         <Grid>
           <Col style={styles.colAvar}>
-            <Thumbnail style={styles.avartar} source={{ uri: 'http://images6.fanpop.com/image/photos/40600000/PRISTIN-WE-LIKE-Promotion-Nayoung-pristin-40694319-500-333.jpg' }} />
+            <Thumbnail style={styles.avartar} source={{ uri: 'https://cdn.washingtoncitypaper.com/files/base/scomm/wcp/image/2009/04/640w/__contexts.org_socimages_files_2009_04_d_silhouette.jpg' }} />
           </Col>
           <Col style={styles.colContent}>
             <Row>

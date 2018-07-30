@@ -8,6 +8,7 @@ import listGroupReducer from "../../store/reducers/containers/listGroup_reducer"
 import profileReducer from "../../store/reducers/containers/profile_reducer";
 import groupEditReducer from "../../store/reducers/containers/groupEdit_reducer";
 import chatEditReducer from "../../store/reducers/containers/chatEdit_reducer";
+import changePasswordReducer from "../../store/reducers/containers/changePassword_reducer";
 import app_Reducer from "../../store/reducers/app_reducer";
 import router_Reducer from "../../store/reducers/router/router_reducer";
 import * as types from "../../store/constants/action_types";
@@ -23,6 +24,7 @@ const appReducer = combineReducers({
   profileReducer,
   groupEditReducer,
   chatEditReducer,
+  changePasswordReducer,
   app_Reducer,
   router_Reducer,
   form: formReducer

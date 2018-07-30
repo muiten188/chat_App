@@ -20,7 +20,8 @@ import {
   H1,
   H2,
   H3,
-  Icon
+  Icon,
+  Card, CardItem, Right
 } from "native-base";
 import styles from "./styles";
 import { connect } from "react-redux";
@@ -68,7 +69,7 @@ class Profile extends Component {
           <View style={styles.headerProfile_Inside} />
           <Grid>
             <Col style={{ width: 50, backgroundColor: 'transparent', justifyContent: 'center', alignItems: 'center' }}>
-              <Button transparent full onPress={()=>{
+              <Button transparent full onPress={() => {
                 Actions.pop();
               }}>
                 <IconVector name="md-close" color={'#fff'} size={28}></IconVector>
@@ -76,7 +77,7 @@ class Profile extends Component {
             </Col>
             <Col style={{ justifyContent: 'center', alignItems: 'center' }}>
               <View style={{ marginTop: 40 }}>
-                <Thumbnail style={{ marginLeft: -50, width: 95, height: 95, borderRadius: 50 }} source={{ uri: avartarUrl ? avartarUrl : 'http://images6.fanpop.com/image/photos/40600000/PRISTIN-WE-LIKE-Promotion-Nayoung-pristin-40694319-500-333.jpg' }} />
+                <Thumbnail style={{ marginLeft: -50, width: 95, height: 95, borderRadius: 50 }} source={{ uri: avartarUrl ? avartarUrl : 'https://cdn.washingtoncitypaper.com/files/base/scomm/wcp/image/2009/04/640w/__contexts.org_socimages_files_2009_04_d_silhouette.jpg' }} />
                 <View style={{
                   position: 'absolute',
                   right: 2,
@@ -92,17 +93,46 @@ class Profile extends Component {
             </Col>
           </Grid>
         </View>
-        <View style={{marginTop:30,height:60,width:'100%',justifyContent: 'center', alignItems: 'center'}}>
-          <H2>Dinh Bách</H2>
-          <View style={{position:'absolute',right:0,height:'80%',width:50}}>
-          <Button transparent full onPress={()=>{
-              }}>
-                <IconFontAwesome name="pencil" size={23}></IconFontAwesome>
-          </Button>
+        <View style={{ marginTop: 30, height: 60, width: '100%', justifyContent: 'center', alignItems: 'center' }}>
+          <H2>{loginReducer.user ? loginReducer.user.fullName : ''}</H2>
+          <View style={{ position: 'absolute', right: 0, height: '80%', width: 50 }}>
+            <Button transparent full onPress={() => {
+              Actions.changePassword();
+            }}>
+              <IconFontAwesome name="pencil" size={23}></IconFontAwesome>
+            </Button>
           </View>
         </View>
-        <User style={{}} user={loginReducer.user}></User>     
-        <Grid style={{ justifyContent: 'center', alignItems: 'flex-end'}}>
+        <View style={{ height: 300 }}>
+          <Card>
+            <CardItem header>
+              <Text>PROFILE</Text>
+            </CardItem>
+            <CardItem>
+              <IconFontAwesome style={{ width: 30 }} size={20} active name="address-card-o" />
+              <Text style={styles.titleProfile}>  Tên truy cập</Text>
+              <Right style={{ flex: 1 }}>
+                <Text>{loginReducer.user ? loginReducer.user.username : ''}</Text>
+              </Right>
+            </CardItem>
+            <CardItem>
+              <IconFontAwesome style={{ width: 30, paddingLeft: 5 }} active size={25} name="mobile" />
+              <Text style={styles.titleProfile}>  Điện thoại</Text>
+              <Right style={{ flex: 1 }}>
+                <Text>-</Text>
+              </Right>
+            </CardItem>
+            <CardItem>
+              <IconFontAwesome style={{ width: 30 }} active size={20} name="birthday-cake" />
+              <Text style={styles.titleProfile}>  Ngày sinh</Text>
+              <Right style={{ flex: 1 }}>
+                <Text>-</Text>
+              </Right>
+            </CardItem>
+          </Card>
+        </View>
+        {/* <User style={{}} user={loginReducer.user}></User> */}
+        <Grid style={{ justifyContent: 'center', alignItems: 'flex-end' }}>
           <Col style={{ marginBottom: 10, paddingLeft: 10, paddingRight: 10 }}>
             <Button block bordered onPress={() => { fcmClient.removeFcmTokenServer(loginReducer.user); loginAction.logout(); Actions.reset('login') }}>
               <Text>Đăng xuất</Text>

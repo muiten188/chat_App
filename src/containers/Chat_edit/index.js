@@ -213,7 +213,7 @@ class Profile extends Component {
       >
         <Grid>
           <Col style={styles.colAvar}>
-            <Thumbnail style={styles.avartar} source={{ uri: avartarUrl ? avartarUrl : 'http://images6.fanpop.com/image/photos/40600000/PRISTIN-WE-LIKE-Promotion-Nayoung-pristin-40694319-500-333.jpg' }} />
+            <Thumbnail style={styles.avartar} source={{ uri: avartarUrl ? avartarUrl : 'https://cdn.washingtoncitypaper.com/files/base/scomm/wcp/image/2009/04/640w/__contexts.org_socimages_files_2009_04_d_silhouette.jpg' }} />
           </Col>
           <Col style={styles.colContent}>
             <Row>
