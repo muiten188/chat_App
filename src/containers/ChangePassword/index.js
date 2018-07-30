@@ -5,7 +5,8 @@ import {
   KeyboardAvoidingView,
   FlatList,
   TouchableOpacity,
-  Alert
+  Alert,
+  TextInput
 } from "react-native";
 import {
   Container,
@@ -44,13 +45,10 @@ const validate = values => {
   error.username = "";
   error.password = "";
   error.confirmPassword = "";
-  error.firstName = "";
-  error.lastName = "";
   var username = values.username;
   var password = values.password;
   var confirmPassword = values.confirmPassword;
-  var firstName = values.firstName;
-  var lastName = values.lastName;
+
   if (values.username === undefined) {
     username = "";
   }
@@ -59,12 +57,6 @@ const validate = values => {
   }
   if (values.confirmPassword === undefined) {
     confirmPassword = "";
-  }
-  if (values.firstName === undefined) {
-    firstName = "";
-  }
-  if (values.lastName === undefined) {
-    lastName = "";
   }
   if (username.length == 0 || username == "") {
     error.username = "trống";
@@ -77,12 +69,6 @@ const validate = values => {
   }
   if (confirmPassword !== password) {
     error.confirmPassword = "không khớp";
-  }
-  if (firstName.length == 0 || firstName == "") {
-    error.firstName = "trống";
-  }
-  if (lastName.length == 0 || lastName == "") {
-    error.lastName = "trống";
   }
   return error;
 };
@@ -107,9 +93,30 @@ class ChangePassword extends Component {
 
   }
 
+  onHandleSubmit(value) {
+    const { changePasswordAction } = this.props;
+    const { user } = this.props.loginReducer;
+    changePasswordAction.changePassword(value, user)
+  }
+
+  componentDidUpdate() {
+    const { changePwDone } = this.props.changePasswordReducer;
+    const {changePasswordAction} = this.props;
+    if (changePwDone) {
+      Alert.alert('Thông báo', 'Thay đổi mật khẩu thành công', [{
+        text: 'Ok',
+        onPress: (e) => {
+          changePasswordAction.resetChangePassword();
+          Actions.pop();
+        }
+      }],
+        { cancelable: false });
+    }
+  }
+
   render() {
     const locale = "vn";
-    const { loginAction, loginReducer,handleSubmit,changePasswordAction } = this.props;
+    const { loginAction, loginReducer, handleSubmit, changePasswordAction } = this.props;
     var avartarUrl = null;
     if (loginReducer.user && loginReducer.user.avartar) {
       avartarUrl = `${AppConfig.API_HOST_NO}${loginReducer.user.avartar}`;
@@ -144,83 +151,62 @@ class ChangePassword extends Component {
             </Col>
           </Grid>
         </View>
-        <View style={{ marginTop: 30, height: 60, width: '100%', justifyContent: 'center', alignItems: 'center' }}>
-          <H2>{loginReducer.user ? loginReducer.user.fullName : ''}</H2>
-          
-        </View>
-        <View style={{ height: 300,backgroundColor:'red',width:'100%' }}>
-          <Form style={styles.form}>
-            <View style={styles.item}>
-              {/* <Icon active name="person" /> */}
-              <Row>
-                <Col>
-                  <Field
-                    icon="user-circle-o"
-                    name="firstName"
-                    placeholder={I18n.t("firstName", {
-                      locale: locale ? locale : "vi"
-                    })}
-                    component={InputField}
-                  />
-                </Col>
-                <Col>
-                  <Field
-                    icon="user-circle-o"
-                    name="lastName"
-                    placeholder={I18n.t("lastName", {
-                      locale: locale ? locale : "vi"
-                    })}
-                    component={InputField}
-                  />
-                </Col>
+        <KeyboardAvoidingView style={{ flex: 1 }} keyboardVerticalOffset={-250} behavior="padding" enabled>
+          <Content>
+            <Grid>
+              <Row style={{ marginTop: 30, height: 60, width: '100%', justifyContent: 'center', alignItems: 'center' }}>
+                <H2>{loginReducer.user ? loginReducer.user.fullName : ''}</H2>
+
               </Row>
-            </View>
-            <View style={styles.item}>
-              {/* <Icon active name="person" /> */}
-              <Field
-                icon="user-circle-o"
-                name="username"
-                placeholder={I18n.t("account", {
-                  locale: locale ? locale : "vi"
-                })}
-                component={InputField}
-              />
-            </View>
-            <View style={styles.item}>
-              {/* <Icon active name="lock" /> */}
-              <Field
-                icon="key"
-                name="password"
-                placeholder={I18n.t("password", {
-                  locale: locale ? locale : "vi"
-                })}
-                secureTextEntry={true}
-                component={InputField}
-              />
-            </View>
-            <View style={styles.item}>
-              {/* <Icon active name="lock" /> */}
-              <Field
-                icon="key"
-                name="confirmPassword"
-                placeholder={I18n.t("confirmPassword", {
-                  locale: locale ? locale : "vi"
-                })}
-                secureTextEntry={true}
-                component={InputField}
-              />
-            </View>
-            <Button
-              full
-              style={[styles.buttonLogin, { backgroundColor: '#007db7' }]}
-              onPress={handleSubmit(changePasswordAction.changePassword)}
-            >
-              <Text>
-                Đổi mật khẩu
+              <Row style={{ height: 300, backgroundColor: 'red', width: '100%' }}>
+                <Form style={styles.form}>
+                  <View style={styles.item}>
+                    <Field
+                      icon="user-circle-o"
+                      name="username"
+                      disabled={true}
+                      placeholder={I18n.t("account", {
+                        locale: locale ? locale : "vi"
+                      })}
+                      component={InputField}
+                    />
+                  </View>
+                  <View style={styles.item}>
+                    <Field
+                      icon="key"
+                      name="password"
+                      placeholder={I18n.t("password", {
+                        locale: locale ? locale : "vi"
+                      })}
+                      secureTextEntry={true}
+                      component={InputField}
+                    />
+                  </View>
+                  <View style={styles.item}>
+                    <Field
+                      icon="key"
+                      name="confirmPassword"
+                      placeholder={I18n.t("confirmPassword", {
+                        locale: locale ? locale : "vi"
+                      })}
+                      secureTextEntry={true}
+                      component={InputField}
+                    />
+                  </View>
+                  <Button
+                    full
+                    style={[styles.buttonLogin, { backgroundColor: '#007db7' }]}
+                    onPress={handleSubmit(this.onHandleSubmit.bind(this))}
+                  >
+                    <Text>
+                      Đổi mật khẩu
               </Text>
-            </Button>
-          </Form>
-        </View>
+                  </Button>
+                </Form>
+              </Row>
+            </Grid>
+          </Content>
+        </KeyboardAvoidingView>
       </Container>
     );
   }
@@ -234,9 +220,7 @@ function mapStateToProps(state, props) {
     initialValues: state.changePasswordReducer.userForm
       ? state.changePasswordReducer.userForm
       : {
-        firstName: "",//"Bùi đình"
-        lastName: "",//'Bách'
-        username: "",//"bachbd"
+        username: state.loginReducer.user.username,//"bachbd"
         password: "",//"123456a@"
         confirmPassword: ""//'123456a@'
       }

@@ -104,11 +104,25 @@ class Profile extends Component {
     proxy.on('createGroupSuccess', (Name, ID) => {
       if (connection && connection.state == 1) {
         proxy.invoke('loadAllGroup');
-        Actions.home();
+        Alert.alert('Thông báo', "Thêm nhóm thành công", [{
+          text: 'Ok',
+          onPress: (e) => {
+            Actions.pop();
+            Actions.pop();
+          }
+        }],
+          { cancelable: false });
       } else {
         helperSignal.onReconnect(() => {
           proxy.invoke('loadAllGroup');
-          Actions.home();
+          Alert.alert('Thông báo', "Thêm nhóm thành công", [{
+            text: 'Ok',
+            onPress: (e) => {
+              Actions.pop();
+              Actions.pop();
+            }
+          }],
+            { cancelable: false });
         });
       }
     })
@@ -116,11 +130,23 @@ class Profile extends Component {
       if (this.props.groupEdit && isSuccess) {
         if (connection && connection.state == 1) {
           proxy.invoke('loadAllGroup');
-          Actions.home();
+          Alert.alert('Thông báo', message, [{
+            text: 'Ok',
+            onPress: (e) => {
+              Actions.pop();
+            }
+          }],
+            { cancelable: false });
         } else {
           helperSignal.onReconnect(() => {
             proxy.invoke('loadAllGroup');
-            Actions.home();
+            Alert.alert('Thông báo', message, [{
+              text: 'Ok',
+              onPress: (e) => {
+                Actions.pop();
+              }
+            }],
+              { cancelable: false });
           });
         }
       }
@@ -220,17 +246,24 @@ class Profile extends Component {
               return;
             }
             var userGroups = this.state.listUsersGroups.filter(userGroup => userGroup.IsChecked == true);
+
             var _userGroups = [];
             for (var i = 0; i < userGroups.length; i++) {
               _userGroups.push(userGroups[i].UserName);
             }
+
             if (this.props.groupEdit) {
+              var userGroupsRemove = this.state.listUsersGroups.filter(userGroup => userGroup.IsChecked == false);
+              var _userGroupsRemove = [];
+              for (var i = 0; i < userGroupsRemove.length; i++) {
+                _userGroupsRemove.push(userGroupsRemove[i].UserName);
+              }
               if (proxy.connection.state == 1) {
-                proxy.invoke('updateUserGroup', _userGroups, this.state.groupName);
+                proxy.invoke('updateUserGroup', _userGroups, this.state.groupName, _userGroupsRemove);
               }
               else {
                 helperSignal.onReconnect(() => {
-                  proxy.invoke('updateUserGroup', _userGroups, this.state.groupName);
+                  proxy.invoke('updateUserGroup', _userGroups, this.state.groupName, _userGroupsRemove);
                 });
               }
             }

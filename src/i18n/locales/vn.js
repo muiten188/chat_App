@@ -20,5 +20,6 @@ export default {
   placeholder:'Chưa có tin nhắn',
   you:'Bạn',
   conversation:"Trò chuyện",
-  Group:'Nhóm'
+  Group:'Nhóm',
+  confirmPassword:'Nhập lại mật khẩu'
 };
