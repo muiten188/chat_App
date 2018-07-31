@@ -221,7 +221,6 @@ class FcmClient {
   }
 
 removeFcmTokenServer(user) {
-debugger
     if (user != null&& this.device_token!=null) {
       var accessToken = user.access_token;
       var fcmToken = this.device_token;

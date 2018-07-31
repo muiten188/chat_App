@@ -9,7 +9,7 @@ import { Actions } from '../../node_modules/react-native-router-flux';
 import FcmClient from '../helper/fcmClient';
 export var proxy = null;
 export var connection = null;
-var _callBack=null;
+var _callBack = null;
 let intervalReConnection = null;
 let isAuthorize = true;
 var netConnected = true;
@@ -26,7 +26,7 @@ function handleFirstConnectivityChange(connectionInfo) {
     //     'connectionChange',
     //     handleFirstConnectivityChange
     // );
-    if(!store){
+    if (!store) {
         return;
     }
     var reducer = store.getState();
@@ -78,7 +78,8 @@ export function connectSignalr(user) {
 
     connection.disconnected(function (error) {
         console.log('disabled signal')
-        if (isAuthorize) {
+        var unLogout = connection.logging;
+        if (isAuthorize && unLogout == true) {
             //connection.start().done(onConnected).fail(onConnectedFail);
             if (!intervalReConnection) {
                 intervalReConnection = setInterval(onReconnect, 2000);
@@ -124,16 +125,16 @@ export function connectSignalr(user) {
 }
 function onConnected() {
     var reducer = store.getState();
-    if(_callBack!=null){
+    if (_callBack != null) {
         _callBack();
-        _callBack=null;
+        _callBack = null;
     }
     if (intervalReConnection) {
         clearInterval(intervalReConnection);
     }
-    var s=FcmClient.device_token;
-    if(FcmClient.device_token!=null){
-        proxy.invoke("addDeviceTokenFCM",FcmClient.device_token);
+    var s = FcmClient.device_token;
+    if (FcmClient.device_token != null) {
+        proxy.invoke("addDeviceTokenFCM", FcmClient.device_token);
     }
     if (reducer.homeReducer.signalrDisconnect == true || reducer.homeReducer.signalrReconnecting == true) {
         store.dispatch(homeAction.onConnected());
@@ -157,7 +158,7 @@ function onConnectedFail(e) {
 }
 
 export function onReconnect(callBack) {
-    _callBack=callBack;
+    _callBack = callBack;
     console.log('reconecting...')
     if (netConnected) {
         var reducer = store.getState();

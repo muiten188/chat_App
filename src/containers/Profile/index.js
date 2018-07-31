@@ -134,7 +134,20 @@ class Profile extends Component {
         {/* <User style={{}} user={loginReducer.user}></User> */}
         <Grid style={{ justifyContent: 'center', alignItems: 'flex-end' }}>
           <Col style={{ marginBottom: 10, paddingLeft: 10, paddingRight: 10 }}>
-            <Button block bordered onPress={() => { fcmClient.removeFcmTokenServer(loginReducer.user); loginAction.logout(); Actions.reset('login') }}>
+            <Button block bordered onPress={() => {
+              try {
+                fcmClient.removeFcmTokenServer(loginReducer.user);
+                loginAction.logout();
+                if (connection) {
+                  connection.logging=false;
+                  connection.stop();
+                }
+                Actions.reset('login')
+              }
+              catch (e) {
+                //error
+              }
+            }}>
               <Text>Đăng xuất</Text>
             </Button>
           </Col>
