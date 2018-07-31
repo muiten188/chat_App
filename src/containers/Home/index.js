@@ -159,7 +159,7 @@ class Home extends Component {
               <View style={styles.listResult_container}>
                 <Tabs initialPage={this.state.tabActivePosition}
                   locked={true}
-                  page={this.state.tabActivePosition}
+                  page={0}
                   tabBarPosition={'bottom'}
                   tabContainerStyle={{ height: 45 }}
                   tabBarUnderlineStyle={styles.tabBarUnderlineStyle}
@@ -172,6 +172,7 @@ class Home extends Component {
                   }}
                 >
                   <Tab
+
                     heading={<TabHeading style={this.state.tabActivePosition == 0 ? styles.tabHeadingActive : styles.tabHeading}>
                       <Grid>
                         <Row style={styles.iconTab}>
@@ -216,7 +217,7 @@ class Home extends Component {
                     <ListGroup />
 
                   </Tab> */}
-                  <Tab heading={<TabHeading style={this.state.tabActivePosition == 2 ? styles.tabHeadingActive : styles.tabHeading}>
+                  <Tab heading={<TabHeading  style={this.state.tabActivePosition == 2 ? styles.tabHeadingActive : styles.tabHeading}>
                     <Grid>
                       <Row style={styles.iconTab}>
                         <IconVector name="camera" size={18} style={this.state.tabActivePosition == 2 ? styles.iconHeaderTabActive : { fontSize: 12 }} />

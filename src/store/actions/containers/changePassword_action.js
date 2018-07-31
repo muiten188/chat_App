@@ -38,7 +38,7 @@ export function changePassword(value, user) {
 
 export function _changePasswording() {
     return {
-        type: types.CHANGE_PASSWORD
+        type: types.CHANGE_PASSWORDG
     };
 }
 

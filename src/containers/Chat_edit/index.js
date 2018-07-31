@@ -23,6 +23,7 @@ import styles from "./styles";
 import { connect } from "react-redux";
 import { Grid, Col, Row } from "react-native-easy-grid";
 import I18n from "../../i18n/i18n";
+import Loading from "../../components/Loading";
 import Icon from "react-native-vector-icons/FontAwesome";
 import * as chatEditAction from "../../store/actions/containers/chatEdit_action";
 import { Actions, Router, Scene, Stack } from 'react-native-router-flux';
@@ -171,6 +172,7 @@ class Profile extends Component {
             </Col>
           </Row>
           <Row style={{ paddingBottom: 10 }}>
+            <Loading isShow={this.state.listUsers && this.state.listUsers.length == 0} />
             <FlatList
               ref={ref => {
                 this.list = ref;

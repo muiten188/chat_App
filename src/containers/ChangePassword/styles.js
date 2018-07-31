@@ -30,7 +30,6 @@ export default {
     borderWidth: 0.3,
     borderColor: 'black'
   }, form: {
-    backgroundColor:'red',
     paddingTop: 20,
     padding: 20,
     borderRadius: 5,

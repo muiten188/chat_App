@@ -33,6 +33,7 @@ import IconVector from "react-native-vector-icons/Ionicons";
 import IconFontAwesome from "react-native-vector-icons/FontAwesome";
 import { Field, reduxForm } from "redux-form";
 import { InputField } from "../../components/Element/Form";
+import Loading from "../../components/Loading";
 import { Actions, Router, Scene, Stack } from 'react-native-router-flux';
 import { connection } from '../../helper/signalr';
 import * as loginAction from '../../authen/actions/login_action';
@@ -117,6 +118,7 @@ class ChangePassword extends Component {
   render() {
     const locale = "vn";
     const { loginAction, loginReducer, handleSubmit, changePasswordAction } = this.props;
+    const {changePwing}=this.props.changePasswordReducer;
     var avartarUrl = null;
     if (loginReducer.user && loginReducer.user.avartar) {
       avartarUrl = `${AppConfig.API_HOST_NO}${loginReducer.user.avartar}`;
@@ -158,7 +160,7 @@ class ChangePassword extends Component {
                 <H2>{loginReducer.user ? loginReducer.user.fullName : ''}</H2>
 
               </Row>
-              <Row style={{ height: 300, backgroundColor: 'red', width: '100%' }}>
+              <Row style={{ height: 300, width: '100%' }}>
                 <Form style={styles.form}>
                   <View style={styles.item}>
                     <Field
@@ -175,7 +177,7 @@ class ChangePassword extends Component {
                     <Field
                       icon="key"
                       name="password"
-                      placeholder={I18n.t("password", {
+                      placeholder={I18n.t("newpassword", {
                         locale: locale ? locale : "vi"
                       })}
                       secureTextEntry={true}
@@ -207,6 +209,7 @@ class ChangePassword extends Component {
             </Grid>
           </Content>
         </KeyboardAvoidingView>
+        <Loading isShow={changePwing} />
       </Container>
     );
   }

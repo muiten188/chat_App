@@ -24,6 +24,7 @@ import { connect } from "react-redux";
 import { Grid, Col, Row } from "react-native-easy-grid";
 import I18n from "../../i18n/i18n";
 import Icon from "react-native-vector-icons/FontAwesome";
+import Loading from "../../components/Loading";
 import * as groupEditAction from "../../store/actions/containers/groupEdit_action";
 import { Actions, Router, Scene, Stack } from 'react-native-router-flux';
 import { connection, proxy } from '../../helper/signalr';
@@ -225,6 +226,7 @@ class Profile extends Component {
               }}></Input>
           </Row>
           <Row style={{ paddingBottom: 60 }}>
+          <Loading isShow={this.state.listUsersGroups && this.state.listUsersGroups.length == 0} />
             <FlatList
               ref={ref => {
                 this.list = ref;

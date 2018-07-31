@@ -21,5 +21,6 @@ export default {
   you:'Bạn',
   conversation:"Trò chuyện",
   Group:'Nhóm',
-  confirmPassword:'Nhập lại mật khẩu'
+  confirmPassword:'Nhập lại mật khẩu',
+  newpassword:'Mật khẩu mới'
 };
