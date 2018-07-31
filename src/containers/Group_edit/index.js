@@ -33,13 +33,15 @@ import HeaderContent from "../../components/Header_content";
 
 class Profile extends Component {
 
-  static navigationOptions = {
-    title: "Nhóm mới",
-    headerStyle: {
-      elevation: 0,
-      shadowOpacity: 0,
-      borderBottomWidth: 0.7,
-      borderBottomColor: '#dadadc'
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: typeof (navigation.state.params) === 'undefined' || typeof (navigation.state.params.title) === 'undefined' ? "Nhóm mới" : navigation.state.params.title,
+      headerStyle: {
+        elevation: 0,
+        shadowOpacity: 0,
+        borderBottomWidth: 0.7,
+        borderBottomColor: '#dadadc'
+      }
     }
   };
 
@@ -59,6 +61,12 @@ class Profile extends Component {
 
   componentDidMount() {
     try {
+      if (this.props.groupEdit) {
+        this.props.navigation.setParams({ title: "Sửa nhóm" })
+      }
+      else {
+        this.props.navigation.setParams({ title: "Nhóm mới" })
+      }
       this.onEventSignal();
       const { groupEdit } = this.props;
       if (groupEdit) {
@@ -104,12 +112,10 @@ class Profile extends Component {
     })
     proxy.on('createGroupSuccess', (Name, ID) => {
       if (connection && connection.state == 1) {
-        proxy.invoke('loadAllGroup');
         Alert.alert('Thông báo', "Thêm nhóm thành công", [{
           text: 'Ok',
           onPress: (e) => {
-            Actions.pop();
-            Actions.pop();
+            Actions.reset('home');
           }
         }],
           { cancelable: false });
@@ -119,8 +125,7 @@ class Profile extends Component {
           Alert.alert('Thông báo', "Thêm nhóm thành công", [{
             text: 'Ok',
             onPress: (e) => {
-              Actions.pop();
-              Actions.pop();
+              Actions.reset('home');
             }
           }],
             { cancelable: false });
@@ -130,21 +135,19 @@ class Profile extends Component {
     proxy.on('alertMessage', (message, isSuccess) => {
       if (this.props.groupEdit && isSuccess) {
         if (connection && connection.state == 1) {
-          proxy.invoke('loadAllGroup');
           Alert.alert('Thông báo', message, [{
             text: 'Ok',
             onPress: (e) => {
-              Actions.pop();
+              Actions.reset('home');
             }
           }],
             { cancelable: false });
         } else {
           helperSignal.onReconnect(() => {
-            proxy.invoke('loadAllGroup');
             Alert.alert('Thông báo', message, [{
               text: 'Ok',
               onPress: (e) => {
-                Actions.pop();
+                Actions.reset('home');
               }
             }],
               { cancelable: false });
@@ -159,9 +162,15 @@ class Profile extends Component {
   }
 
   componentWillUnmount() {
-    proxy.off('getAllUserForGroup');
-    proxy.off('createGroupSuccess');
-    proxy.off('alertMessage');
+    try {
+      proxy.off('listUserInGroup');
+      proxy.off('getAllUserForGroup');
+      proxy.off('createGroupSuccess');
+      proxy.off('alertMessage');
+    }
+    catch (e) {
+      //error
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -226,7 +235,7 @@ class Profile extends Component {
               }}></Input>
           </Row>
           <Row style={{ paddingBottom: 60 }}>
-          <Loading isShow={this.state.listUsersGroups && this.state.listUsersGroups.length == 0} />
+            <Loading isShow={this.state.listUsersGroups && this.state.listUsersGroups.length == 0} />
             <FlatList
               ref={ref => {
                 this.list = ref;

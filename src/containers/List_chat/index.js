@@ -114,6 +114,18 @@ class ListChat extends Component {
   }
 
   componentDidMount() {
+    if (connection && connection.state == 1) {
+      this.onEventSignal();
+      try {
+        proxy.invoke("loadAllContact");
+        proxy.invoke("GetAllMessageUser");
+        proxy.invoke('loadAllGroup');
+      }
+      catch (e) {
+
+      }
+      return;
+    }
     if (this.props.loginReducer.user != null) {
       helperSignal.connectSignalr(this.props.loginReducer.user);
       this.onEventSignal();
@@ -130,6 +142,22 @@ class ListChat extends Component {
       helper.getAsyncStorage("@user", this.onConnectSignal.bind(this));
     }
 
+  }
+  componentWillUnmount(){
+    try{
+      proxy.off('allGroup');
+      proxy.off('addCountMessageGroup');
+      proxy.off('devCountMessageGroup');
+      proxy.off('allUser');
+      proxy.off('connect');
+      proxy.off('disConnect');
+      proxy.off('allMessageUser');
+      proxy.off('devCountMessagePrivate');
+      proxy.off('devCountMessagePrivate');
+    }
+    catch(e){
+      //error
+    }
   }
 
   onEventSignal() {
