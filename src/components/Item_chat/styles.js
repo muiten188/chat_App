@@ -9,8 +9,8 @@ export default {
     justifyContent: "center",
     alignItems: "center",
     height: 70,
-    marginBottom: 5,
-    marginTop:5
+    marginBottom: 1,
+    marginTop:1
   },
   colAvar: {
     width: 80,
@@ -34,16 +34,16 @@ export default {
   colTimeStatus: {
     justifyContent: 'center',
     alignItems: 'flex-end',
-    width: 60
+    width: 90
   },
   colUserMessage: {
     justifyContent: 'center',
     alignItems: 'flex-start',
   },
   userName: {
-    fontSize: 16
+    fontSize: 18,
   },
   textMessage: {
-    fontSize: 14
+    fontSize: 13
   }
 };

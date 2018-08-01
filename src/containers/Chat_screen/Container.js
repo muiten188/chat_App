@@ -5,6 +5,7 @@ import { View, Text } from 'react-native';
 import { Container } from 'native-base';
 import ChatScreen from './Component'
 import styles from "./Styles";
+import Loading from '../../components/Loading';
 //import LogoutButton from './LogoutButton'
 
 class ChatScreenContainer extends Component {

@@ -31,6 +31,10 @@ export default class extends Component {
 
   render() {
     const { key, data } = this.props;
+    var createDate = null;
+    if (data.CreatedDate) {
+      createDate = new Date(data.CreatedDate).toLocaleDateString();
+    }
     //
     return (
       <View key={key} style={styles.itemList}>
@@ -54,12 +58,12 @@ export default class extends Component {
                 <Text style={styles.userName}>{data.FullName}</Text>
               </Col>
               <Col style={styles.colTimeStatus}>
-                {/* <Text>{"9:59"}</Text> */}
+                <Text style={{ fontSize: 14 }}>{createDate}</Text>
               </Col>
             </Row>
             <Row>
               <Col style={styles.colUserMessage}>
-                <Text style={styles.textMessage}>{data.UserName}</Text>
+                <Text style={styles.textMessage}>{data.Content ? data.Content : ''}</Text>
               </Col>
               <Col style={styles.colTimeStatus}>
                 {data.CountNew && data.CountNew > 0 ?

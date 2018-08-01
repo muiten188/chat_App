@@ -143,8 +143,8 @@ class ListChat extends Component {
     }
 
   }
-  componentWillUnmount(){
-    try{
+  componentWillUnmount() {
+    try {
       proxy.off('allGroup');
       proxy.off('addCountMessageGroup');
       proxy.off('devCountMessageGroup');
@@ -153,9 +153,8 @@ class ListChat extends Component {
       proxy.off('disConnect');
       proxy.off('allMessageUser');
       proxy.off('devCountMessagePrivate');
-      proxy.off('devCountMessagePrivate');
     }
-    catch(e){
+    catch (e) {
       //error
     }
   }
@@ -167,7 +166,6 @@ class ListChat extends Component {
     }
     //group
     proxy.on('allGroup', (groups, total) => {
-
       self.setState({
         listGroups: groups,
         isLocalLoading: false
@@ -191,17 +189,25 @@ class ListChat extends Component {
       }
     })
     proxy.on('addCountMessageGroup', (groupId) => {
-      var listGroups = this.state.listGroups;
-      for (var i = 0; i < listGroups.length; i++) {
-        var group = listGroups[i];
-        if (group.ID == groupId) {
-          listGroups[i].Count = listGroups[i].Count + 1;
-          break;
+      // var listGroups = this.state.listGroups;
+      // for (var i = 0; i < listGroups.length; i++) {
+      //   var group = listGroups[i];
+      //   if (group.ID == groupId) {
+      //     listGroups[i].Count = listGroups[i].Count + 1;
+      //     break;
+      //   }
+      // }
+      // self.setState({
+      //   listGroups: listGroups,
+      // });
+        if (connection && connection.state == 1) {
+          proxy.invoke('loadAllGroup');
+        } else {
+          helperSignal.onReconnect(() => {
+            proxy.invoke('loadAllGroup');
+          });
         }
-      }
-      self.setState({
-        listGroups: listGroups,
-      });
+        
     })
     proxy.on('devCountMessageGroup', (groupId, count) => {
       if (count > 0) {
@@ -221,10 +227,23 @@ class ListChat extends Component {
     //user
     proxy.on('allUser', (users) => {
       console.log('List Users: ', users);
+      if (this.state.listUsers && this.state.listUsers.length > 0) {
+        for (var j = 0; j < this.state.listUsers.length; j++) {
+          var oldUser = this.state.listUsers[j];
+          for (var i = 0; i < users.length; i++) {
+            var oUser = users[i];
+            if (oUser.ID == oldUser.ID) {
+              users[i].CountNew = oldUser.CountNew;
+              break;
+            }
+          }
+        }
+      }
       self.setState({
         listUsers: users,
         isLocalLoading: false
       });
+
     })
     proxy.on('connect', (id, username, fullname, userID) => {
       var listUsers = self.state.listUsers;
@@ -238,36 +257,7 @@ class ListChat extends Component {
       self.setState({
         listUsers: listUsers,
       });
-    })
-    proxy.on('disConnect', (username, fullname, userID) => {
-      var listUsers = self.state.listUsers;
-      for (var i = 0; i < self.state.listUsers.length; i++) {
-        var item = listUsers[i];
-        if (item.ID == userID) {
-          item.Connected = false;
-          break;
-        }
-      }
-      self.setState({
-        listUsers: listUsers,
-      });
-    })
-    proxy.on('allMessageUser', (users, count) => {
-
-      var listUsers = self.state.listUsers;
-      for (var i = 0; i < self.state.listUsers.length; i++) {
-        var oUser = listUsers[i];
-        for (var j = 0; j < users.length; j++) {
-          var itemY = users[j];
-          if (oUser.ID == itemY.ID) {
-            listUsers[i].CountNew = itemY.CountNew;
-          }
-        }
-      }
-      self.setState({
-        listUsers: listUsers,
-      });
-      if (helperSignal.connection && helperSignal.connection != 4) {
+      if (helperSignal.connection && helperSignal.connection == 1) {
         if (fcmClient.userID != null) {
           var oUser = null;
           if (fcmClient.userID == null) {
@@ -289,6 +279,43 @@ class ListChat extends Component {
               Actions.chatScreen({ user: oUser })
             }
           }
+        }
+      }
+    })
+    proxy.on('disConnect', (username, fullname, userID) => {
+      var listUsers = self.state.listUsers;
+      for (var i = 0; i < self.state.listUsers.length; i++) {
+        var item = listUsers[i];
+        if (item.ID == userID) {
+          item.Connected = false;
+          break;
+        }
+      }
+      self.setState({
+        listUsers: listUsers,
+      });
+    })
+    proxy.on('allMessageUser', (users, count) => {
+      var listUsers = self.state.listUsers;
+      for (var i = 0; i < self.state.listUsers.length; i++) {
+        var oUser = listUsers[i];
+        for (var j = 0; j < users.length; j++) {
+          var itemY = users[j];
+          if (oUser.ID == itemY.ID) {
+            listUsers[i].CountNew = itemY.CountNew;
+          }
+        }
+      }
+      self.setState({
+        listUsers: listUsers,
+      });
+      if (Actions.currentScene == 'home') {
+        if (connection && connection.state == 1) {
+          proxy.invoke('loadAllContact')
+        } else {
+          helperSignal.onReconnect(() => {
+            proxy.invoke('loadAllContact')
+          });
         }
       }
     })
@@ -401,6 +428,7 @@ class ListChat extends Component {
           }
           style={styles.listResult}
           data={(this.state._listGroups != null || this.state._listUsers != null) ? [...this.state._listGroups, ...this.state._listUsers] : [...this.state.listGroups, ...this.state.listUsers]}
+          extraData={this.state}
           keyExtractor={this._keyExtractor}
           renderItem={this.renderFlatListItem.bind(this)}
           numColumns={1}

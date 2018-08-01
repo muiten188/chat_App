@@ -12,7 +12,8 @@ import styles from './Styles'
 import pick from '../../helper/image_picker';
 import uploadFile from '../../helper/upload_image';
 import { Button } from 'native-base';
-
+import Container from './MessageForm';
+import Loading from "../../components/Loading";
 class objectMessage {
   _id = Math.round(Math.random() * 1000000);
   text = 'My message';
@@ -31,6 +32,7 @@ class ChatScreenComponent extends Component {
     super(props);
 
     this.state = {
+      isLocalLoading:true,
       messages: [],
     }
 
@@ -126,7 +128,7 @@ class ChatScreenComponent extends Component {
           var messGiftChat = this.convertMessageToGiftChat(messages[i])
           arr.push(messGiftChat);
         }
-        this.setState({ messages: arr.reverse() });
+        this.setState({ messages: arr.reverse(),isLocalLoading:false });
       })
       proxy.on('messagePrivate', (message, isMe) => {
         var messGiftChat = this.convertMessageToGiftChat(message);
@@ -148,7 +150,7 @@ class ChatScreenComponent extends Component {
           var messGiftChat = this.convertMessageToGiftChat(messages[i], true)
           arrMessages.push(messGiftChat);
         }
-        this.setState({ messages: arrMessages.reverse() });
+        this.setState({ messages: arrMessages.reverse(),isLocalLoading:false });
       })
       proxy.on('groupMessage', (message, isMe) => {
         var messGiftChat = this.convertMessageToGiftChat(message, true);
@@ -174,6 +176,9 @@ class ChatScreenComponent extends Component {
       else {
         proxy.invoke("removeInteracGroup");
       }
+    }
+    if (proxy.connection && proxy.connection.state == 1) {
+      proxy.invoke('loadAllContact')
     }
     proxy.off("messagePrivates");
     proxy.off("messagePrivate");
@@ -278,9 +283,10 @@ class ChatScreenComponent extends Component {
   render() {
     const { user, isGroupChat, group, loginReducerUser } = this.props;
     return (
-
+      <View style={{flex:1}}>
+      <Loading isShow={this.state.isLocalLoading} />
       <GiftedChat
-        style={{ backgroundColor: 'red' }}
+        style={{ flex:1 }}
         messages={this.state.messages}
         onSend={messages => this.onSend(messages)}
         user={{
@@ -299,11 +305,8 @@ class ChatScreenComponent extends Component {
         renderAvatarOnTop={true}
         renderSeparator={(sectionID, rowID) => this._renderSeparatorView(sectionID, rowID)}
       />
-
-      // <View style={styles.container}>
-      //   <MessagesList user={user} group={group} isGroupChat={isGroupChat}/>
-      //   <MessageForm user={user} group={group} isGroupChat={isGroupChat}/>
-      // </View>
+      
+      </View>
     )
   }
 }

@@ -34,7 +34,15 @@ export default {
   colTimeStatus: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: 30,
+    width: 90,
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#dadadc',
+    marginRight: 6,
+  },
+  colbutChange: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 20,
     borderBottomWidth: 0.5,
     borderBottomColor: '#dadadc',
     marginRight: 6,

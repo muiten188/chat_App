@@ -31,7 +31,11 @@ export default class extends Component {
   };
 
   render() {
-    const { key, data,onGroupEdit } = this.props;
+    const { key, data, onGroupEdit } = this.props;
+    var createDate = null;
+    if (data.CreatedDate) {
+      createDate = new Date(data.CreatedDate).toLocaleDateString();
+    }
     return (
       <View key={key} style={styles.itemList}>
         <Grid>
@@ -67,17 +71,33 @@ export default class extends Component {
                 <Text style={styles.userName}>{data.Name}</Text>
               </Col>
             </Row>
-            {/* <Row>
+            <Row>
               <Col style={styles.colUserMessage}>
-                <Text style={styles.textMessage}>{}</Text>
+                <Text style={styles.textMessage}>{data.Content?data.Content:''}</Text>
               </Col>
-            </Row> */}
+            </Row>
           </Col>
+
           <Col style={styles.colTimeStatus}>
+            <Row>
+              <Col style={{ justifyContent: 'center', alignItems: 'flex-end' }}>
+                <Text style={[styles.textMessage]}>{createDate?createDate:''}</Text>
+              </Col>
+            </Row>
+            <Row>
+              {(data.Count > 0) ?
+                <Badge style={{ backgroundColor: 'black', opacity: 0.8 }}>
+                  <Text style={[{ color: 'white' }, styles.textMessage]}>{data.Count}</Text>
+                </Badge>
+                : null}
+            </Row>
+          </Col>
+          <Col style={styles.colbutChange}>
             <Button full transparent onPress={onGroupEdit}>
               <IconVector name="dots-three-vertical" size={22}></IconVector>
             </Button>
           </Col>
+
         </Grid>
       </View>
     );
