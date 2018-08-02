@@ -1,6 +1,6 @@
 import RNFetchBlob from 'react-native-fetch-blob'
 import * as appConfig from '../config/app_config';
-let upload = (data, accessToken) => {
+export let uploadFile = (data, accessToken) => {
     return RNFetchBlob.fetch('POST', `${appConfig.API_UPLOAD_IMAGE}`, {
         Authorization: `Bearer ${accessToken}`,
         "X-Requested-With":'XMLHttpRequest',
@@ -8,4 +8,11 @@ let upload = (data, accessToken) => {
     }, data);
 }
 
-module.exports = upload;
+export let uploadFileChangeAvartar = (data, accessToken) => {
+    return RNFetchBlob.fetch('POST', `${appConfig.API_UPLOAD_AVARTAR_IMAGE}`, {
+        Authorization: `Bearer ${accessToken}`,
+        "X-Requested-With":'XMLHttpRequest',
+        'Content-Type': 'multipart/form-data',
+    }, data);
+}
+

@@ -33,6 +33,8 @@ import IconFontAwesome from "react-native-vector-icons/FontAwesome";
 import { Actions, Router, Scene, Stack } from 'react-native-router-flux';
 import { connection } from '../../helper/signalr';
 import * as loginAction from '../../authen/actions/login_action';
+import { pick, camera } from '../../helper/image_picker';
+import { uploadFileChangeAvartar } from '../../helper/upload_image';
 import * as AppConfig from "../../config/app_config";
 import User from '../../components/User';
 import fcmClient from '../../helper/fcmClient';
@@ -56,6 +58,38 @@ class Profile extends Component {
 
   }
 
+  upload(source, response) {
+    alert('upload change avartar')
+    const { loginReducer,profileAction } = this.props;
+    var data = [
+      { name: response.fileName,filename: response.fileName, data: response.data }
+    ];
+    uploadFileChangeAvartar(data, loginReducer ? loginReducer.user.access_token : '')
+      .then(res => {
+        if (res && res.data) {
+          var data = JSON.parse(res.data);
+          if (!data.data) {
+            Alert.alert('Thông báo', "Thay đổi Avartar thất bại vui lòng thử lại!");
+          }
+          else if (data.data) {
+            var avartarUrlNew=data.data;
+            profileAction.changeAvartar(avartarUrlNew,loginReducer.user)
+          }
+        }
+        else {
+          Alert.alert('Thông báo', "Thay đổi Avartar thất bại vui lòng thử lại!");
+        }
+        console.log(res)
+      })
+      .catch(err => {
+        Alert.alert('Thông báo', "Thay đổi Avartar thất bại vui lòng thử lại!");
+      })
+  }
+
+  pickImage() {
+    pick(this.upload.bind(this));
+  }
+
   render() {
     const locale = "vn";
     const { loginAction, loginReducer } = this.props;
@@ -76,8 +110,10 @@ class Profile extends Component {
               </Button>
             </Col>
             <Col style={{ justifyContent: 'center', alignItems: 'center' }}>
-              <View style={{ marginTop: 40 }}>
-                <Thumbnail style={{ marginLeft: -50, width: 95, height: 95, borderRadius: 50 }} source={{ uri: avartarUrl ? avartarUrl : 'https://cdn.washingtoncitypaper.com/files/base/scomm/wcp/image/2009/04/640w/__contexts.org_socimages_files_2009_04_d_silhouette.jpg' }} />
+              <TouchableOpacity
+                onPress={() => { this.pickImage() }}
+                style={{ marginLeft: -45, marginTop: 40 }}>
+                <Thumbnail style={{ width: 95, height: 95, borderRadius: 50 }} source={{ uri: avartarUrl ? avartarUrl : 'https://cdn.washingtoncitypaper.com/files/base/scomm/wcp/image/2009/04/640w/__contexts.org_socimages_files_2009_04_d_silhouette.jpg' }} />
                 <View style={{
                   position: 'absolute',
                   right: 2,
@@ -89,7 +125,7 @@ class Profile extends Component {
                   borderWidth: 2,
                   borderColor: '#fff'
                 }} />
-              </View>
+              </TouchableOpacity>
             </Col>
           </Grid>
         </View>
@@ -139,7 +175,7 @@ class Profile extends Component {
                 fcmClient.removeFcmTokenServer(loginReducer.user);
                 loginAction.logout();
                 if (connection) {
-                  connection.logging=false;
+                  connection.logging = false;
                   connection.stop();
                 }
                 Actions.reset('login')

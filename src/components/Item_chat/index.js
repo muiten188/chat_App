@@ -63,7 +63,7 @@ export default class extends Component {
             </Row>
             <Row>
               <Col style={styles.colUserMessage}>
-                <Text style={styles.textMessage}>{data.Content ? data.Content : ''}</Text>
+                <Text style={styles.textMessage}>{data.Content ? this.textEclipse(data.Content) : ''}</Text>
               </Col>
               <Col style={styles.colTimeStatus}>
                 {data.CountNew && data.CountNew > 0 ?
@@ -76,5 +76,10 @@ export default class extends Component {
         </Grid>
       </View>
     );
+  }
+  textEclipse(text) {
+    return (((text).length >30) ?
+      (((text).substring(0, 30)) + '...') :
+      text)
   }
 }

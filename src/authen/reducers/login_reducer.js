@@ -1,6 +1,8 @@
 import * as types from "../../store/constants/action_types";
+import * as helper from '../../helper/index';
 const initState = {
   Logged: null,
+  refresh_Fail:false,
   Loging: false,
   logout: false,
   userForm: null,
@@ -8,7 +10,7 @@ const initState = {
   authen_expri: false
 };
 
-export default function(state = initState, action = {}) {
+export default function (state = initState, action = {}) {
   switch (action.type) {
     case types.LOGIN_SUCCESS:
       return {
@@ -43,6 +45,13 @@ export default function(state = initState, action = {}) {
         authen_expri: initState.authen_expri,
         action
       };
+    case types.REFRESH_TOKEN_FAIL:
+      return {
+        ...state,
+        refresh_Fail:true,
+        Loging: false,
+        action
+      };
     case types.EXPORT_FORM:
       return {
         ...state,
@@ -55,9 +64,20 @@ export default function(state = initState, action = {}) {
         Logged: null,
         Loging: false,
         Logout: true,
-        authen_expri:true,
+        authen_expri: true,
         action
       };
+    }
+    case types.CHANGE_AVARTAR: {
+      var changeUser = state.user;
+      changeUser.avartar = action.avatarNew;
+      setTimeout(() => {
+        helper.setAsyncStorage('@user', changeUser);
+      }, 0);
+      return {
+        ...state,
+        user: changeUser
+      }
     }
     default:
       return state;

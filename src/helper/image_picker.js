@@ -11,7 +11,7 @@ var options = {
     }
 };
 
-let pick = (cb) => {
+export let pick = (cb) => {
     ImagePicker.showImagePicker(options, (response) => {
         if (response.didCancel) {
             console.log('User cancelled image picker');
@@ -29,4 +29,21 @@ let pick = (cb) => {
     });
 }
 
-module.exports = pick;
+export let camera=(cb)=>{
+    ImagePicker.launchCamera(options, (response) => {
+        if (response.didCancel) {
+            console.log('User cancelled image picker');
+        }
+        else if (response.error) {
+            console.log('ImagePicker Error: ', response.error);
+        }
+        else if (response.customButton) {
+            console.log('User tapped custom button: ', response.customButton);
+        }
+        else {
+            let source = { uri: response.uri };
+            cb(source, response);
+        }
+    });
+}
+

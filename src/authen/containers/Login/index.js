@@ -118,6 +118,10 @@ class login extends React.Component {
       helper.setAsyncStorage("@user", loginReducer.user);
       Actions.reset('home');
     }
+    else if(loginReducer.refresh_Fail){
+      Alert.alert("Thông báo", "Phiên đăng nhập hết hạn vui lòng đăng nhập lại");
+      loginReducer.refresh_Fail=false;
+    }
   }
 
   onValueChange(value) {

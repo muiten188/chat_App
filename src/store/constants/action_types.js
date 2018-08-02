@@ -2,6 +2,12 @@
 export const RESET_APPSTATE="RESET_APPSTATE";
 //Fetch API
 export const FETCH_CATCH = "FETCH_CATCH";
+
+//Profile
+export const CHANGE_AVARTAR="CHANGE_AVARTAR";
+export const CHANGE_AVARTAR_ERROR="CHANGE_AVARTAR_ERROR";
+
+export const REFRESH_TOKEN_FAIL="REFRESH_TOKEN_FAIL";
 //authen
 export const LOGIN = "LOGIN";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";

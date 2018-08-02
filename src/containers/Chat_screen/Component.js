@@ -9,8 +9,8 @@ import * as appConfig from '../../config/app_config';
 import { Actions } from '../../../node_modules/react-native-router-flux';
 import IconVector from 'react-native-vector-icons/FontAwesome';
 import styles from './Styles'
-import pick from '../../helper/image_picker';
-import uploadFile from '../../helper/upload_image';
+import { pick, camera } from '../../helper/image_picker';
+import {uploadFile} from '../../helper/upload_image';
 import { Button } from 'native-base';
 import Container from './MessageForm';
 import Loading from "../../components/Loading";
@@ -32,7 +32,7 @@ class ChatScreenComponent extends Component {
     super(props);
 
     this.state = {
-      isLocalLoading:true,
+      isLocalLoading: true,
       messages: [],
     }
 
@@ -128,7 +128,7 @@ class ChatScreenComponent extends Component {
           var messGiftChat = this.convertMessageToGiftChat(messages[i])
           arr.push(messGiftChat);
         }
-        this.setState({ messages: arr.reverse(),isLocalLoading:false });
+        this.setState({ messages: arr.reverse(), isLocalLoading: false });
       })
       proxy.on('messagePrivate', (message, isMe) => {
         var messGiftChat = this.convertMessageToGiftChat(message);
@@ -150,7 +150,7 @@ class ChatScreenComponent extends Component {
           var messGiftChat = this.convertMessageToGiftChat(messages[i], true)
           arrMessages.push(messGiftChat);
         }
-        this.setState({ messages: arrMessages.reverse(),isLocalLoading:false });
+        this.setState({ messages: arrMessages.reverse(), isLocalLoading: false });
       })
       proxy.on('groupMessage', (message, isMe) => {
         var messGiftChat = this.convertMessageToGiftChat(message, true);
@@ -280,32 +280,44 @@ class ChatScreenComponent extends Component {
     pick(this.upload.bind(this));
   }
 
+  directCamera() {
+    camera(this.upload.bind(this));
+  }
+
   render() {
     const { user, isGroupChat, group, loginReducerUser } = this.props;
     return (
-      <View style={{flex:1}}>
-      <Loading isShow={this.state.isLocalLoading} />
-      <GiftedChat
-        style={{ flex:1 }}
-        messages={this.state.messages}
-        onSend={messages => this.onSend(messages)}
-        user={{
-          _id: loginReducerUser.userID,
-        }}
-        renderActions={() => {
-          return (
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => { this.pickImage() }}>
-              <IconVector name="upload" size={19}></IconVector>
+      <View style={{ flex: 1 }}>
+        <Loading isShow={this.state.isLocalLoading} />
+        <GiftedChat
+          style={{ flex: 1 }}
+          messages={this.state.messages}
+          onSend={messages => this.onSend(messages)}
+          user={{
+            _id: loginReducerUser.userID,
+          }}
+          renderRightActions={() => {
+            return (
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => { this.directCamera() }}>
+                <IconVector name="camera" size={19}></IconVector>
+              </TouchableOpacity>
+            )
+          }}
+          renderActions={() => {
+            return (
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => { this.pickImage() }}>
+                <IconVector name="upload" size={19}></IconVector>
+              </TouchableOpacity>
+            )
+          }}
+          renderAvatarOnTop={true}
+          renderSeparator={(sectionID, rowID) => this._renderSeparatorView(sectionID, rowID)}
+        />
 
-            </TouchableOpacity>
-          )
-        }}
-        renderAvatarOnTop={true}
-        renderSeparator={(sectionID, rowID) => this._renderSeparatorView(sectionID, rowID)}
-      />
-      
       </View>
     )
   }
