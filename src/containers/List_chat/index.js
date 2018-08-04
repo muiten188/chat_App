@@ -200,14 +200,14 @@ class ListChat extends Component {
       // self.setState({
       //   listGroups: listGroups,
       // });
-        if (connection && connection.state == 1) {
+      if (connection && connection.state == 1) {
+        proxy.invoke('loadAllGroup');
+      } else {
+        helperSignal.onReconnect(() => {
           proxy.invoke('loadAllGroup');
-        } else {
-          helperSignal.onReconnect(() => {
-            proxy.invoke('loadAllGroup');
-          });
-        }
-        
+        });
+      }
+
     })
     proxy.on('devCountMessageGroup', (groupId, count) => {
       if (count > 0) {

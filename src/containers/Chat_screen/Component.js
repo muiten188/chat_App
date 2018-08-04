@@ -10,7 +10,7 @@ import { Actions } from '../../../node_modules/react-native-router-flux';
 import IconVector from 'react-native-vector-icons/FontAwesome';
 import styles from './Styles'
 import { pick, camera } from '../../helper/image_picker';
-import {uploadFile} from '../../helper/upload_image';
+import { uploadFile } from '../../helper/upload_image';
 import { Button } from 'native-base';
 import Container from './MessageForm';
 import Loading from "../../components/Loading";
@@ -294,7 +294,7 @@ class ChatScreenComponent extends Component {
           messages={this.state.messages}
           onSend={messages => this.onSend(messages)}
           user={{
-            _id: loginReducerUser.userID,
+            _id: loginReducerUser ? loginReducerUser.userID : null,
           }}
           renderRightActions={() => {
             return (
