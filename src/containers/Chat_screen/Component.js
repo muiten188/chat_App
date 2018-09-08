@@ -61,6 +61,7 @@ class ChatScreenComponent extends Component {
   componentDidMount() {
     //this.props.loadMessages()
     const { user, isGroupChat, group } = this.props;
+
     AppState.addEventListener('change', (val) => {
       console.log('app change: ', val);
       if (proxy.connection.state == 1) {

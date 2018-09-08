@@ -48,7 +48,7 @@ export default class extends Component {
       <View style={styles.header}>
         {/* <StatusBar backgroundColor="#007db7"></StatusBar> */}
         <Grid>
-          {showButtonLeft == true || Platform.OS === 'ios' ? (
+          {showButtonLeft == true ? (
             <Col style={styles.itemButtonHeader}>
               <Button transparent onPress={_onBack}>
                 <IconVector name="chevron-circle-left" size={20} style={styles.whileText} />

@@ -70,7 +70,7 @@ class Home extends Component {
   }
 
   componentWillMount() {
-    FcmClient.registerFCM();
+    //FcmClient.registerFCM();
     // FcmClient.newEvent.addListener('fcm-event-user-group', (obj) => {
     //   if (obj.isUser) {
     //     this.setState({ tabActivePosition: 0 })
@@ -81,7 +81,7 @@ class Home extends Component {
   }
 
   componentWillUnmount() {
-    FcmClient.unRegisterFCM();
+    //FcmClient.unRegisterFCM();
   }
 
   componentDidMount() {
