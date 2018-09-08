@@ -141,7 +141,8 @@ export default {
   activeTextStyle: {
     color: 'red'
   },
-  tabBarUnderlineStyle: { backgroundColor: '#1686d7',height:1 },
+  tabBarUnderlineStyle: { backgroundColor: '#1686d7',
+  height:1 },
   tabHeading: {
     backgroundColor: '#fff',
     borderTopWidth:0.7,

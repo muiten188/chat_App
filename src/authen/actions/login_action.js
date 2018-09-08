@@ -6,7 +6,6 @@ import { Actions } from 'react-native-router-flux';
 import { setAsyncStorage } from "../../helper/index";
 import * as helper from '../../helper';
 export function login(user) {
-
   return dispatch => {
     // dispatch(_login(true, user));
     // Keyboard.dismiss();
@@ -109,7 +108,6 @@ export function setUser(user) {
       .then(function (responseJson) {
         if (responseJson) {
           user = responseJson;
-          debugger;
           dispatch(_login(true, user));
         }
       })

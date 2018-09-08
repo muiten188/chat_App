@@ -46,4 +46,3 @@ export let camera=(cb)=>{
         }
     });
 }
-
