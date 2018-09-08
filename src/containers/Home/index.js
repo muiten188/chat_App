@@ -70,7 +70,7 @@ class Home extends Component {
   }
 
   componentWillMount() {
-    //FcmClient.registerFCM();
+    // FcmClient.registerFCM();
     // FcmClient.newEvent.addListener('fcm-event-user-group', (obj) => {
     //   if (obj.isUser) {
     //     this.setState({ tabActivePosition: 0 })
@@ -168,7 +168,7 @@ class Home extends Component {
                   onChangeTab={(obj) => {
                     var from = obj.from;
                     var index = obj.i;
-                    this.setState({ tabActivePosition: index })
+                    // this.setState({ tabActivePosition: index })
                   }}
                 >
                   <Tab
