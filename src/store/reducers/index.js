@@ -4,6 +4,7 @@ import loginReducer from "../../authen/reducers/login_reducer";
 import homeReducer from "../../store/reducers/containers/home_reducer";
 import chatScreenReducer from "../../store/reducers/containers/chatScreen_reducer";
 import listChatReducer from "../../store/reducers/containers/listChat_reducer";
+import phoneBookReducer from "../../store/reducers/containers/phoneBook_reducer";
 import listGroupReducer from "../../store/reducers/containers/listGroup_reducer";
 import profileReducer from "../../store/reducers/containers/profile_reducer";
 import groupEditReducer from "../../store/reducers/containers/groupEdit_reducer";
@@ -20,6 +21,7 @@ const appReducer = combineReducers({
   homeReducer,
   chatScreenReducer,
   listChatReducer,
+  phoneBookReducer,
   listGroupReducer,
   profileReducer,
   groupEditReducer,

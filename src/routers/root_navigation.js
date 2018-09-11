@@ -10,6 +10,7 @@ import Home from '../containers/Home';
 import ChatSreen from '../containers/Chat_screen';
 import Profile from '../containers/Profile';
 import ListChat from '../containers/List_chat';
+import Phonebook from '../containers/Phonebook';
 import ListGroup from "../containers/List_group";
 import GroupEdit from "../containers/Group_edit";
 import ChatEdit from '../containers/Chat_edit';
@@ -99,6 +100,11 @@ class RootNavigation extends React.Component {
                     <Scene key="changePassword"
                         component={ChangePassword}
                         title="Change Password"
+                        initial={false}
+                    />
+                    <Scene key="Phonebook"
+                        component={Phonebook}
+                        title="Phonebook"
                         initial={false}
                     />
                 </Stack>

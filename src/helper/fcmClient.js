@@ -26,6 +26,12 @@ class FcmClient {
     }).then(() => console.log('fcm granted')).catch(() => console.log('notification permission rejected'));
     try {
       FCM.setBadgeNumber(0);
+      FCM.createNotificationChannel({
+        id: 'default',
+        name: 'Default',
+        description: 'used for example',
+        priority: 'high'
+      })
     } catch (e) {
       console.log(e);
     }
@@ -180,6 +186,7 @@ class FcmClient {
       //badge: 1,                                          // as FCM payload IOS only, set 0 to clear badges
       //number: 0,                                         // Android only
       //ticker: title,                   // Android only
+      channel: 'default',
       auto_cancel: true,                                  // Android only (default true)
       //large_icon: 'ic_launcher',                           // Android only
       //icon: 'ic_notify',                                // as FCM payload, you can relace this with custom icon you put in mipmap
@@ -220,8 +227,8 @@ class FcmClient {
     this.refreshTokenListener.remove();
   }
 
-removeFcmTokenServer(user) {
-    if (user != null&& this.device_token!=null) {
+  removeFcmTokenServer(user) {
+    if (user != null && this.device_token != null) {
       var accessToken = user.access_token;
       var fcmToken = this.device_token;
       var osearch = {

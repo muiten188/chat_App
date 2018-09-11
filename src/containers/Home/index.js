@@ -42,6 +42,7 @@ import IconIonicons from 'react-native-vector-icons/Ionicons';
 import ChatSreen from '../Chat_screen';
 import Profile from '../Profile';
 import ListChat from '../List_chat';
+import Phonebook from '../Phonebook';
 import ListGroup from '../List_group';
 import * as helper from '../../helper/signalr';
 import * as _helper from '../../helper';
@@ -157,9 +158,9 @@ class Home extends Component {
                 </View> : null
               }
               <View style={styles.listResult_container}>
-                <Tabs initialPage={this.state.tabActivePosition}
+                <Tabs initialPage={0}
                   locked={true}
-                  page={0}
+                  page={this.state.tabActivePosition}
                   tabBarPosition={'bottom'}
                   tabContainerStyle={{ height: 45 }}
                   tabBarUnderlineStyle={styles.tabBarUnderlineStyle}
@@ -168,7 +169,7 @@ class Home extends Component {
                   onChangeTab={(obj) => {
                     var from = obj.from;
                     var index = obj.i;
-                    // this.setState({ tabActivePosition: index })
+                    this.setState({ tabActivePosition: index })
                   }}
                 >
                   <Tab
@@ -188,19 +189,7 @@ class Home extends Component {
                     <ListChat />
 
                   </Tab>
-                  <Tab
-                    heading={<TabHeading style={this.state.tabActivePosition == 1 ? styles.tabHeadingActive : styles.tabHeading}>
-                      <Grid>
-                        <Row style={styles.iconTab}>
-                          <IconVector name="phone" size={18} style={this.state.tabActivePosition == 1 ? styles.iconHeaderTabActive : { fontSize: 12 }} />
-                        </Row>
-                        <Row style={styles.textHeadingTab}>
-                          <Text style={this.state.tabActivePosition == 1 ? styles.textHeaderTabActive : styles.textHeaderTab}>{'Call'}</Text>
-                        </Row>
-                      </Grid>
-                    </TabHeading>}>
-                    {/* <ListGroup /> */}
-                  </Tab>
+
                   {/* <Tab
                     heading={<TabHeading style={this.state.tabActivePosition == 1 ? styles.tabHeadingActive : styles.tabHeading}>
                       <Grid>
@@ -217,17 +206,30 @@ class Home extends Component {
                     <ListGroup />
 
                   </Tab> */}
-                  <Tab heading={<TabHeading  style={this.state.tabActivePosition == 2 ? styles.tabHeadingActive : styles.tabHeading}>
+                  <Tab heading={<TabHeading style={this.state.tabActivePosition == 1 ? styles.tabHeadingActive : styles.tabHeading}>
                     <Grid>
                       <Row style={styles.iconTab}>
-                        <IconVector name="camera" size={18} style={this.state.tabActivePosition == 2 ? styles.iconHeaderTabActive : { fontSize: 12 }} />
+                        <IconVector name="camera" size={18} style={this.state.tabActivePosition == 1 ? styles.iconHeaderTabActive : { fontSize: 12 }} />
                       </Row>
                       <Row style={styles.textHeadingTab}>
-                        <Text style={this.state.tabActivePosition == 2 ? styles.textHeaderTabActive : styles.textHeaderTab}>{'Camera'}</Text>
+                        <Text style={this.state.tabActivePosition == 1 ? styles.textHeaderTabActive : styles.textHeaderTab}>{'Camera'}</Text>
                       </Row>
                     </Grid>
                   </TabHeading>}>
-                    {/* <Profile /> */}
+                    <Text>Tính năng sắp ra mắt...</Text>
+                  </Tab>
+                  <Tab
+                    heading={<TabHeading style={this.state.tabActivePosition == 2 ? styles.tabHeadingActive : styles.tabHeading}>
+                      <Grid>
+                        <Row style={styles.iconTab}>
+                          <IconVector name="phone" size={18} style={this.state.tabActivePosition == 2 ? styles.iconHeaderTabActive : { fontSize: 12 }} />
+                        </Row>
+                        <Row style={styles.textHeadingTab}>
+                          <Text style={this.state.tabActivePosition == 2 ? styles.textHeaderTabActive : styles.textHeaderTab}>{'Danh bạ'}</Text>
+                        </Row>
+                      </Grid>
+                    </TabHeading>}>
+                    <Phonebook />
                   </Tab>
                 </Tabs>
                 <Loading
