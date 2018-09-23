@@ -43,6 +43,8 @@
 		33C58F31415F446BAEE64F13 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1AED53BEDDAD41C1851E2934 /* Foundation.ttf */; };
 		365E8B7475BD4D418ED42047 /* libRNI18n.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 697375A4DEF2489BB4F2BC09 /* libRNI18n.a */; };
 		36EF3701BC1D40729895F857 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6329F7DCCDBD4FAE87D43579 /* FontAwesome.ttf */; };
+		38BBC2AA21578E510071FD09 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 38BBC2A921578E500071FD09 /* GoogleService-Info.plist */; };
+		38BBC2B2215796660071FD09 /* libRNFIRMessaging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38BBC2B12157949F0071FD09 /* libRNFIRMessaging.a */; };
 		3A885726CE9B4AFDAA1B2521 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 00AC9B7AB9FA411584D6BAF4 /* libz.tbd */; };
 		5442983633BE459F988FE4F0 /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7CB3C4B8E0F2434A89D4AF85 /* rubicon-icon-font.ttf */; };
 		568D0533DDF24ACB991A8416 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A58F865E348843D1AF739F77 /* EvilIcons.ttf */; };
@@ -55,7 +57,6 @@
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		8573C6024FEE4C378041E82A /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7B417B6C2C474DBA98C401 /* AddressBook.framework */; };
 		8789613A4AECCB1CDB0A1F51 /* libPods-chat_app.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 42FD9E82B58445FCB33A6246 /* libPods-chat_app.a */; };
-		99D0D85B2120A58C001248FC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 99D0D85A2120A58C001248FC /* GoogleService-Info.plist */; };
 		99D0D8992120B7CD001248FC /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 99D0D8962120B48A001248FC /* libRNImagePicker.a */; };
 		9BF31F358CED43B99E67C371 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BD0FFB2C3AEF4BD38C85B607 /* Ionicons.ttf */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
@@ -134,6 +135,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 2D02E47A1E0B4A5D006451C7;
 			remoteInfo = "chat_app-tvOS";
+		};
+		38BBC2B02157949F0071FD09 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 38BBC2AC2157949F0071FD09 /* RNFIRMessaging.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNFIRMessaging;
 		};
 		3DAD3E831DF850E9000B6D8A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -390,6 +398,9 @@
 		2D02E47B1E0B4A5D006451C7 /* chat_app-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "chat_app-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* chat_app-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "chat_app-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		32B17EB359124F1DBF10F6CF /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/native-base/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
+		38BBC2A921578E500071FD09 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		38BBC2AB21578F120071FD09 /* chat_app.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = chat_app.entitlements; path = chat_app/chat_app.entitlements; sourceTree = "<group>"; };
+		38BBC2AC2157949F0071FD09 /* RNFIRMessaging.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNFIRMessaging.xcodeproj; path = "../node_modules/react-native-fcm/ios/RNFIRMessaging.xcodeproj"; sourceTree = "<group>"; };
 		3DF791CCFBC7F6C55E0C2C29 /* Pods-chat_app.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chat_app.debug.xcconfig"; path = "Pods/Target Support Files/Pods-chat_app/Pods-chat_app.debug.xcconfig"; sourceTree = "<group>"; };
 		42FD9E82B58445FCB33A6246 /* libPods-chat_app.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-chat_app.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		48CF61B68E8C4F5C83D270F9 /* RNI18n.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNI18n.xcodeproj; path = "../node_modules/react-native-i18n/ios/RNI18n.xcodeproj"; sourceTree = "<group>"; };
@@ -406,7 +417,6 @@
 		8E5BDDC243644FF38C489475 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/native-base/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		8F4A7197B1964FCE9835E69B /* SafariServices.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		97377856E08B4373972EECE9 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/native-base/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
-		99D0D85A2120A58C001248FC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A58F865E348843D1AF739F77 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/native-base/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		ACE8841745AC4E00B37D658F /* Roboto_medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto_medium.ttf; path = "../node_modules/native-base/Fonts/Roboto_medium.ttf"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
@@ -433,6 +443,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38BBC2B2215796660071FD09 /* libRNFIRMessaging.a in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
@@ -565,7 +576,8 @@
 		13B07FAE1A68108700A75B9A /* chat_app */ = {
 			isa = PBXGroup;
 			children = (
-				99D0D85A2120A58C001248FC /* GoogleService-Info.plist */,
+				38BBC2AB21578F120071FD09 /* chat_app.entitlements */,
+				38BBC2A921578E500071FD09 /* GoogleService-Info.plist */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -594,6 +606,14 @@
 				990FD2FE2119F66600C319BB /* libdouble-conversion.a */,
 				990FD3002119F66600C319BB /* libprivatedata.a */,
 				990FD3022119F66600C319BB /* libprivatedata-tvOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		38BBC2AD2157949F0071FD09 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				38BBC2B12157949F0071FD09 /* libRNFIRMessaging.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -628,6 +648,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				38BBC2AC2157949F0071FD09 /* RNFIRMessaging.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
@@ -861,6 +882,17 @@
 						DevelopmentTeam = 244GYCQDP6;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
+					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = TXJJGR28J4;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
+					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
 						ProvisioningStyle = Automatic;
@@ -935,6 +967,10 @@
 				{
 					ProductGroup = 990FD3B3211A02F300C319BB /* Products */;
 					ProjectRef = FFD2C1328D25431489523018 /* RNFetchBlob.xcodeproj */;
+				},
+				{
+					ProductGroup = 38BBC2AD2157949F0071FD09 /* Products */;
+					ProjectRef = 38BBC2AC2157949F0071FD09 /* RNFIRMessaging.xcodeproj */;
 				},
 				{
 					ProductGroup = 990FD2AC2119F19E00C319BB /* Products */;
@@ -1014,6 +1050,13 @@
 			fileType = archive.ar;
 			path = libReact.a;
 			remoteRef = 146834031AC3E56700842450 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		38BBC2B12157949F0071FD09 /* libRNFIRMessaging.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNFIRMessaging.a;
+			remoteRef = 38BBC2B02157949F0071FD09 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		3DAD3E841DF850E9000B6D8A /* libRCTImage-tvOS.a */ = {
@@ -1266,7 +1309,7 @@
 				5A1540AC9FB64537B5A9483D /* Roboto_medium.ttf in Resources */,
 				18EECE39A0C149B8B7D7720B /* Roboto.ttf in Resources */,
 				5442983633BE459F988FE4F0 /* rubicon-icon-font.ttf in Resources */,
-				99D0D85B2120A58C001248FC /* GoogleService-Info.plist in Resources */,
+				38BBC2AA21578E510071FD09 /* GoogleService-Info.plist in Resources */,
 				F8983082578A43D8ABEC3C53 /* SimpleLineIcons.ttf in Resources */,
 				31D228006D814B6AB33724B2 /* Zocial.ttf in Resources */,
 				F16FBA6C7A75423BBE97C02A /* Feather.ttf in Resources */,
@@ -1475,14 +1518,21 @@
 			baseConfigurationReference = 3DF791CCFBC7F6C55E0C2C29 /* Pods-chat_app.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = chat_app/chat_app.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = TXJJGR28J4;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)..\node_modules\neact-native-vector-iconsRNVectorIconsManager",
-					"$(SRCROOT)..\node_modules\neact-native-i18nios",
+					"$(SRCROOT)..",
+					ode_modules,
+					"eact-native-vector-iconsRNVectorIconsManager",
+					"$(SRCROOT)..",
+					ode_modules,
+					"eact-native-i18nios",
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
+					"$(SRCROOT)/../node_modules/react-native-fcm/ios",
 				);
 				INFOPLIST_FILE = chat_app/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1502,13 +1552,20 @@
 			baseConfigurationReference = F62C209281E2B0B99F518407 /* Pods-chat_app.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = chat_app/chat_app.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TXJJGR28J4;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)..\node_modules\neact-native-vector-iconsRNVectorIconsManager",
-					"$(SRCROOT)..\node_modules\neact-native-i18nios",
+					"$(SRCROOT)..",
+					ode_modules,
+					"eact-native-vector-iconsRNVectorIconsManager",
+					"$(SRCROOT)..",
+					ode_modules,
+					"eact-native-i18nios",
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
+					"$(SRCROOT)/../node_modules/react-native-fcm/ios",
 				);
 				INFOPLIST_FILE = chat_app/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
