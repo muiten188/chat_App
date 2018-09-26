@@ -174,6 +174,7 @@ class FcmClient {
 
   showLocalMsg(type, title, body, image_link, message_id, objectId) {
     console.log(body);
+    debugger;
     FCM.presentLocalNotification({
       //id: message_id,//"UNIQ_ID_STRING",                               // (optional for instant notification)
       //message_id: message_id,
@@ -198,7 +199,7 @@ class FcmClient {
       // tag: 'some_tag',                                    // Android only
       // group: 'group',                                     // Android only
       // image_link: image_link,
-      picture: "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_150x54dp.png",                     // Android only bigPicture style
+      //picture: "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_150x54dp.png",                     // Android only bigPicture style
       // my_custom_data:'my_custom_field_value',             // extra data you want to throw
       lights: true,                                       // Android only, LED blinking (default false)
       show_in_foreground: true                                  // notification when app is in foreground (local & remote)
