@@ -110,7 +110,7 @@ class FcmClient {
             let body = notif.body || (notif.fcm && notif.fcm.body);
             let hapuType = notif.hapuType || (notif.fcm && notif.fcm.hapuType);
             let objectId = notif.objectId || (notif.fcm && notif.fcm.objectId);
-            this.showLocalMsg('message', title, body, notif.image_link, message_id, objectId);
+            this.showLocalMsg('message', title, body, notif.image_link, message_id, objectId, notif);
           }
 
         }
@@ -134,16 +134,33 @@ class FcmClient {
         if (!image_link) {
           image_link = notif['image_link'];
         }
-
-        if (notif.body != '' && notif.body != undefined) {
+        if (notif.custom_notification && notif.custom_notification != '' && notif.custom_notification != undefined) {
           try {
-            this.userID = notif.userID;
-            this.groupID = notif.groupID;
-            if (notif.userID) {
+            var _notify = JSON.parse(notif.custom_notification)
+            this.userID = _notify.userID;
+            this.groupID = _notify.groupID;
+            if (_notify.userID) {
               this.newEvent.emit('fcm-event-user-group', { isUser: true });
               this.newEvent.emit('fcm-event-user', { es6rules: true, mixinsAreLame: true });
             }
-            else if (notif.groupID) {
+            else if (_notify.groupID) {
+              this.newEvent.emit('fcm-event-user-group', { isUser: false });
+              this.newEvent.emit('fcm-event-group', { es6rules: true, mixinsAreLame: true });
+            }
+          } catch (e) {
+            console.log(e);
+          }
+        }
+        else if (notif.body != '' && notif.body != undefined) {
+          try {
+            var _notify = JSON.parse(notif.my_custom_data)
+            this.userID = _notify.userID;
+            this.groupID = _notify.groupID;
+            if (_notify.userID) {
+              this.newEvent.emit('fcm-event-user-group', { isUser: true });
+              this.newEvent.emit('fcm-event-user', { es6rules: true, mixinsAreLame: true });
+            }
+            else if (_notify.groupID) {
               this.newEvent.emit('fcm-event-user-group', { isUser: false });
               this.newEvent.emit('fcm-event-group', { es6rules: true, mixinsAreLame: true });
             }
@@ -172,9 +189,16 @@ class FcmClient {
     }
   }
 
-  showLocalMsg(type, title, body, image_link, message_id, objectId) {
+  showLocalMsg(type, title, body, image_link, message_id, objectId, notif) {
     console.log(body);
-    debugger;
+    // var _notify = {};
+    // try {
+    //   if (notif.custom_notification && notif.custom_notification != '' && notif.custom_notification != undefined) {
+    //     _notify = JSON.parse(notif.custom_notification)
+    //   }
+    // } catch (e) {
+
+    // }
     FCM.presentLocalNotification({
       //id: message_id,//"UNIQ_ID_STRING",                               // (optional for instant notification)
       //message_id: message_id,
@@ -200,7 +224,7 @@ class FcmClient {
       // group: 'group',                                     // Android only
       // image_link: image_link,
       //picture: "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_150x54dp.png",                     // Android only bigPicture style
-      // my_custom_data:'my_custom_field_value',             // extra data you want to throw
+      my_custom_data:notif.custom_notification,             // extra data you want to throw
       lights: true,                                       // Android only, LED blinking (default false)
       show_in_foreground: true                                  // notification when app is in foreground (local & remote)
     });
