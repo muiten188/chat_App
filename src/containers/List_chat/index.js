@@ -91,6 +91,31 @@ class ListChat extends Component {
           }
         }
       }
+      else {
+        helperSignal.onReconnect(() => {
+          if (fcmClient.userID != null) {
+            var oUser = null;
+            if (fcmClient.userID == null) {
+              return;
+            }
+            for (var i = 0; i < this.state.listUsers.length; i++) {
+              var user = this.state.listUsers[i];
+              if (user.ID == fcmClient.userID) {
+                oUser = user;
+                break;
+              }
+            }
+            if (oUser != null) {
+              fcmClient.userID = null;
+
+              var s = Actions.currentScene;
+              if (s != 'chatScreen') {
+                Actions.chatScreen({ user: oUser })
+              }
+            }
+          }
+        });
+      }
     });
     fcmClient.newEvent.addListener('fcm-event-group', () => {
       if (helperSignal.connection && helperSignal.connection.state == 1) {
@@ -109,6 +134,24 @@ class ListChat extends Component {
             Actions.chatScreen({ user: this.props.loginReducer.user, group: oGroup, isGroupChat: true })
           }
         }
+      }
+      else {
+        helperSignal.onReconnect(() => {
+          if (fcmClient.groupID != null) {
+            var oGroup = null;
+            for (var i = 0; i < this.state.listGroups.length; i++) {
+              var group = this.state.listGroups[i];
+              if (group.ID == fcmClient.groupID) {
+                oGroup = group;
+                break;
+              }
+            }
+            if (oGroup != null) {
+              fcmClient.groupID = null;
+              Actions.chatScreen({ user: this.props.loginReducer.user, group: oGroup, isGroupChat: true })
+            }
+          }
+        })
       }
     });
   }
