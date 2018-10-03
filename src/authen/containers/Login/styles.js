@@ -13,7 +13,7 @@ export default {
   },
   loginform: {
     width: '80%',
-    height: 300,
+    height: 290,
     
     backgroundColor: "transparent",
     flexDirection: 'column',
@@ -39,7 +39,7 @@ export default {
     paddingLeft:4,
     paddingRight:4,
     width:'100%',
-    marginBottom:15,
+    marginTop:10,
     height:35,
   },
   buttonLoginFb:{
@@ -58,7 +58,7 @@ export default {
     padding: 20,
     borderRadius: 5,
     width:'100%',
-    height:240,
+    height:220,
     borderWidth: 0.5,
     borderColor:'#ccc',
     backgroundColor: "#fff"

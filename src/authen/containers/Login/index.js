@@ -184,8 +184,8 @@ class login extends React.Component {
                       })}
                     </Text>
                   </Button>
-                  <Grid>
-                    {/* <Col>
+                  {/*<Grid>
+                     <Col>
                       <Button transparent dark style={[styles.buttonLogin]}
                         onPress={() => {
                           Actions.register();
@@ -210,7 +210,7 @@ class login extends React.Component {
                         </Text>
                       </Button>
                     </Col> */}
-                    <Row>
+                    {/* <Row>
                       <Button transparent block dark style={[styles.buttonLogin]} >
                         <Text uppercase={false} x>
                           {I18n.t("forgotPassword", {
@@ -220,8 +220,8 @@ class login extends React.Component {
                           })}
                         </Text>
                       </Button>
-                    </Row>
-                  </Grid>
+                    </Row> 
+                  </Grid>*/}
 
 
                 </Form>
