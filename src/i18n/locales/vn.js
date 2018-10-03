@@ -22,5 +22,7 @@ export default {
   conversation:"Trò chuyện",
   Group:'Nhóm',
   confirmPassword:'Nhập lại mật khẩu',
-  newpassword:'Mật khẩu mới'
+  newpassword:'Mật khẩu mới',
+  wantRegister:'Chưa có tài khoản ?',
+  requestRegister:'Liên hệ admin để đăng ký tài khoản.'  
 };

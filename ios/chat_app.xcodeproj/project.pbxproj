@@ -43,7 +43,6 @@
 		33C58F31415F446BAEE64F13 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1AED53BEDDAD41C1851E2934 /* Foundation.ttf */; };
 		365E8B7475BD4D418ED42047 /* libRNI18n.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 697375A4DEF2489BB4F2BC09 /* libRNI18n.a */; };
 		36EF3701BC1D40729895F857 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6329F7DCCDBD4FAE87D43579 /* FontAwesome.ttf */; };
-		38BBC2AA21578E510071FD09 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 38BBC2A921578E500071FD09 /* GoogleService-Info.plist */; };
 		38BBC2B2215796660071FD09 /* libRNFIRMessaging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38BBC2B12157949F0071FD09 /* libRNFIRMessaging.a */; };
 		3A885726CE9B4AFDAA1B2521 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 00AC9B7AB9FA411584D6BAF4 /* libz.tbd */; };
 		5442983633BE459F988FE4F0 /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7CB3C4B8E0F2434A89D4AF85 /* rubicon-icon-font.ttf */; };
@@ -61,6 +60,7 @@
 		9BF31F358CED43B99E67C371 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BD0FFB2C3AEF4BD38C85B607 /* Ionicons.ttf */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		B625DCC0D35D49F0B59EB496 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DF58FF356CA9483196CCB98C /* Entypo.ttf */; };
+		CF893ACB2164763200407F3B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF893ACA2164763200407F3B /* GoogleService-Info.plist */; };
 		F16FBA6C7A75423BBE97C02A /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 038F03643C5D41F3962C6AE5 /* Feather.ttf */; };
 		F8983082578A43D8ABEC3C53 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97377856E08B4373972EECE9 /* SimpleLineIcons.ttf */; };
 /* End PBXBuildFile section */
@@ -398,7 +398,6 @@
 		2D02E47B1E0B4A5D006451C7 /* chat_app-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "chat_app-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* chat_app-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "chat_app-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		32B17EB359124F1DBF10F6CF /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/native-base/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
-		38BBC2A921578E500071FD09 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		38BBC2AB21578F120071FD09 /* chat_app.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = chat_app.entitlements; path = chat_app/chat_app.entitlements; sourceTree = "<group>"; };
 		38BBC2AC2157949F0071FD09 /* RNFIRMessaging.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNFIRMessaging.xcodeproj; path = "../node_modules/react-native-fcm/ios/RNFIRMessaging.xcodeproj"; sourceTree = "<group>"; };
 		3DF791CCFBC7F6C55E0C2C29 /* Pods-chat_app.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chat_app.debug.xcconfig"; path = "Pods/Target Support Files/Pods-chat_app/Pods-chat_app.debug.xcconfig"; sourceTree = "<group>"; };
@@ -422,6 +421,7 @@
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		B4D031AB8FF64F61A0A8EA35 /* libRNFetchBlob.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFetchBlob.a; sourceTree = "<group>"; };
 		BD0FFB2C3AEF4BD38C85B607 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/native-base/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
+		CF893ACA2164763200407F3B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D43D986101404B5F94C61F8E /* libRNImagePicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNImagePicker.a; sourceTree = "<group>"; };
 		DF58FF356CA9483196CCB98C /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/native-base/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		F62C209281E2B0B99F518407 /* Pods-chat_app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chat_app.release.xcconfig"; path = "Pods/Target Support Files/Pods-chat_app/Pods-chat_app.release.xcconfig"; sourceTree = "<group>"; };
@@ -576,8 +576,8 @@
 		13B07FAE1A68108700A75B9A /* chat_app */ = {
 			isa = PBXGroup;
 			children = (
+				CF893ACA2164763200407F3B /* GoogleService-Info.plist */,
 				38BBC2AB21578F120071FD09 /* chat_app.entitlements */,
-				38BBC2A921578E500071FD09 /* GoogleService-Info.plist */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -1309,7 +1309,7 @@
 				5A1540AC9FB64537B5A9483D /* Roboto_medium.ttf in Resources */,
 				18EECE39A0C149B8B7D7720B /* Roboto.ttf in Resources */,
 				5442983633BE459F988FE4F0 /* rubicon-icon-font.ttf in Resources */,
-				38BBC2AA21578E510071FD09 /* GoogleService-Info.plist in Resources */,
+				CF893ACB2164763200407F3B /* GoogleService-Info.plist in Resources */,
 				F8983082578A43D8ABEC3C53 /* SimpleLineIcons.ttf in Resources */,
 				31D228006D814B6AB33724B2 /* Zocial.ttf in Resources */,
 				F16FBA6C7A75423BBE97C02A /* Feather.ttf in Resources */,
@@ -1541,7 +1541,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.chat-app";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.react-native.ozChat";
 				PRODUCT_NAME = chat_app;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1574,7 +1574,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.chat-app";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.react-native.ozChat";
 				PRODUCT_NAME = chat_app;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

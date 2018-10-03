@@ -78,14 +78,14 @@ class login extends React.Component {
         items: []
       }
     };
-    I18n.defaultLocale = "vi";
-    I18n.locale = "vi";
+    I18n.defaultLocale = "vn";
+    I18n.locale = "vn";
     I18n.currentLocale();
 
   }
 
   componentWillMount() {
-    
+
   }
 
   componentDidMount() {
@@ -98,12 +98,12 @@ class login extends React.Component {
     const { setUser } = this.props.loginAction;
     promise.done((value) => {
       var user = JSON.parse(value);
-      if(value&&value!=''){
+      if (value && value != '') {
         setUser(user);
       }
     })
   }
-  
+
   componentDidUpdate() {
     const { loginReducer } = this.props;
     if (
@@ -118,9 +118,9 @@ class login extends React.Component {
       helper.setAsyncStorage("@user", loginReducer.user);
       Actions.reset('home');
     }
-    else if(loginReducer.refresh_Fail){
+    else if (loginReducer.refresh_Fail) {
       Alert.alert("Thông báo", "Phiên đăng nhập hết hạn vui lòng đăng nhập lại");
-      loginReducer.refresh_Fail=false;
+      loginReducer.refresh_Fail = false;
     }
   }
 
@@ -154,7 +154,7 @@ class login extends React.Component {
                       icon="user-circle-o"
                       name="username"
                       placeholder={I18n.t("account", {
-                        locale: locale ? locale : "vi"
+                        locale: locale ? locale : "vn"
                       })}
                       component={InputField}
                     />
@@ -165,7 +165,7 @@ class login extends React.Component {
                       icon="key"
                       name="password"
                       placeholder={I18n.t("password", {
-                        locale: locale ? locale : "vi"
+                        locale: locale ? locale : "vn"
                       })}
                       secureTextEntry={true}
                       component={InputField}
@@ -180,7 +180,7 @@ class login extends React.Component {
                       {I18n.t("login", {
                         locale: this.state.languageSelect
                           ? this.state.languageSelect
-                          : "vi"
+                          : "vn"
                       })}
                     </Text>
                   </Button>
@@ -194,7 +194,7 @@ class login extends React.Component {
                           {I18n.t("register", {
                             locale: this.state.languageSelect
                               ? this.state.languageSelect
-                              : "vi"
+                              : "vn"
                           })}
                         </Text>
                       </Button>
@@ -205,7 +205,7 @@ class login extends React.Component {
                           {I18n.t("forgotPassword", {
                             locale: this.state.languageSelect
                               ? this.state.languageSelect
-                              : "vi"
+                              : "vn"
                           })}
                         </Text>
                       </Button>
@@ -216,7 +216,7 @@ class login extends React.Component {
                           {I18n.t("forgotPassword", {
                             locale: this.state.languageSelect
                               ? this.state.languageSelect
-                              : "vi"
+                              : "vn"
                           })}
                         </Text>
                       </Button>
@@ -238,6 +238,11 @@ class login extends React.Component {
                   </Button>
                 </Col>
               </Row> */}
+              <Row style={{ height: 50, justifyContent: 'center', alignItems: 'center' }}>
+                <Text style={{color:'#ffffff'}}>{I18n.t('wantRegister')}
+                  <Text  style={{color:'blue',fontStyle:'italic'}} onPress={() => { Alert.alert('Thông báo', I18n.t('requestRegister')) }}>{I18n.t('register')}</Text>
+                </Text>
+              </Row>
             </Grid>
             {/* <GoogleSigninButton
             style={{ width: 212, height: 48 }}
@@ -279,13 +284,14 @@ login.propTypes = {
 
 function mapStateToProps(state, props) {
   return {
-    loginReducer: state.loginReducer,
-    initialValues: state.loginReducer.userForm
-      ? state.loginReducer.userForm
-      : {
-        username: "1@gmail.com",
-        password: "111111"
-      }
+    loginReducer: state.loginReducer
+    // ,
+    // initialValues: state.loginReducer.userForm
+    //   ? state.loginReducer.userForm
+    //   : {
+    //     username: "1@gmail.com",
+    //     password: "111111"
+    //   }
   };
 }
 function mapToDispatch(dispatch) {

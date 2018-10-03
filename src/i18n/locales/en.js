@@ -10,6 +10,8 @@ export default {
     email:"Email",
     user:"User",
     changePassword:"Change Password?",
-    register:'Register'
+    register:'Register',
+    wantRegister:'Not have account ?',
+    requestRegister:'Contact to admin for register account.'
   };
   
